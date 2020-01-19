@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import BorderedTextInput from '../components/BorderedTextInput';
 
 export default function Cadastro( props ) {
   const {navigate} = props.navigation;
@@ -11,49 +12,10 @@ export default function Cadastro( props ) {
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require('../assets/logo.png')} />
-      <TextInput
-        style={styles.inputField}
-        placeholder="     Email"
-        placeholderTextColor="#c0c0c0"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={email}
-        onChangeText={setEmail}
-
-      />
-
-      <TextInput
-        style={styles.inputField}
-        placeholder="     Nome Completo"
-        placeholderTextColor="#c0c0c0"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={fullName}
-        onChangeText={setFullName}
-
-      />
-
-      <TextInput
-        style={styles.inputField}
-        placeholder="     Username"
-        placeholderTextColor="#c0c0c0"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={username}
-        onChangeText={setUsername}
-
-      />
-      
-      <TextInput
-        style={styles.inputField}
-        placeholder="     Senha"
-        placeholderTextColor="#c0c0c0"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={senha}
-        secureTextEntry={true}
-        onChangeText={setSenha}
-      />
+      <BorderedTextInput name="Email" state={email} setState={setEmail}/>
+      <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName}/>
+      <BorderedTextInput name="Username" state={username} setState={setUsername}/>
+      <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
 
       <TouchableOpacity style={styles.button} onPress={() => navigate('Login')}>
         <Text style={styles.buttonText}>
@@ -67,9 +29,6 @@ export default function Cadastro( props ) {
         onPress={() => navigate('Login')}>Faça o Login</Text>.
       </Text>
 
-      <Text style={styles.text}>
-        Ao confirmar o cadastro, você concorda com os nossos <Text style={styles.linkText}>Termos de Uso</Text>.
-      </Text>
     </View>
   );
 }
@@ -79,6 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
+    justifyContent: 'center',
     textAlign: 'center'
   },
   inputField: {
@@ -96,8 +56,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    marginTop: 80,
-    marginBottom: 10
+    marginTop: 40,
   },
   button: {
     width: 300,

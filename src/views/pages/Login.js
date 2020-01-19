@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 
 export default function App( props ) {
   const {navigate} = props.navigation;
@@ -10,27 +10,8 @@ export default function App( props ) {
     <View style={styles.container} >
       <Image style={styles.logo} source={require('../assets/logo.png')} />
       
-
-      <TextInput
-        style={styles.inputField}
-        placeholder="     Username"
-        placeholderTextColor="#c0c0c0"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={username}
-        onChangeText={setUsername}
-      />
-      
-      <TextInput
-        style={styles.inputField}
-        placeholder="     Senha"
-        placeholderTextColor="#c0c0c0"
-        autoCapitalize="words"
-        autoCorrect={false}
-        value={senha}
-        secureTextEntry={true}
-        onChangeText={setSenha}
-      />
+      <BorderedTextInput name="Username" state={username} setState={setUsername}/>
+      <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
 
       <TouchableOpacity style={styles.button} >
         <Text style={styles.buttonText}>
@@ -53,6 +34,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center'
   },
@@ -71,8 +53,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    marginTop: 80,
-    marginBottom: 100
+    marginTop: 40,
   },
   button: {
     width: 300,
