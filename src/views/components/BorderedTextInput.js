@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import {TextInput, StyleSheet, KeyboardAvoidingView} from 'react-native';
 
 function BorderedTextInput(props) {
   return(

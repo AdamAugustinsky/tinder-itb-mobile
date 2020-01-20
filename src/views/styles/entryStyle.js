@@ -6,12 +6,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center'
+    padding: 30
   },
   logo: {
     width: 150,
     height: 150,
-    marginTop: 40,
   },
   button: {
     width: 300,
