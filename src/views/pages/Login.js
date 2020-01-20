@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Text, KeyboardAvoidingView, Image, TouchableOpacity} from 'react-native';
-
+import {LinearGradient} from 'expo-linear-gradient';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 
@@ -18,7 +18,7 @@ export default function App( props ) {
   }, []);
 
   function handleLogin() {
-    navigate('Main');
+    navigate('Home');
   }
   
   return (
@@ -30,11 +30,13 @@ export default function App( props ) {
       
       <BorderedTextInput name="Email" state={email} setState={setEmail}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
-
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      
+      <TouchableOpacity  onPress={handleLogin}>
+        <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0,0]} end={[0.5,0.5]} style={styles.button}>
         <Text style={styles.buttonText}>
           Login
         </Text>
+        </LinearGradient>
       </TouchableOpacity>
 
       <Text style={styles.text}>

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Text, KeyboardAvoidingView, Image, TouchableOpacity} from 'react-native';
+import {LinearGradient} from 'expo-linear-gradient';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 
@@ -22,10 +23,12 @@ export default function Cadastro( props ) {
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigate('Login', {email, senha})}>
+      <TouchableOpacity onPress={() => navigate('Login', {email, senha})}>
+        <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0,0]} end={[0.5,0.5]} style={styles.button}>
         <Text style={styles.buttonText}>
           Cadastrar
         </Text>
+        </LinearGradient>
       </TouchableOpacity>
 
       <Text style={styles.text}>

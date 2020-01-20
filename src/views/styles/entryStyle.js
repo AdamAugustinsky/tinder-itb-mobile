@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 30
   },
   logo: {
     width: 150,
@@ -16,7 +15,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 50,
     marginTop: 40,
-    backgroundColor: '#FF0456',
     borderRadius: 20,
   },
   text: {
