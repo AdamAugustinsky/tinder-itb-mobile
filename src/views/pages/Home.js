@@ -10,7 +10,7 @@ export default function Main( props ) {
 
   return(
     <>
-    <Header navigate={navigate}/>
+    <Header main={true} navigate={navigate}/>
 
     <View style={styles.container}>
 

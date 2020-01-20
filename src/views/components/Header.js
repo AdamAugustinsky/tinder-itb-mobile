@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity, StyleSheet, View} from 'react-native';
 
 import profileIcon from '../assets/icons/profileIcon.png';
@@ -10,39 +10,41 @@ import activeMessageIcon from '../assets/icons/activeMessageIcon.png';
 
 
 export default function Header( props ) {
-
+  
   const [profile, setProfile] = useState(profileIcon);
-  const [main, setMain] = useState(activeMainIcon);
+  const [main, setMain] = useState(mainIcon);
   const [message, setMessage] = useState(messageIcon);
+  
+  useEffect(() => {
+
+    if(props.profile) {
+      setProfile(activeProfileIcon);
+    }
+    
+    if(props.main) {
+      setMain(activeMainIcon);
+    }
+
+    if(props.message) {
+      setMessage(activeMessageIcon);
+    }
+
+  },[])
   
   return(
     <View style={styles.header}>
       
-      <TouchableOpacity onPress={() => {
-        setMain(mainIcon);
-        setProfile(activeProfileIcon);
-        setMessage(messageIcon);
-        props.navigate('Profile')}}>
+      <TouchableOpacity onPress={() => props.navigate('Profile')}>
         <Image style={styles.icon} source={profile} />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {
-        setMain(activeMainIcon);
-        setProfile(profileIcon);
-        setMessage(messageIcon);
-        props.navigate('Home')}}>
+      <TouchableOpacity onPress={() => props.navigate('Home')}>
         <Image style={styles.mainIcon} source={main}/>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {
-        setMain(mainIcon);
-        setProfile(profileIcon);
-        setMessage(activeMessageIcon);
-        props.navigate('Message')}}>
+      <TouchableOpacity onPress={() => props.navigate('Messages')}>
         <Image style={styles.icon} source={message}/>
       </TouchableOpacity>
-      
-      
       
     </View>
     
