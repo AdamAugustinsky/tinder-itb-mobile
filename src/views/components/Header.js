@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Image, TouchableOpacity, StyleSheet, View} from 'react-native';
 
-import profileIcon from '../assets/profileIcon.png';
-import activeProfileIcon from '../assets/activeProfileIcon.png';
-import mainIcon from '../assets/mainIcon.png';
-import activeMainIcon from '../assets/activeMainIcon.png';
-import messageIcon from '../assets/messageIcon.png';
-import activeMessageIcon from '../assets/activeMessageIcon.png';
+import profileIcon from '../assets/icons/profileIcon.png';
+import activeProfileIcon from '../assets/icons/activeProfileIcon.png';
+import mainIcon from '../assets/icons/mainIcon.png';
+import activeMainIcon from '../assets/icons/activeMainIcon.png';
+import messageIcon from '../assets/icons/messageIcon.png';
+import activeMessageIcon from '../assets/icons/activeMessageIcon.png';
 
 
 export default function Header( props ) {
@@ -51,7 +51,7 @@ export default function Header( props ) {
 
 const styles = StyleSheet.create({
   header: {
-    top: 0,
+    marginTop: 30,
     flexDirection: 'row',
     alignSelf: 'center',
     marginLeft: '15%'
