@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Text, KeyboardAvoidingView, Image, TouchableOpacity} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
+import {SvgUri} from 'react-native-svg';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 
@@ -26,7 +27,8 @@ export default function App( props ) {
       behavior="padding"
       style={styles.container}
     >
-      <Image style={styles.logo} source={require('../assets/logo.png')} />
+      
+      <SvgUri uri="https://svgshare.com/i/HW3.svg"/>
       
       <BorderedTextInput name="Email" state={email} setState={setEmail}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>

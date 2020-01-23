@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Text, KeyboardAvoidingView, Image, TouchableOpacity} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
+import {SvgUri } from 'react-native-svg';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 
@@ -18,7 +19,8 @@ export default function Cadastro( props ) {
       behavior="padding"
       style={styles.container}
     >
-      <Image style={styles.logo} source={require('../assets/logo.png')} />
+      <SvgUri uri="https://svgshare.com/i/HW3.svg"/>
+      
       <BorderedTextInput name="Email" state={email} setState={setEmail}/>
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>

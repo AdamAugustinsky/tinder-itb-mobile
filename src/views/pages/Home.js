@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Image, ImageBackground, StyleSheet, Text} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
+import {SvgUri } from 'react-native-svg';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,26 +13,26 @@ export default function Main( props ) {
     <>
     <Header main={true} navigate={navigate}/>
 
-    <View style={styles.container}>
+      <View style={styles.container}>
 
-      <ImageBackground style={styles.profileImage} imageStyle={{ borderRadius: 25 }} source={require('../assets/match.jpeg')}>
-        <LinearGradient
-            style={{width: '100%', height:'100%', borderRadius: 25}}
-            colors={['transparent', '#000']}
-            start={[0.3,0.4]}
-            end={[2,2]}>
-          <View style={styles.description}>
-            <Text style={styles.texts}>
-              <Text style={styles.name}> Dani </Text>
-              16
-            </Text>
-            <Text style={styles.texts}><Image style={styles.icon} source={require('../assets/school.png')}/> ITB brasílio flores de azevedo</Text>
-            <Text style={styles.texts}><Image style={styles.icon} source={require('../assets/grade.png')}/> Informatica 1F</Text>
-          </View>
-        </LinearGradient>
-      </ImageBackground>
+        <ImageBackground style={styles.profileImage} imageStyle={{ borderRadius: 25 }} source={require('../assets/match.jpeg')}>
+          <LinearGradient
+              style={{width: '100%', height:'100%', borderRadius: 25}}
+              colors={['transparent', '#000']}
+              start={[0.3,0.4]}
+              end={[2,2]}>
+            <View style={styles.description}>
+              <Text style={styles.texts}>
+                <Text style={styles.name}> Dani </Text>
+                16
+              </Text>
+              <Text style={styles.texts}><SvgUri uri='https://svgshare.com/i/HVC.svg' /> ITB brasílio flores de azevedo</Text>
+              <Text style={styles.texts}><SvgUri uri='https://svgshare.com/i/HWP.svg' /> Informatica 1F</Text>
+            </View>
+          </LinearGradient>
+        </ImageBackground>
 
-    </View>
+      </View>
 
     <Footer />
     </>

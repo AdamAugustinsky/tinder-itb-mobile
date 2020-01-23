@@ -1,32 +1,28 @@
 import React, {useState, useEffect} from 'react';
 import {Image, TouchableOpacity, StyleSheet, View} from 'react-native';
-
-import profileIcon from '../assets/icons/profileIcon.png';
-import activeProfileIcon from '../assets/icons/activeProfileIcon.png';
-import mainIcon from '../assets/icons/mainIcon.png';
-import activeMainIcon from '../assets/icons/activeMainIcon.png';
-import messageIcon from '../assets/icons/messageIcon.png';
-import activeMessageIcon from '../assets/icons/activeMessageIcon.png';
-
+import {SvgUri } from 'react-native-svg';
 
 export default function Header( props ) {
   
-  const [profile, setProfile] = useState(profileIcon);
-  const [main, setMain] = useState(mainIcon);
-  const [message, setMessage] = useState(messageIcon);
+  const [profile, setProfile] = useState('https://svgshare.com/i/HUJ.svg');
+  const [main, setMain] = useState('https://svgshare.com/i/HWj.svg');
+  const [message, setMessage] = useState('https://svgshare.com/i/HW2.svg');
   
   useEffect(() => {
 
     if(props.profile) {
-      setProfile(activeProfileIcon);
+      setProfile('');
+      setProfile('https://svgshare.com/i/HVD.svg');
     }
     
     if(props.main) {
-      setMain(activeMainIcon);
+      setMain('');
+      setMain('https://svgshare.com/i/HX4.svg');
     }
 
     if(props.message) {
-      setMessage(activeMessageIcon);
+      setMessage('');
+      setMessage('https://svgshare.com/i/HWG.svg');
     }
 
   },[])
@@ -34,16 +30,16 @@ export default function Header( props ) {
   return(
     <View style={styles.header}>
       
-      <TouchableOpacity onPress={() => props.navigate('Profile')}>
-        <Image style={styles.icon} source={profile} />
+      <TouchableOpacity style={styles.icon} onPress={() => props.navigate('Profile')}>
+        <SvgUri uri={profile}/>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => props.navigate('Home')}>
-        <Image style={styles.mainIcon} source={main}/>
+      <TouchableOpacity style={styles.icon} onPress={() => props.navigate('Home')}>
+        <SvgUri uri={main}/>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => props.navigate('Messages')}>
-        <Image style={styles.icon} source={message}/>
+      <TouchableOpacity style={styles.icon} onPress={() => props.navigate('Messages')}>
+        <SvgUri uri={message}/>
       </TouchableOpacity>
       
     </View>
