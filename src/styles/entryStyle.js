@@ -7,20 +7,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
-    width: 300,
-    height: 50,
-    marginTop: 40,
-    borderRadius: 20,
-  },
   text: {
     marginTop: 20,
-    textAlign: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 30,
     textAlign: 'center',
   },
   linkText: {
