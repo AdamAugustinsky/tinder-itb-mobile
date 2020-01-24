@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Image, ImageBackground, StyleSheet, Text} from 'react-native';
+import {View, ImageBackground, StyleSheet, Text} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import {SvgUri } from 'react-native-svg';
 
-import Header from '../components/Header';
+import Header from '../components/mainHeader';
 import Footer from '../components/Footer';
 
 export default function Main( props ) {
@@ -11,7 +11,7 @@ export default function Main( props ) {
 
   return(
     <>
-    <Header main={true} navigate={navigate}/>
+    <Header main='https://svgshare.com/i/HX4.svg' navigate={navigate}/>
 
       <View style={styles.container}>
 

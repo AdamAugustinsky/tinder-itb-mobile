@@ -1,17 +1,17 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-import Header from '../components/Header';
+import Header from '../components/mainHeader';
 
-export default function Profile( props)  {
+export default function Messages( props) {
   const { navigate } = props.navigation;
 
   return (
     <>
-    <Header navigate={navigate} profile={true} />
+    <Header navigate={navigate} message='https://svgshare.com/i/HWG.svg' />
     <View style={styles.container}>
       <Text>
-        Profile
+        Messages
       </Text>
     </View>
     </>

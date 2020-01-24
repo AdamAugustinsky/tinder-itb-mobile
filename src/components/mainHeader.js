@@ -4,28 +4,35 @@ import {SvgUri } from 'react-native-svg';
 
 export default function Header( props ) {
   
-  const [profile, setProfile] = useState('https://svgshare.com/i/HUJ.svg');
-  const [main, setMain] = useState('https://svgshare.com/i/HWj.svg');
-  const [message, setMessage] = useState('https://svgshare.com/i/HW2.svg');
+  function setProfile() {
+    if (props.profile) {
+      return props.profile;
+    } else {
+      return 'https://svgshare.com/i/HUJ.svg';
+    }
+  }
+
+  function setMain() {
+    if (props.main) {
+      return props.main;
+    } else {
+      return 'https://svgshare.com/i/HWj.svg';
+    }
+  }
+
+  function setMessage() {
+    if (props.message) {
+      return props.message;
+    } else {
+      return 'https://svgshare.com/i/HW2.svg';
+    }
+  }
+
+  const profile = setProfile();
+
+  const main = setMain();
   
-  useEffect(() => {
-
-    if(props.profile) {
-      setProfile('');
-      setProfile('https://svgshare.com/i/HVD.svg');
-    }
-    
-    if(props.main) {
-      setMain('');
-      setMain('https://svgshare.com/i/HX4.svg');
-    }
-
-    if(props.message) {
-      setMessage('');
-      setMessage('https://svgshare.com/i/HWG.svg');
-    }
-
-  },[])
+  const message = setMessage();
   
   return(
     <View style={styles.header}>
