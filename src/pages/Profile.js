@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 
 import Header from '../components/MainHeader';
 import MatchImage from '../components/MatchImage';
@@ -13,7 +13,9 @@ export default function Profile( props)  {
     <Header navigate={navigate} profile={true} />
     <View style={styles.container}>
       <MatchImage />
-      <Button text='Meu Perfil'/>
+      <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
+        <Button text='Meu Perfil'/>
+      </TouchableOpacity>
     </View>
     </>
   );

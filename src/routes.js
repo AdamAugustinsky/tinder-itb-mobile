@@ -5,6 +5,7 @@ import Login from  './pages/Login';
 import Home from './pages/Home';
 import Messages from './pages/Messages';
 import Profile from './pages/Profile';
+import ProfileConfigs from './pages/ProfileConfigs';
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -12,7 +13,8 @@ export default createAppContainer(
     Cadastro,
     Home,
     Messages,
-    Profile
+    Profile,
+    ProfileConfigs,
   })
 );
 
