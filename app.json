@@ -27,6 +27,10 @@
       "supportsTablet": true
     },
     "description": "",
-    "githubUrl": "https://github.com/AdamAugustinsky/tinder_itb-mobile"
+    "githubUrl": "https://github.com/AdamAugustinsky/tinder_itb-mobile",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
+    }
   }
 }

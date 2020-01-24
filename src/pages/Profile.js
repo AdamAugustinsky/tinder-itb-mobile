@@ -1,14 +1,14 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-import Header from '../components/mainHeader';
+import Header from '../components/MainHeader';
 
 export default function Profile( props)  {
   const { navigate } = props.navigation;
 
   return (
     <>
-    <Header navigate={navigate} profile='https://svgshare.com/i/HVD.svg' />
+    <Header navigate={navigate} profile={true} />
     <View style={styles.container}>
       <Text>
         Profile

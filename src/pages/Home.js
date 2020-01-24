@@ -1,17 +1,19 @@
 import React from 'react';
 import {View, ImageBackground, StyleSheet, Text} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import {SvgUri } from 'react-native-svg';
 
-import Header from '../components/mainHeader';
+import Header from '../components/MainHeader';
 import Footer from '../components/Footer';
+import School from '../assets/school.svg';
+import Grade from '../assets/grade.svg';
+
 
 export default function Main( props ) {
   const {navigate} = props.navigation;
 
   return(
     <>
-    <Header main='https://svgshare.com/i/HX4.svg' navigate={navigate}/>
+    <Header main={true} navigate={navigate}/>
 
       <View style={styles.container}>
 
@@ -26,8 +28,8 @@ export default function Main( props ) {
                 <Text style={styles.name}> Dani </Text>
                 16
               </Text>
-              <Text style={styles.texts}><SvgUri uri='https://svgshare.com/i/HVC.svg' /> ITB brasílio flores de azevedo</Text>
-              <Text style={styles.texts}><SvgUri uri='https://svgshare.com/i/HWP.svg' /> Informatica 1F</Text>
+              <Text style={styles.texts}><School /> ITB brasílio flores de azevedo</Text>
+              <Text style={styles.texts}><Grade /> Informatica 1F</Text>
             </View>
           </LinearGradient>
         </ImageBackground>

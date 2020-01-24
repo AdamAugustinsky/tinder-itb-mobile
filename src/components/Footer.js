@@ -1,16 +1,19 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
-import Svg, {SvgUri} from 'react-native-svg';
+
+import Like from '../assets/like.svg';
+import Dislike from '../assets/dislike.svg';
 
 export default function Footer() {
   return(
     <View style={styles.footer}>
       <TouchableOpacity style={styles.dislike}>
-        <SvgUri uri="https://svgshare.com/i/HW4.svg"/>
+        <Dislike />
+
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.dislike}>
-        <SvgUri uri='https://svgshare.com/i/HVi.svg'/>
+        <Like />
       </TouchableOpacity>
       
     </View>

@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {Text, KeyboardAvoidingView, Image, TouchableOpacity} from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
-import {SvgUri} from 'react-native-svg';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 
 import styles from '../styles/entryStyle';
+
+import Logo from '../assets/logo.svg';
 
 export default function App( props ) {
   const {navigate} = props.navigation;
@@ -27,8 +28,7 @@ export default function App( props ) {
       behavior="padding"
       style={styles.container}
     >
-      
-      <SvgUri uri="https://svgshare.com/i/HW3.svg"/>
+      <Logo />
       
       <BorderedTextInput name="Email" state={email} setState={setEmail}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>

@@ -1,14 +1,14 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
-import Header from '../components/mainHeader';
+import Header from '../components/MainHeader';
 
 export default function Messages( props) {
   const { navigate } = props.navigation;
 
   return (
     <>
-    <Header navigate={navigate} message='https://svgshare.com/i/HWG.svg' />
+    <Header navigate={navigate} message={true} />
     <View style={styles.container}>
       <Text>
         Messages
