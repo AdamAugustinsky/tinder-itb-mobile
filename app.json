@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tinder_itb-mobile",
-    "slug": "tinder_itb-mobile",
+    "name": "TinderITB",
+    "slug": "TinderITB",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
