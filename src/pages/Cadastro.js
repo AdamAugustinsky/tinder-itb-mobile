@@ -14,6 +14,7 @@ export default function Cadastro( props ) {
   const [email, setEmail ] = useState('');
   const [fullName, setFullName ] = useState('');
   const [senha, setSenha ] = useState('');
+  const [Numero, setNumero ] = useState('');
 
   return (
     <KeyboardAvoidingView 
@@ -25,6 +26,7 @@ export default function Cadastro( props ) {
       <BorderedTextInput name="Email" state={email} setState={setEmail}/>
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
+      <BorderedTextInput name="Numero de Celular Completo" state={Numero} setState={setNumero}/>
 
       <TouchableOpacity onPress={() => navigate('Login', {email, senha})}>
         <Button text='Cadastrar'/>
