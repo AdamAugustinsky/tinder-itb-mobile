@@ -1,9 +1,9 @@
 import React from 'react';
-import {TouchableOpacity, Text, Image, StyleSheet, ScrollView, View} from 'react-native';
+import {TouchableOpacity, Text, Image, StyleSheet, Linking} from 'react-native';
 
 export default function MatchChat( props ) {
   return(
-    <TouchableOpacity style={styles.chat}>
+    <TouchableOpacity style={styles.chat} onPress={() => Linking.openURL(`https://wa.me/${props.number}`)}>
       <Image style={styles.image} source={props.icon} />
       <Text style={styles.name}> {props.name} </Text>
     </TouchableOpacity>

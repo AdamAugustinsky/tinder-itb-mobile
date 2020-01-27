@@ -13,22 +13,22 @@ export default function Messages( props) {
     <>
     <Header navigate={navigate} message={true} />
     <ScrollView style={styles.container}>
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
-      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
+      <MatchChat icon={icon} name='Cauã' number=''/>
     </ScrollView>
     </>
   );

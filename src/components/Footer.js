@@ -9,13 +9,11 @@ export default function Footer() {
     <View style={styles.footer}>
       <TouchableOpacity style={styles.dislike}>
         <Dislike />
-
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.dislike}>
         <Like />
       </TouchableOpacity>
-      
     </View>
   );
 }
