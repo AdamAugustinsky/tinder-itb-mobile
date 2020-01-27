@@ -1,7 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, ScrollView, Text} from 'react-native';
 
 import Header from '../components/MainHeader';
+import MatchChat from '../components/MatchChat';
+
+import icon from '../assets/icon.png';
 
 export default function Messages( props) {
   const { navigate } = props.navigation;
@@ -9,11 +12,24 @@ export default function Messages( props) {
   return (
     <>
     <Header navigate={navigate} message={true} />
-    <View style={styles.container}>
-      <Text>
-        Messages
-      </Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+      <MatchChat icon={icon} name='Cauã' />
+    </ScrollView>
     </>
   );
 }
@@ -21,9 +37,9 @@ export default function Messages( props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+    width: '100%',
+    borderTopColor: 'black',
+    borderTopWidth: 1,
+  },
 })
 
