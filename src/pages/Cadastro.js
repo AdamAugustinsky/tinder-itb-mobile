@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, KeyboardAvoidingView, Image, TouchableOpacity} from 'react-native';
+import {Text, KeyboardAvoidingView, Alert, TouchableOpacity} from 'react-native';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 import Button from '../components/Button';
@@ -13,8 +13,17 @@ export default function Cadastro( props ) {
 
   const [email, setEmail ] = useState('');
   const [fullName, setFullName ] = useState('');
-  const [senha, setSenha ] = useState('');
-  const [Numero, setNumero ] = useState('');
+  const [password, setPassword ] = useState('');
+  const [number, setNumber ] = useState('');
+
+  function handleRegister(navigate, email, password, fullName, number) {
+    if(email.length == 0 || password.length == 0 || fullName.length == 0 || number.length == 0) {
+      Alert.alert('Alerta', 'Preencha todos os campos para se cadastrar');
+      return false;
+    } else {
+      return navigate('Login', {email, password});
+    }
+  }
 
   return (
     <KeyboardAvoidingView 
@@ -25,11 +34,11 @@ export default function Cadastro( props ) {
 
       <BorderedTextInput name="Email" state={email} setState={setEmail}/>
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName}/>
-      <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
-      <BorderedTextInput name="Numero de Celular Completo" state={Numero} setState={setNumero}/>
-      <Text> Seu Whatsapp sera usado para comunicação com os matchs</Text>
+      <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry={true}/>
+      <BorderedTextInput name="Numero de Celular Completo" state={number} setState={setNumber}/>
+      <Text>Seu Whatsapp será usado para comunicação com os matchs</Text>
 
-      <TouchableOpacity onPress={() => navigate('Login', {email, senha})}>
+      <TouchableOpacity onPress={() => handleRegister(navigate, email, password, fullName, number)}>
         <Button text='Cadastrar'/>
       </TouchableOpacity>
       
