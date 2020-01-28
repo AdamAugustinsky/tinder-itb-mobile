@@ -27,11 +27,12 @@ export default function Cadastro( props ) {
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName}/>
       <BorderedTextInput name="Senha" state={senha} setState={setSenha} secureTextEntry={true}/>
       <BorderedTextInput name="Numero de Celular Completo" state={Numero} setState={setNumero}/>
+      <Text> Seu Whatsapp sera usado para comunicação com os matchs</Text>
 
       <TouchableOpacity onPress={() => navigate('Login', {email, senha})}>
         <Button text='Cadastrar'/>
       </TouchableOpacity>
-
+      
       <Text style={styles.text}>
         Já tem uma conta? 
       <Text style={styles.linkText}
