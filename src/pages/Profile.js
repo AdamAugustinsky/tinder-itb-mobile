@@ -16,6 +16,10 @@ export default function Profile( props)  {
       <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
         <Button text='Meu Perfil'/>
       </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigate('Login')}>
+        <Button text='Sair'/>
+      </TouchableOpacity>
     </View>
     </>
   );
