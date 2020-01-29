@@ -15,14 +15,13 @@ export default function Profile( props)  {
       <MatchImage />
     </View>
     <View style={styles.buttons}>
-    <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
+      <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
         <Button text='Meu Perfil'/>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigate('Login')}>
         <Button text='Sair'/>
       </TouchableOpacity>
-    
     </View>
     </>
   );
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttons: {
     alignItems: 'center',

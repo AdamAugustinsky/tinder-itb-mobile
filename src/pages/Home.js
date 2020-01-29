@@ -13,11 +13,11 @@ export default function Main( props ) {
 
   return(
     <>
-    <Header main={true} navigate={navigate}/>
+    <Header main={true} navigate={navigate} />
 
-      <View style={styles.container}>
-        <MatchImage />
-      </View>
+    <View style={styles.container}>
+      <MatchImage />
+    </View>
 
     <Footer />
     </>
