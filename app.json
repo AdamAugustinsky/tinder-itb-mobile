@@ -26,6 +26,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "com.tinderitb.tinderitb"
+    },
     "description": "",
     "githubUrl": "https://github.com/AdamAugustinsky/tinder_itb-mobile",
     "packagerOpts": {

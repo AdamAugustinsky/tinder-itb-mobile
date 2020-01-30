@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, ScrollView, Text} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, ScrollView, Modal} from 'react-native';
 
 import Header from '../components/MainHeader';
 import MatchChat from '../components/MatchChat';
+import MatchMedias from '../components/MatchMedias';
+
 import icon from '../assets/icon.png'
 
 export default function Messages( props) {
@@ -10,8 +12,18 @@ export default function Messages( props) {
   const [matchs, setMatchs] = useState([{
     icon: icon,
     name: 'Cauã',
-    number: ''
+    number: '',
+    whatsappNumber: '5511912345678',
+    instagramUsername: 'caua',
+    facebookUsername: 'sadfasdf',
   }]); 
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const [matchContacts, setMatchContacts] = useState({})
+
+  
+  function changeModalVisibility(visibility) {
+    setModalVisibility(visibility);
+  }
 
   return (
     <>
@@ -19,9 +31,17 @@ export default function Messages( props) {
     <ScrollView style={styles.container}>
       {matchs.map(
         match =>
-          <MatchChat key={match.number} icon={match.icon} name={match.name } number={match.number}/>
+          <MatchChat 
+            key={matchs.indexOf(match)}
+            match={match}
+            changeModalVisibility={changeModalVisibility}
+            setMatchContacts={setMatchContacts} />
+            
       )}
     </ScrollView>
+    <Modal transparent={true} visible={modalVisibility} style={styles.matchMedias} onRequestClose={() => changeModalVisibility(false)}>
+        <MatchMedias matchContacts={matchContacts} changeModalVisibility={changeModalVisibility}/>
+    </Modal>
     </>
   );
 }
@@ -33,5 +53,9 @@ const styles = StyleSheet.create({
     borderTopColor: 'black',
     borderTopWidth: 1,
   },
+  matchMedias:  {
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 })
 

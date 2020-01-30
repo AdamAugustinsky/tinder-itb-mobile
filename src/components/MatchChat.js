@@ -3,30 +3,18 @@ import {TouchableOpacity, Text, Image, StyleSheet, Linking, Alert} from 'react-n
 
 export default function MatchChat( props ) {
   
-  function showMatchInformations( props ) {
-    Alert.alert(`Redes sociais de ${props.name}`, '', [
-      {text: 'Whatsapp', onPress: () => Linking.openURL(`https://wa.me/${props.number}`)},
-      {text: 'Facebook', onPress: () => Linking.openURL(`https://www.facebook.com/${props.facebookUsername}`)},
-      {text: 'Instagram', onPress: () => Linking.openURL(`https://www.instagram.com/${props.instagramUsername}`)},
-    ],  {cancelable: true})
-    //  
-  }
-
   return(
-    <TouchableOpacity style={styles.chat} onPress={() => showMatchInformations( props )}>
-      <Image style={styles.image} source={props.icon} />
-      <Text style={styles.name}> {props.name} </Text>
+    <TouchableOpacity style={styles.chat} onPress={() => {
+      props.setMatchContacts(props.match);
+      props.changeModalVisibility(true);
+    }}>
+      <Image style={styles.image} source={props.match.icon} />
+      <Text style={styles.name}> {props.match.name} </Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    borderTopColor: 'black',
-    borderTopWidth: 1,
-  },
   chat: {
     width: '100%',
     height: 80,
