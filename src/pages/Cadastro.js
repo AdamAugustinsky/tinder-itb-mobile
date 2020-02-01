@@ -38,16 +38,16 @@ const Cadastro = ({ navigation }) => {
       <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
       <TouchableOpacity onPress={() => handleLogin()}>
-        <Button text="Login" />
+        <Button text="Cadastrar-se" />
       </TouchableOpacity>
 
       <Text style={styles.text}>
-        Ainda não tem uma conta?
+        Já tem uma conta?
         <Text
           style={styles.linkText}
-          onPress={() => navigation.navigate('Cadastro')}
+          onPress={() => navigation.navigate('Login')}
         >
-          Cadastre-se
+          Logar
         </Text>
       </Text>
 

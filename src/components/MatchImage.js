@@ -8,7 +8,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import School from '../assets/school.svg';
 import Grade from '../assets/grade.svg';
-import MatchFoto from '../assets/match.jpeg';
 
 const styles = StyleSheet.create({
   profileImage: {
@@ -38,11 +37,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const MatchImage = () => (
+const MatchImage = ({ match }) => (
   <ImageBackground
     style={styles.profileImage}
     imageStyle={{ borderRadius: 25 }}
-    source={MatchFoto}
+    source={match.icon}
   >
     <LinearGradient
       style={{ width: '100%', height: '100%', borderRadius: 25 }}
@@ -52,16 +51,19 @@ const MatchImage = () => (
     >
       <View style={styles.description}>
         <Text style={styles.texts}>
-          <Text style={styles.name}> Dani </Text>
-            16
+          <Text style={styles.name}>
+            {match.name}
+            {', '}
+          </Text>
+          {match.age}
         </Text>
         <Text style={styles.texts}>
           <School />
-          ITB brasílio flores de azevedo
+          {match.school}
         </Text>
         <Text style={styles.texts}>
           <Grade />
-          Informatica 1F
+          {match.grade}
         </Text>
       </View>
     </LinearGradient>

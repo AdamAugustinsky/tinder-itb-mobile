@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, Linking, Modal,
+  View, Text, StyleSheet, TouchableOpacity, Linking, Modal, Image,
 } from 'react-native';
 
 import InstagramLogo from '../assets/instagram.svg';
@@ -20,18 +20,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   modal: {
-    width: 300,
-    height: 150,
-
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: '#c0c0c0',
     borderRadius: 30,
 
   },
   text: {
-    fontSize: 20,
-    marginBottom: 20,
-    top: 0,
-    alignSelf: 'center',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 18,
+    lineHeight: 21,
+    textAlign: 'center',
+    color: 'rgba(45, 45, 45, 0.7)',
   },
   space: {
     width: '10%',
@@ -41,9 +41,29 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
   },
+  match: {
+    alignSelf: 'center',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 32,
+    color: '#2D2D2D',
+  },
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+    marginTop: 20,
+    borderRadius: 25,
+  },
+  fotos: {
+    flexDirection: 'row',
+  },
 });
 
-const MatchMedias = ({ match, modalVisibility, setModalVisibility }) => {
+const MatchChatMedias = ({
+  match, me, isMatch, setIsMatch,
+}) => {
   const { instagramUsername, facebookUsername, whatsappNumber } = match;
 
   const loadInstagram = () => {
@@ -68,19 +88,28 @@ const MatchMedias = ({ match, modalVisibility, setModalVisibility }) => {
 
   return (
     <Modal
-      transparent={modalVisibility}
-      visible={modalVisibility}
+      transparent
+      visible={isMatch}
       style={styles.matchMedias}
-      onRequestClose={() => setModalVisibility(false)}
     >
 
       <TouchableOpacity activeOpacity={1} disabled style={styles.container}>
         <View style={styles.modal}>
+          <Text style={styles.match}>
+            MATCH!!!!
+          </Text>
           <Text style={styles.text}>
-            Redes Sociais de
+            Você e
             {' '}
             {match.name}
+            {' '}
+            deram match
           </Text>
+          <View style={styles.fotos}>
+            <Image style={styles.image} source={me.icon} />
+            <View style={styles.space} />
+            <Image style={styles.image} source={match.icon} />
+          </View>
           <View style={styles.icons}>
             <TouchableOpacity onPress={() => Linking.openURL(`https://www.instagram.com/${instagramUsername}`)}>
               {loadInstagram()}
@@ -94,7 +123,7 @@ const MatchMedias = ({ match, modalVisibility, setModalVisibility }) => {
               {loadWhatsapp()}
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={() => setModalVisibility(false)}>
+          <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }} onPress={() => setIsMatch(false)}>
             <Text style={{ color: 'blue', fontSize: 30 }}> Sair </Text>
           </TouchableOpacity>
         </View>
@@ -103,4 +132,4 @@ const MatchMedias = ({ match, modalVisibility, setModalVisibility }) => {
   );
 };
 
-export default MatchMedias;
+export default MatchChatMedias;
