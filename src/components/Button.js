@@ -1,16 +1,6 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
-
-export default function Button(props) {
-  return(
-    <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0,0]} end={[0.5,0.5]} style={styles.button}>
-      <Text style={styles.buttonText}>
-        {props.text}
-      </Text>
-    </LinearGradient>
-  )
-}
+import { Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const styles = StyleSheet.create({
   button: {
@@ -24,5 +14,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
-  }
-})
+  },
+});
+
+const Button = ({ text }) => (
+  <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0, 0]} end={[0.5, 0.5]} style={styles.button}>
+    <Text style={styles.buttonText}>
+      {text}
+    </Text>
+  </LinearGradient>
+);
+
+export default Button;

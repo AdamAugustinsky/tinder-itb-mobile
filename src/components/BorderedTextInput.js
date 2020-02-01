@@ -1,20 +1,5 @@
 import React from 'react';
-import {TextInput, StyleSheet, KeyboardAvoidingView} from 'react-native';
-
-function BorderedTextInput(props) {
-  return(
-    <TextInput
-      style={styles.inputField}
-      placeholder= {`     ${props.name}`}
-      placeholderTextColor="#c0c0c0"
-      autoCapitalize="none"
-      autoCorrect={false}
-      value={props.state}
-      secureTextEntry={props.secureTextEntry}
-      onChangeText={props.setState}
-    />
-  );
-}
+import { TextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   inputField: {
@@ -29,6 +14,21 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0, 0, 0, 0.8)',
     borderRadius: 12,
   },
-})
+});
 
-export default BorderedTextInput
+const BorderedTextInput = ({
+  name, state, setState, secureTextEntry,
+}) => (
+  <TextInput
+    style={styles.inputField}
+    placeholder={`     ${name}`}
+    placeholderTextColor="#c0c0c0"
+    autoCapitalize="none"
+    autoCorrect={false}
+    value={state}
+    secureTextEntry={secureTextEntry}
+    onChangeText={setState}
+  />
+);
+
+export default BorderedTextInput;

@@ -1,7 +1,7 @@
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
-import Cadastro from  './pages/Cadastro';
-import Login from  './pages/Login';
+import Cadastro from './pages/Cadastro';
+import Login from './pages/Login';
 import Home from './pages/Home';
 import Messages from './pages/Messages';
 import Profile from './pages/Profile';
@@ -15,6 +15,5 @@ export default createAppContainer(
     Messages,
     Profile,
     ProfileConfigs,
-  })
+  }),
 );
-
