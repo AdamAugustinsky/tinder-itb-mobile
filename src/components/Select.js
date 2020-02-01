@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import RNPickerSelect from 'react-native-picker-select';
 

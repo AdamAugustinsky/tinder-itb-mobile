@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import BackArrow from '../assets/backArrow.svg';
