@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, Modal } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 
 import Header from '../components/MainHeader';
 import MatchChat from '../components/MatchChat';
@@ -16,10 +16,6 @@ const styles = StyleSheet.create({
     borderTopColor: 'black',
     borderTopWidth: 1,
   },
-  matchMedias: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
 
 
@@ -27,9 +23,6 @@ const Messages = ({ navigation }) => {
   const { navigate } = navigation;
   const [matchs, setMatchs] = useState([]);
   const [modalVisibility, setModalVisibility] = useState(false);
-  const [matchContacts, setMatchContacts] = useState({});
-
-  const changeModalVisibility = (visibility) => setModalVisibility(visibility);
 
   useEffect(() => setMatchs([...matchs, {
     icon,
@@ -45,24 +38,22 @@ const Messages = ({ navigation }) => {
       <ScrollView style={styles.container}>
         {matchs.map(
           (match) => (
-            <MatchChat
-              key={matchs.indexOf(match)}
-              match={match}
-              changeModalVisibility={changeModalVisibility}
-              setMatchContacts={setMatchContacts}
-            />
+            <>
+              <MatchChat
+                key={matchs.indexOf(match)}
+                match={match}
+                setModalVisibility={setModalVisibility}
+              />
+              <MatchMedias
+                match={match}
+                modalVisibility={modalVisibility}
+                setModalVisibility={setModalVisibility}
+              />
+            </>
           ),
 
         )}
       </ScrollView>
-      <Modal
-        transparent={modalVisibility}
-        visible={modalVisibility}
-        style={styles.matchMedias}
-        onRequestClose={() => changeModalVisibility(false)}
-      >
-        <MatchMedias matchContacts={matchContacts} changeModalVisibility={changeModalVisibility} />
-      </Modal>
     </>
   );
 };
