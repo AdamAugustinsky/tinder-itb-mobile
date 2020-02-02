@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import Header from '../components/MainHeader';
 import MatchImage from '../components/MatchImage';
 import Button from '../components/Button';
 
+import icon from '../assets/icon.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,11 +22,25 @@ const styles = StyleSheet.create({
 
 const Profile = ({ navigation }) => {
   const { navigate } = navigation;
+  const [match, setMatch] = useState({
+    icon,
+    name: 'Cauã',
+    school: 'ITB brasílio flores de azevedo',
+    grade: 'Informatica 1F',
+    year: 2,
+    age: 16,
+    whatsappNumber: '5511912345678',
+    instagramUsername: 'caua',
+    facebookUsername: 'sadfasdf',
+  });
+
+  useEffect(() => setMatch(match), [match]);
+
   return (
     <>
       <Header navigate={navigate} profile />
       <View style={styles.container}>
-        <MatchImage />
+        <MatchImage match={match} />
       </View>
       <View style={styles.buttons}>
         <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
