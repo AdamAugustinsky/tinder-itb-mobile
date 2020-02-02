@@ -12,17 +12,18 @@ import Logo from '../assets/logo.svg';
 import styles from '../styles/entryStyle';
 
 const Cadastro = ({ navigation }) => {
+  const { navigate } = navigation;
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [fiebEmail, setFiebEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleCheck = () => {
     if (email.length === 0 || password.length === 0) {
-      Alert.alert('Alerta', 'Preencha todos os campos para logar');
+      Alert.alert('Alerta', 'Preencha todos os campos para Cadastrar-se');
       return false;
     }
-    return navigation.navigate('Home');
+    return navigate('Triagem');
   };
 
   return (
@@ -37,7 +38,7 @@ const Cadastro = ({ navigation }) => {
       <BorderedTextInput name="Email Da Fieb" state={fiebEmail} setState={setFiebEmail} />
       <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
-      <TouchableOpacity onPress={() => handleLogin()}>
+      <TouchableOpacity onPress={() => handleCheck()}>
         <Button text="Cadastrar-se" />
       </TouchableOpacity>
 
@@ -45,7 +46,7 @@ const Cadastro = ({ navigation }) => {
         Já tem uma conta?
         <Text
           style={styles.linkText}
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigate('Login')}
         >
           Logar
         </Text>

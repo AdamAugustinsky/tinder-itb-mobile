@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, View,
+  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import BackArrow from '../assets/backArrow.svg';
-
 import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
+import Button from '../components/Button';
 
 
 const styles = StyleSheet.create({
@@ -42,11 +41,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
+  button: {
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
 });
 
-const MyProfile = ({ navigation }) => {
-  const { navigate } = navigation;
-
+const MyProfile = () => {
   const [nome, setNome] = useState('');
   const [idade, setIdade] = useState('');
   const [genero, setGenero] = useState('');
@@ -57,11 +58,6 @@ const MyProfile = ({ navigation }) => {
 
   return (
     <>
-      <View style={styles.top}>
-        <TouchableOpacity style={styles.back} onPress={() => navigate('Profile')}>
-          <BackArrow width={30} height={30} />
-        </TouchableOpacity>
-      </View>
       <KeyboardAvoidingView
         behavior="padding"
         style={{ flex: 1 }}
@@ -110,13 +106,12 @@ const MatchProfile = ({ navigation }) => {
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
 
+  const handleCadastro = () => {
+    navigate('Home');
+  };
+
   return (
     <>
-      <View style={styles.top}>
-        <TouchableOpacity style={styles.back} onPress={() => navigate('Profile')}>
-          <BackArrow width={30} height={30} />
-        </TouchableOpacity>
-      </View>
       <KeyboardAvoidingView
         behavior="padding"
         style={{ flex: 1 }}
@@ -147,6 +142,9 @@ const MatchProfile = ({ navigation }) => {
           <SquaredTextInput name="Serie" state={serie} setState={setSerie} text="Digite a Serie dos pretendentes(1,2,3)" maxLength={1} />
           <Text>Para abrangir um publico maior, não preencha</Text>
         </ScrollView>
+        <TouchableOpacity style={styles.button} onPress={() => handleCadastro()}>
+          <Button text="Finalizar" />
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </>
   );
