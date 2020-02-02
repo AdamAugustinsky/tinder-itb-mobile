@@ -17,17 +17,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const SquaredTextInput = ({ name, state, setState }) => (
+const SquaredTextInput = ({
+  name, state, setState, text, maxLength,
+}) => (
   <>
     <Text>{name}</Text>
     <TextInput
       style={styles.inputField}
-      placeholder={`     Digite o seu ${name}`}
+      placeholder={`     ${text}`}
       placeholderTextColor="#c0c0c0"
       autoCapitalize="none"
       autoCorrect={false}
       value={state}
       onChangeText={setState}
+      maxLength={maxLength}
     />
   </>
 );

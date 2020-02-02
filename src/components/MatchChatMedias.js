@@ -80,6 +80,7 @@ const MatchChatMedias = ({
         <View style={styles.modal}>
           <Text style={styles.text}>
             Redes Sociais de
+            {' '}
             {match.name}
           </Text>
           <View style={styles.icons}>
