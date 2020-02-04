@@ -43,7 +43,10 @@ const Main = ({ navigation }) => {
     age: 16,
   };
 
-  useEffect(() => setMatch(match), [match]);
+  useEffect(() => {
+    // console.log(JSON.stringify(navigation.getParam('_id')));
+    setMatch(match);
+  }, []);
 
   return (
     <>

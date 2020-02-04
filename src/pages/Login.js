@@ -17,7 +17,7 @@ const Cadastro = ({ navigation }) => {
 
   const handleLogin = () => {
     if (email.length === 0) {
-      Alert.alert('Alerta', 'Digite o email para entrar');
+      Alert.alert('', 'Digite o email para entrar');
       return false;
     }
     return navigate('Home');

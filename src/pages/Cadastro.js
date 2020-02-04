@@ -18,10 +18,13 @@ const Cadastro = ({ navigation }) => {
 
   const handleCheck = () => {
     if (email.length === 0 || fullName.length === 0) {
-      Alert.alert('Alerta', 'Preencha todos os campos para se cadastrar');
+      Alert.alert('', 'Preencha todos os campos para se cadastrar');
       return false;
     }
-    return navigate('MyTriagem');
+    return navigate('MyTriagem', {
+      name: fullName,
+      email,
+    });
   };
 
   return (
@@ -42,10 +45,7 @@ const Cadastro = ({ navigation }) => {
         Já tem uma conta?
         <Text
           style={styles.linkText}
-          onPress={() => navigate('Login', {
-            name: fullName,
-            email,
-          })}
+          onPress={() => navigate('Login')}
         >
           Logar
         </Text>

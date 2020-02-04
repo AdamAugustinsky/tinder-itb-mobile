@@ -8,6 +8,8 @@ import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
 import Button from '../components/Button';
 
+import api from '../services/api';
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
@@ -60,8 +62,35 @@ const MatchTriagem = ({ navigation }) => {
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
 
+  const strfy = JSON.stringify;
+  const getprm = navigation.getParam;
+
   const handleCadastro = async () => {
-    navigate('Home');
+    const response = await api.post('/users', {
+      nome: strfy(getprm('myNome')),
+      genero: strfy(getprm('myGenero')),
+      data_nascimento: strfy(getprm('myBirthDate')),
+      bio: strfy(getprm('myBio')),
+      email: strfy(getprm('myEmail')),
+      contatos: {
+        numero: strfy(getprm('')),
+        twitter: strfy(getprm('')),
+        facebook: strfy(getprm('')),
+        instagram: strfy(getprm('')),
+      },
+      ano: getprm('mySerie'),
+      periodo: strfy(getprm('myTurno')),
+      sala: strfy(getprm('mySala')),
+      show_me: getprm('show_me'),
+      escola: strfy(getprm('myEscola')),
+      curso: strfy(getprm('myCurso')),
+    });
+
+    // console.log(response.data);
+
+    navigate('Home', {
+      _id: response.data,
+    });
   };
 
   return (
