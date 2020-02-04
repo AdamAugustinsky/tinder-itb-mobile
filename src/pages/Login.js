@@ -14,11 +14,10 @@ const Cadastro = ({ navigation }) => {
   const { navigate } = navigation;
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    if (email.length === 0 || password.length === 0) {
-      Alert.alert('Alerta', 'Preencha todos os campos para logar');
+    if (email.length === 0) {
+      Alert.alert('Alerta', 'Digite o email para entrar');
       return false;
     }
     return navigate('Home');
@@ -32,7 +31,6 @@ const Cadastro = ({ navigation }) => {
       <Logo />
 
       <BorderedTextInput name="Email" state={email} setState={setEmail} />
-      <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
       <TouchableOpacity onPress={() => handleLogin()}>
         <Button text="Login" />

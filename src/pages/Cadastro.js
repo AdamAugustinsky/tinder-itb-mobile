@@ -15,15 +15,13 @@ const Cadastro = ({ navigation }) => {
   const { navigate } = navigation;
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const [fiebEmail, setFiebEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleCheck = () => {
-    if (email.length === 0 || password.length === 0) {
-      Alert.alert('Alerta', 'Preencha todos os campos para Cadastrar-se');
+    if (email.length === 0 || fullName.length === 0) {
+      Alert.alert('Alerta', 'Preencha todos os campos para se cadastrar');
       return false;
     }
-    return navigate('Triagem');
+    return navigate('MyTriagem');
   };
 
   return (
@@ -35,8 +33,6 @@ const Cadastro = ({ navigation }) => {
 
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName} />
       <BorderedTextInput name="Email" state={email} setState={setEmail} />
-      <BorderedTextInput name="Email Da Fieb" state={fiebEmail} setState={setFiebEmail} />
-      <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
       <TouchableOpacity onPress={() => handleCheck()}>
         <Button text="Cadastrar-se" />
@@ -46,7 +42,10 @@ const Cadastro = ({ navigation }) => {
         Já tem uma conta?
         <Text
           style={styles.linkText}
-          onPress={() => navigate('Login')}
+          onPress={() => navigate('Login', {
+            name: fullName,
+            email,
+          })}
         >
           Logar
         </Text>
