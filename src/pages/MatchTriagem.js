@@ -62,31 +62,50 @@ const MatchTriagem = ({ navigation }) => {
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
 
-  const strfy = JSON.stringify;
   const getprm = navigation.getParam;
 
   const handleCadastro = async () => {
-    const response = await api.post('/users', {
-      nome: strfy(getprm('myNome')),
-      genero: strfy(getprm('myGenero')),
-      data_nascimento: strfy(getprm('myBirthDate')),
-      bio: strfy(getprm('myBio')),
-      email: strfy(getprm('myEmail')),
+    console.log({
+      nome: getprm('myNome'),
+      genero: getprm('myGenero'),
+      data_nascimento: getprm('myBirthDate'),
+      bio: getprm('myBio'),
+      email: getprm('myEmail'),
       contatos: {
-        numero: strfy(getprm('')),
-        twitter: strfy(getprm('')),
-        facebook: strfy(getprm('')),
-        instagram: strfy(getprm('')),
+        numero: getprm('myNumero'),
+        twitter: getprm('myTwitter'),
+        facebook: getprm('myFacebook'),
+        instagram: getprm('myInstagram'),
       },
       ano: getprm('mySerie'),
-      periodo: strfy(getprm('myTurno')),
-      sala: strfy(getprm('mySala')),
+      periodo: getprm('myTurno'),
+      sala: getprm('mySala'),
       show_me: getprm('show_me'),
-      escola: strfy(getprm('myEscola')),
-      curso: strfy(getprm('myCurso')),
+      escola: getprm('myEscola'),
+      curso: getprm('myCurso'),
     });
 
-    // console.log(response.data);
+    const response = await api.post('/users', {
+      nome: getprm('myNome'),
+      genero: getprm('myGenero'),
+      data_nascimento: getprm('myBirthDate'),
+      bio: getprm('myBio'),
+      email: getprm('myEmail'),
+      contatos: {
+        numero: getprm('myNumero'),
+        twitter: getprm('myTwitter'),
+        facebook: getprm('myFacebook'),
+        instagram: getprm('myInstagram'),
+      },
+      ano: getprm('mySerie'),
+      periodo: getprm('myTurno'),
+      sala: getprm('mySala'),
+      show_me: getprm('show_me'),
+      escola: getprm('myEscola'),
+      curso: getprm('myCurso'),
+    });
+
+    console.log(response.data);
 
     navigate('Home', {
       _id: response.data,
@@ -106,20 +125,20 @@ const MatchTriagem = ({ navigation }) => {
             state={genero}
             setState={setGenero}
             items={[
-              { label: 'Masculino', value: 'M' },
-              { label: 'Feminino', value: 'F' }]}
+              { label: 'Masculino', value: 'Masculino' },
+              { label: 'Feminino', value: 'Feminino' }]}
           />
           <Text>Escola</Text>
           <Select
             state={escola}
             setState={setEscola}
             items={[
-              { label: 'ITB Brasílio Flores de Azevedo', value: 'Belval' },
-              { label: 'ITB Professor Munir José', value: 'Paulista' },
-              { label: 'ITB Professora Maria Sylvia Chaluppe Mello', value: 'Engenho' },
-              { label: 'ITB Professor Hércules Alves de Oliveira', value: 'Mutinga' },
-              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi', value: 'Imperial' },
-              { label: 'ITB Professor Antonio Arantes Filho', value: 'Viana' }]}
+              { label: 'ITB Brasílio Flores de Azevedo(Belval)', value: 'ITB BRASÍLIO FLORES DE AZEVEDO' },
+              { label: 'ITB Professor Munir José(Paulista)', value: 'ITB PROF.º MUNIR JOSÉ' },
+              { label: 'ITB Professora Maria Sylvia Chaluppe Mello(Engenho)', value: 'ITB PROF.ª MARIA SYLVIA CHALUPPE MELLO' },
+              { label: 'ITB Professor Hércules Alves de Oliveira(Mutinga)', value: 'ITB PROF.º HERCULES ALVES DE OLIVEIRA' },
+              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi(Imperial)', value: 'ITB PROF.º MOACYR DOMINGOS SAVIO VERONEZI' },
+              { label: 'ITB Professor Antonio Arantes Filho(Viana)', value: 'ITB PROF.º ANTONIO ARANTES FILHO' }]}
           />
           <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o Curso dos pretendentes" />
           <Text>Serie</Text>

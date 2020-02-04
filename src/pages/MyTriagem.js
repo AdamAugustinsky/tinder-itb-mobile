@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 const MyTriagem = ({ navigation }) => {
   const { navigate } = navigation;
 
-  const [nome, setNome] = useState();
+  const [nome, setNome] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
@@ -118,7 +118,7 @@ const MyTriagem = ({ navigation }) => {
     return navigate('MatchTriagem', {
       myNome: nome,
       myBio: bio,
-      myEmail: JSON.stringify(navigation.getParam('email')),
+      myEmail: navigation.getParam('email'),
       myBirthDate: birthDate,
       myGenero: genero,
       myEscola: escola,
