@@ -65,26 +65,6 @@ const MatchTriagem = ({ navigation }) => {
   const getprm = navigation.getParam;
 
   const handleCadastro = async () => {
-    console.log({
-      nome: getprm('myNome'),
-      genero: getprm('myGenero'),
-      data_nascimento: getprm('myBirthDate'),
-      bio: getprm('myBio'),
-      email: getprm('myEmail'),
-      contatos: {
-        numero: getprm('myNumero'),
-        twitter: getprm('myTwitter'),
-        facebook: getprm('myFacebook'),
-        instagram: getprm('myInstagram'),
-      },
-      ano: getprm('mySerie'),
-      periodo: getprm('myTurno'),
-      sala: getprm('mySala'),
-      show_me: getprm('show_me'),
-      escola: getprm('myEscola'),
-      curso: getprm('myCurso'),
-    });
-
     const response = await api.post('/users', {
       nome: getprm('myNome'),
       genero: getprm('myGenero'),
