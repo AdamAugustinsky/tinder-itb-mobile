@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
   ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput, Alert,
 } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
@@ -155,7 +155,7 @@ const MyTriagem = ({ navigation }) => {
           <Text>
             Data de Nascimento
           </Text>
-          <DatePicker
+          <DateTimePicker
             style={styles.datepicker}
             format="YYYY/MM/DD"
             date={birthDate}
