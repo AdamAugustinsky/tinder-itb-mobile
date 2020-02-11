@@ -70,7 +70,7 @@ const MyTriagem = ({ navigation }) => {
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
   const [nome, setNome] = useState('');
-  const [birthDate, setBirthDate] = useState(new Date());
+  const [birthDate, setBirthDate] = useState('');
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
   const [curso, setCurso] = useState('');
@@ -98,9 +98,11 @@ const MyTriagem = ({ navigation }) => {
     setIsPickerVisible(false);
   };
 
+  const parseData = (date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+
   const handleConfirm = (date) => {
     hidePicker();
-    setBirthDate(date);
+    setBirthDate(parseData(date));
   };
 
   function handleCheck() {
@@ -173,7 +175,7 @@ const MyTriagem = ({ navigation }) => {
             Data de Nascimento
           </Text>
           <TouchableOpacity onPress={showPicker} style={styles.inputField}>
-            <Text placeholder="Clique para escolher a data de nascimento">{`${birthDate}`}</Text>
+            <Text>{birthDate ? `${birthDate}` : 'Clique para colocar a data de nascimento'}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
             isVisible={isPickerVisible}
