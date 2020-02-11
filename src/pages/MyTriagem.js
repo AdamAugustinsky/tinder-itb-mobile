@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
   ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, TextInput, Alert,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
@@ -67,8 +67,10 @@ const styles = StyleSheet.create({
 const MyTriagem = ({ navigation }) => {
   const { navigate } = navigation;
 
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
+
   const [nome, setNome] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  const [birthDate, setBirthDate] = useState(new Date());
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
   const [curso, setCurso] = useState('');
@@ -77,6 +79,8 @@ const MyTriagem = ({ navigation }) => {
   const [bio, setBio] = useState('');
   const [turno, setTurno] = useState('');
   const [showMe, setShowMe] = useState(true);
+
+
   const [numero, setNumero] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
@@ -85,6 +89,19 @@ const MyTriagem = ({ navigation }) => {
   useEffect(() => {
     setNome(navigation.getParam('name'));
   }, []);
+
+  const showPicker = () => {
+    setIsPickerVisible(true);
+  };
+
+  const hidePicker = () => {
+    setIsPickerVisible(false);
+  };
+
+  const handleConfirm = (date) => {
+    hidePicker();
+    setBirthDate(date);
+  };
 
   function handleCheck() {
     if (!nome) {
@@ -155,11 +172,15 @@ const MyTriagem = ({ navigation }) => {
           <Text>
             Data de Nascimento
           </Text>
-          <DateTimePicker
+          <TouchableOpacity onPress={showPicker} style={styles.inputField}>
+            <Text placeholder="Clique para escolher a data de nascimento">{`${birthDate}`}</Text>
+          </TouchableOpacity>
+          <DateTimePickerModal
+            isVisible={isPickerVisible}
             style={styles.datepicker}
-            format="YYYY/MM/DD"
-            date={birthDate}
-            onDateChange={setBirthDate}
+            value={birthDate}
+            onConfirm={handleConfirm}
+            onCancel={hidePicker}
           />
           <Text>Genero</Text>
           <Select
