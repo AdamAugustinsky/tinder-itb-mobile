@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'rgba(45, 45, 45, 0.32)',
+    justifyContent: 'center',
   },
   inputArea: {
     position: 'relative',
@@ -175,7 +176,7 @@ const MyTriagem = ({ navigation }) => {
             Data de Nascimento
           </Text>
           <TouchableOpacity onPress={showPicker} style={styles.inputField}>
-            <Text>{birthDate ? `${birthDate}` : 'Clique para colocar a data de nascimento'}</Text>
+            <Text style={{ alignSelf: 'center' }}>{birthDate ? `${birthDate}` : 'Clique para colocar a data de nascimento'}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
             isVisible={isPickerVisible}
