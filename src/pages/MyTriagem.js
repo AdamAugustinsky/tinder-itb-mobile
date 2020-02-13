@@ -106,7 +106,7 @@ const MyTriagem = ({ navigation }) => {
     setBirthDate(parseData(date));
   };
 
-  function handleCheck() {
+  const handleCheck = () => {
     if (!nome) {
       Alert.alert('', 'Digite o nome');
       return false;
