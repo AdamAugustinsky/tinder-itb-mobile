@@ -75,6 +75,7 @@ const MyTriagem = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
+  const [escolas, setEscolas] = useState();
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
   const [sala, setSala] = useState('');
@@ -87,10 +88,6 @@ const MyTriagem = ({ navigation }) => {
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
-
-  useEffect(() => {
-    setNome(navigation.getParam('name'));
-  }, []);
 
   const showPicker = () => {
     setIsPickerVisible(true);
@@ -107,19 +104,8 @@ const MyTriagem = ({ navigation }) => {
     setBirthDate(parseData(date));
   };
 
-  const getListOfSchools = async () => {
-    const schools = await api.get('/schools');
-
-    let listOfSchools;
-
-    schools.array.forEach((school) => {
-      listOfSchools.append({ label: school.nome, value: school.local });
-    });
-
-    console.log(listOfSchools);
-
-    return listOfSchools;
-  };
+  const listSchools = (schools) => schools.map((school) => (
+    { label: school.nome, value: school.local }));
 
   const handleCheck = () => {
     if (!nome) {
@@ -169,6 +155,12 @@ const MyTriagem = ({ navigation }) => {
     });
   };
 
+  useEffect(async () => {
+    setNome(navigation.getParam('name'));
+    const schools = await api.get('/schools');
+    setEscolas(listSchools(schools.data));
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -212,7 +204,7 @@ const MyTriagem = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={getListOfSchools}
+            items={[...escolas]}
           />
           <Text>Turno</Text>
           <Select
