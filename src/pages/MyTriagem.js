@@ -9,6 +9,7 @@ import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
 import Button from '../components/Button';
 
+import api from '../services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +107,20 @@ const MyTriagem = ({ navigation }) => {
     setBirthDate(parseData(date));
   };
 
+  const getListOfSchools = async () => {
+    const schools = await api.get('/schools');
+
+    let listOfSchools;
+
+    schools.array.forEach((school) => {
+      listOfSchools.append({ label: school.nome, value: school.local });
+    });
+
+    console.log(listOfSchools);
+
+    return listOfSchools;
+  };
+
   const handleCheck = () => {
     if (!nome) {
       Alert.alert('', 'Digite o nome');
@@ -152,7 +167,7 @@ const MyTriagem = ({ navigation }) => {
       myNumero: numero,
       show_me: showMe,
     });
-  }
+  };
 
   return (
     <>
@@ -197,13 +212,7 @@ const MyTriagem = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={[
-              { label: 'ITB Brasílio Flores de Azevedo(Belval)', value: 'ITB BRASÍLIO FLORES DE AZEVEDO' },
-              { label: 'ITB Professor Munir José(Paulista)', value: 'ITB PROF.º MUNIR JOSÉ' },
-              { label: 'ITB Professora Maria Sylvia Chaluppe Mello(Engenho)', value: 'ITB PROF.ª MARIA SYLVIA CHALUPPE MELLO' },
-              { label: 'ITB Professor Hércules Alves de Oliveira(Mutinga)', value: 'ITB PROF.º HERCULES ALVES DE OLIVEIRA' },
-              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi(Imperial)', value: 'ITB PROF.º MOACYR DOMINGOS SAVIO VERONEZI' },
-              { label: 'ITB Professor Antonio Arantes Filho(Viana)', value: 'ITB PROF.º ANTONIO ARANTES FILHO' }]}
+            items={getListOfSchools}
           />
           <Text>Turno</Text>
           <Select
