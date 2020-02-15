@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -59,6 +59,7 @@ const MatchTriagem = ({ navigation }) => {
 
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
+  const [escolas, setEscolas] = useState([]);
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
 
@@ -95,6 +96,18 @@ const MatchTriagem = ({ navigation }) => {
     });
   };
 
+  useEffect(() => {
+    const getSchoolsFromApi = async () => {
+      const schools = await api.get('/schools');
+      const listOfSchools = schools.data.map((school) => (
+        // eslint-disable-next-line no-underscore-dangle
+        { label: school.nome, value: school._id }));
+      setEscolas(listOfSchools);
+    };
+
+    getSchoolsFromApi();
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -115,13 +128,7 @@ const MatchTriagem = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={[
-              { label: 'ITB Brasílio Flores de Azevedo(Belval)', value: 'ITB BRASÍLIO FLORES DE AZEVEDO' },
-              { label: 'ITB Professor Munir José(Paulista)', value: 'ITB PROF.º MUNIR JOSÉ' },
-              { label: 'ITB Professora Maria Sylvia Chaluppe Mello(Engenho)', value: 'ITB PROF.ª MARIA SYLVIA CHALUPPE MELLO' },
-              { label: 'ITB Professor Hércules Alves de Oliveira(Mutinga)', value: 'ITB PROF.º HERCULES ALVES DE OLIVEIRA' },
-              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi(Imperial)', value: 'ITB PROF.º MOACYR DOMINGOS SAVIO VERONEZI' },
-              { label: 'ITB Professor Antonio Arantes Filho(Viana)', value: 'ITB PROF.º ANTONIO ARANTES FILHO' }]}
+            items={escolas}
           />
           <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o Curso dos pretendentes" />
           <Text>Serie</Text>
