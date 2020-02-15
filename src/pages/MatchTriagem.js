@@ -85,8 +85,6 @@ const MatchTriagem = ({ navigation }) => {
       curso: getprm('myCurso'),
     });
 
-    console.log(response.data);
-
     navigate('Home', {
       _id: response.data,
     });

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
@@ -75,7 +76,7 @@ const MyTriagem = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
-  const [escolas, setEscolas] = useState();
+  const [escolas, setEscolas] = useState([]);
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
   const [sala, setSala] = useState('');
@@ -103,9 +104,6 @@ const MyTriagem = ({ navigation }) => {
     hidePicker();
     setBirthDate(parseData(date));
   };
-
-  const listSchools = (schools) => schools.map((school) => (
-    { label: school.nome, value: school.local }));
 
   const handleCheck = () => {
     if (!nome) {
@@ -155,10 +153,17 @@ const MyTriagem = ({ navigation }) => {
     });
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     setNome(navigation.getParam('name'));
-    const schools = await api.get('/schools');
-    setEscolas(listSchools(schools.data));
+
+    const getSchoolsFromApi = async () => {
+      const schools = await api.get('/schools');
+      const listOfSchools = schools.data.map((school) => (
+        { label: school.nome, value: school._id }));
+      setEscolas(listOfSchools);
+    };
+
+    getSchoolsFromApi();
   }, []);
 
   return (
@@ -204,7 +209,7 @@ const MyTriagem = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={[...escolas]}
+            items={escolas}
           />
           <Text>Turno</Text>
           <Select
