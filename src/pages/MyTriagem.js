@@ -139,6 +139,7 @@ const MyTriagem = ({ navigation }) => {
       myNome: nome,
       myBio: bio,
       myEmail: navigation.getParam('email'),
+      myPassword: navigation.getParam('password'),
       myBirthDate: birthDate,
       myGenero: genero,
       myEscola: escola,

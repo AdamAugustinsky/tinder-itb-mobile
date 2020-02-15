@@ -15,15 +15,17 @@ const Cadastro = ({ navigation }) => {
   const { navigate } = navigation;
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleCheck = () => {
-    if (email.length === 0 || fullName.length === 0) {
+    if (email.length === 0 || fullName.length === 0 || password.length === 0) {
       Alert.alert('', 'Preencha todos os campos para se cadastrar');
       return false;
     }
     return navigate('MyTriagem', {
       name: fullName,
       email,
+      password,
     });
   };
 
@@ -36,6 +38,7 @@ const Cadastro = ({ navigation }) => {
 
       <BorderedTextInput name="Nome Completo" state={fullName} setState={setFullName} />
       <BorderedTextInput name="Email" state={email} setState={setEmail} />
+      <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
       <TouchableOpacity onPress={() => handleCheck()}>
         <Button text="Cadastrar-se" />

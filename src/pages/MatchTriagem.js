@@ -67,6 +67,7 @@ const MatchTriagem = ({ navigation }) => {
   const handleCadastro = async () => {
     const response = await api.post('/users', {
       nome: getprm('myNome'),
+      password: getprm('myPassword'),
       genero: getprm('myGenero'),
       data_nascimento: getprm('myBirthDate'),
       bio: getprm('myBio'),
