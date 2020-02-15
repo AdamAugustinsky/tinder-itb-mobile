@@ -83,7 +83,6 @@ const MyTriagem = ({ navigation }) => {
   const [sala, setSala] = useState('');
   const [bio, setBio] = useState('');
   const [turno, setTurno] = useState('');
-  const [showMe, setShowMe] = useState(true);
 
 
   const [numero, setNumero] = useState('');
@@ -109,6 +108,9 @@ const MyTriagem = ({ navigation }) => {
   const handleCheck = () => {
     if (!nome) {
       Alert.alert('', 'Digite o nome');
+      return false;
+    } if (!birthDate) {
+      Alert.alert('', 'Insira a data de nascimento');
       return false;
     } if (!bio) {
       Alert.alert('', 'Digite a sua descrição');
@@ -151,7 +153,6 @@ const MyTriagem = ({ navigation }) => {
       myTwitter: twitter,
       myFacebook: facebook,
       myNumero: numero,
-      show_me: showMe,
     });
   };
 
@@ -232,16 +233,6 @@ const MyTriagem = ({ navigation }) => {
               { label: 'Manhã', value: 'Manhã' },
               { label: 'Tarde', value: 'Tarde' },
               { label: 'Noite', value: 'Noite' }]}
-          />
-          <Text>Me Mostrar no Tinder</Text>
-          <Select
-            state={showMe}
-            setState={setShowMe}
-            placeholder="Sim"
-            items={[
-              { label: 'Sim', value: true },
-              { label: 'Não', value: false },
-            ]}
           />
           <SquaredTextInput name="Instagram" state={instagram} setState={setInstagram} text="Digite o seu user do instagram" />
           <SquaredTextInput name="Facebook" state={facebook} setState={setFacebook} text="Digite o seu user do facebook" />

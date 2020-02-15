@@ -84,7 +84,6 @@ const MatchTriagem = ({ navigation }) => {
       ano: getprm('mySerie'),
       periodo: getprm('myTurno'),
       sala: getprm('mySala'),
-      show_me: getprm('show_me'),
       escola: 'ITB BRASÍLIO FLORES DE AZEVEDO',
       curso: 'INFORMÁTICA',
       password: getprm('myPassword'),
