@@ -67,11 +67,13 @@ const MatchTriagem = ({ navigation }) => {
   const handleCadastro = async () => {
     const response = await api.post('/users', {
       nome: getprm('myNome'),
-      password: getprm('myPassword'),
       genero: getprm('myGenero'),
       data_nascimento: getprm('myBirthDate'),
       bio: getprm('myBio'),
       email: getprm('myEmail'),
+      detalhes: {
+        Signo: 'qualquer um que venda mais pack do pé',
+      },
       contatos: {
         numero: getprm('myNumero'),
         twitter: getprm('myTwitter'),
@@ -82,12 +84,14 @@ const MatchTriagem = ({ navigation }) => {
       periodo: getprm('myTurno'),
       sala: getprm('mySala'),
       show_me: getprm('show_me'),
-      escola: getprm('myEscola'),
-      curso: getprm('myCurso'),
+      escola: 'ITB BRASÍLIO FLORES DE AZEVEDO',
+      curso: 'INFORMÁTICA',
+      password: getprm('myPassword'),
     });
 
     navigate('Home', {
-      _id: response.data,
+      // eslint-disable-next-line no-underscore-dangle
+      _id: response.data._id,
     });
   };
 
