@@ -78,6 +78,7 @@ const MyTriagem = ({ navigation }) => {
   const [escola, setEscola] = useState('');
   const [escolas, setEscolas] = useState([]);
   const [curso, setCurso] = useState('');
+  const [cursos, setCursos] = useState([]);
   const [serie, setSerie] = useState();
   const [sala, setSala] = useState('');
   const [bio, setBio] = useState('');
@@ -166,6 +167,17 @@ const MyTriagem = ({ navigation }) => {
     getSchoolsFromApi();
   }, []);
 
+  useEffect(() => {
+    const getCursosFromApi = async () => {
+      const schools = await api.get(`/schools/${escola}`);
+      const listOfCursos = schools.data.cursos.map((curs) => (
+        { label: curs, value: curs }));
+      setCursos(listOfCursos);
+    };
+
+    getCursosFromApi();
+  }, [escola]);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -235,7 +247,12 @@ const MyTriagem = ({ navigation }) => {
           <SquaredTextInput name="Twitter" state={twitter} setState={setTwitter} text="Digite o seu user do Twitter" />
           <SquaredTextInput name="Whatsapp" state={numero} setState={setNumero} text="Digite o seu numero do whatsapp" />
           <Text style={styles.title}> Sua Turma</Text>
-          <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o seu curso" />
+          <Text>Cursos</Text>
+          <Select
+            state={curso}
+            setState={setCurso}
+            items={cursos}
+          />
           <Text>Serie</Text>
           <Select
             state={serie}
