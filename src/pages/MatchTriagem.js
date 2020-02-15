@@ -73,7 +73,7 @@ const MatchTriagem = ({ navigation }) => {
       bio: getprm('myBio'),
       email: getprm('myEmail'),
       detalhes: {
-        Signo: 'qualquer um que venda mais pack do pé',
+        password: getprm('myPassword'),
       },
       contatos: {
         numero: getprm('myNumero'),
@@ -86,7 +86,6 @@ const MatchTriagem = ({ navigation }) => {
       sala: getprm('mySala'),
       escola: 'ITB BRASÍLIO FLORES DE AZEVEDO',
       curso: 'INFORMÁTICA',
-      password: getprm('myPassword'),
     });
 
     navigate('Home', {
