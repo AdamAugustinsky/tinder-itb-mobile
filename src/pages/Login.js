@@ -8,6 +8,8 @@ import BorderedTextInput from '../components/BorderedTextInput';
 import Button from '../components/Button';
 import Logo from '../assets/logo.svg';
 
+import api from '../services/api';
+
 import styles from '../styles/entryStyle';
 
 const Cadastro = ({ navigation }) => {
@@ -16,7 +18,7 @@ const Cadastro = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (email.length === 0) {
       Alert.alert('', 'Digite o email para entrar');
       return false;
@@ -24,7 +26,16 @@ const Cadastro = ({ navigation }) => {
       Alert.alert('', 'Digite a senha para entrar');
       return false;
     }
-    return navigate('Home');
+
+    const response = await api.post('/sessions', {
+      email,
+      password,
+    });
+
+    return navigate('Home', {
+      // eslint-disable-next-line no-underscore-dangle
+      _id: response.data.user._id,
+    });
   };
 
   return (
