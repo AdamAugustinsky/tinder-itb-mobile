@@ -7,9 +7,6 @@ import Header from '../components/MainHeader';
 import Footer from '../components/Footer';
 import Match from '../components/Match';
 
-import icon from '../assets/icon.png';
-import myIcon from '../assets/match.jpeg';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,7 +20,6 @@ const Main = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
   const [match, setMatch] = useState({
-    icon,
     name: 'Cauã',
     school: 'ITB brasílio flores de azevedo',
     grade: 'Informatica 1F',
@@ -35,7 +31,6 @@ const Main = ({ navigation }) => {
   });
 
   const me = {
-    icon: myIcon,
     name: 'Dani',
     school: 'ITB brasílio flores de azevedo',
     grade: 'Informatica 1F',

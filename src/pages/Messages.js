@@ -6,9 +6,6 @@ import Header from '../components/MainHeader';
 import MatchChat from '../components/MatchChat';
 import MatchChatMedias from '../components/MatchChatMedias';
 
-import icon from '../assets/icon.png';
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -22,7 +19,6 @@ const styles = StyleSheet.create({
 const Messages = ({ navigation }) => {
   const { navigate } = navigation;
   const [matchs, setMatchs] = useState([{
-    icon,
     name: 'Cauã',
     whatsappNumber: '5511912345678',
     instagramUsername: 'caua',

@@ -6,8 +6,6 @@ import Header from '../components/MainHeader';
 import MatchImage from '../components/MatchImage';
 import Button from '../components/Button';
 
-import icon from '../assets/icon.png';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,7 +21,6 @@ const styles = StyleSheet.create({
 const Profile = ({ navigation }) => {
   const { navigate } = navigation;
   const [match, setMatch] = useState({
-    icon,
     name: 'Cauã',
     school: 'ITB brasílio flores de azevedo',
     grade: 'Informatica 1F',
