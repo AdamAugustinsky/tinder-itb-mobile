@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import MatchImage from '../components/MatchImage';
 import Header from '../components/MainHeader';
@@ -46,7 +46,6 @@ const Main = ({ navigation }) => {
   return (
     <>
       <Header main navigate={navigate} />
-      <Button title="Testa o Match" onPress={() => setIsMatch(true)} />
       <View style={styles.container}>
         <MatchImage match={match} />
         <Match
