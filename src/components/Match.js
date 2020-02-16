@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
 });
 
 const MatchChatMedias = ({
-  match, me, isMatch, setIsMatch,
+  match, isMatch, setIsMatch,
 }) => {
   const { instagramUsername, facebookUsername, whatsappNumber } = match;
 
@@ -106,9 +106,9 @@ const MatchChatMedias = ({
             deram match
           </Text>
           <View style={styles.fotos}>
-            <Image style={styles.image} source={me.icon} />
+            <Image style={styles.image} />
             <View style={styles.space} />
-            <Image style={styles.image} source={match.icon} />
+            <Image style={styles.image} />
           </View>
           <View style={styles.icons}>
             <TouchableOpacity onPress={() => Linking.openURL(`https://www.instagram.com/${instagramUsername}`)}>
