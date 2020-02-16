@@ -35,6 +35,7 @@ const Cadastro = ({ navigation }) => {
     return navigate('Home', {
       // eslint-disable-next-line no-underscore-dangle
       _id: response.data.user._id,
+      jwt: response.data.jwt,
     });
   };
 
