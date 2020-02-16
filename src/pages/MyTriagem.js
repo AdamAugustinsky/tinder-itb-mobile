@@ -98,11 +98,9 @@ const MyTriagem = ({ navigation }) => {
     setIsPickerVisible(false);
   };
 
-  const parseData = (date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-
   const handleConfirm = (date) => {
     hidePicker();
-    setBirthDate(parseData(date));
+    setBirthDate(date);
   };
 
   const handleCheck = () => {
