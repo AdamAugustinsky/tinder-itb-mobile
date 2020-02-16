@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
@@ -9,6 +10,7 @@ import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
 import Button from '../components/Button';
 
+import api from '../services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +36,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'rgba(45, 45, 45, 0.32)',
+    justifyContent: 'center',
   },
   inputArea: {
     position: 'relative',
@@ -73,22 +76,19 @@ const MyTriagem = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
+  const [escolas, setEscolas] = useState([]);
   const [curso, setCurso] = useState('');
+  const [cursos, setCursos] = useState([]);
   const [serie, setSerie] = useState();
   const [sala, setSala] = useState('');
   const [bio, setBio] = useState('');
   const [turno, setTurno] = useState('');
-  const [showMe, setShowMe] = useState(true);
 
 
   const [numero, setNumero] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
   const [facebook, setFacebook] = useState('');
-
-  useEffect(() => {
-    setNome(navigation.getParam('name'));
-  }, []);
 
   const showPicker = () => {
     setIsPickerVisible(true);
@@ -98,16 +98,17 @@ const MyTriagem = ({ navigation }) => {
     setIsPickerVisible(false);
   };
 
-  const parseData = (date) => `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-
   const handleConfirm = (date) => {
     hidePicker();
-    setBirthDate(parseData(date));
+    setBirthDate(date);
   };
 
-  function handleCheck() {
+  const handleCheck = () => {
     if (!nome) {
       Alert.alert('', 'Digite o nome');
+      return false;
+    } if (!birthDate) {
+      Alert.alert('', 'Insira a data de nascimento');
       return false;
     } if (!bio) {
       Alert.alert('', 'Digite a sua descrição');
@@ -138,6 +139,7 @@ const MyTriagem = ({ navigation }) => {
       myNome: nome,
       myBio: bio,
       myEmail: navigation.getParam('email'),
+      myPassword: navigation.getParam('password'),
       myBirthDate: birthDate,
       myGenero: genero,
       myEscola: escola,
@@ -149,9 +151,32 @@ const MyTriagem = ({ navigation }) => {
       myTwitter: twitter,
       myFacebook: facebook,
       myNumero: numero,
-      show_me: showMe,
     });
-  }
+  };
+
+  useEffect(() => {
+    setNome(navigation.getParam('name'));
+
+    const getSchoolsFromApi = async () => {
+      const schools = await api.get('/schools');
+      const listOfSchools = schools.data.map((school) => (
+        { label: school.nome, value: school._id }));
+      setEscolas(listOfSchools);
+    };
+
+    getSchoolsFromApi();
+  }, []);
+
+  useEffect(() => {
+    const getCursosFromApi = async () => {
+      const schools = await api.get(`/schools/${escola}`);
+      const listOfCursos = schools.data.cursos.map((curs) => (
+        { label: curs, value: curs }));
+      setCursos(listOfCursos);
+    };
+
+    getCursosFromApi();
+  }, [escola]);
 
   return (
     <>
@@ -175,7 +200,7 @@ const MyTriagem = ({ navigation }) => {
             Data de Nascimento
           </Text>
           <TouchableOpacity onPress={showPicker} style={styles.inputField}>
-            <Text>{birthDate ? `${birthDate}` : 'Clique para colocar a data de nascimento'}</Text>
+            <Text style={{ alignSelf: 'center' }}>{birthDate ? `${birthDate}` : 'Clique para colocar a data de nascimento'}</Text>
           </TouchableOpacity>
           <DateTimePickerModal
             isVisible={isPickerVisible}
@@ -196,13 +221,7 @@ const MyTriagem = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={[
-              { label: 'ITB Brasílio Flores de Azevedo(Belval)', value: 'ITB BRASÍLIO FLORES DE AZEVEDO' },
-              { label: 'ITB Professor Munir José(Paulista)', value: 'ITB PROF.º MUNIR JOSÉ' },
-              { label: 'ITB Professora Maria Sylvia Chaluppe Mello(Engenho)', value: 'ITB PROF.ª MARIA SYLVIA CHALUPPE MELLO' },
-              { label: 'ITB Professor Hércules Alves de Oliveira(Mutinga)', value: 'ITB PROF.º HERCULES ALVES DE OLIVEIRA' },
-              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi(Imperial)', value: 'ITB PROF.º MOACYR DOMINGOS SAVIO VERONEZI' },
-              { label: 'ITB Professor Antonio Arantes Filho(Viana)', value: 'ITB PROF.º ANTONIO ARANTES FILHO' }]}
+            items={escolas}
           />
           <Text>Turno</Text>
           <Select
@@ -213,22 +232,17 @@ const MyTriagem = ({ navigation }) => {
               { label: 'Tarde', value: 'Tarde' },
               { label: 'Noite', value: 'Noite' }]}
           />
-          <Text>Me Mostrar no Tinder</Text>
-          <Select
-            state={showMe}
-            setState={setShowMe}
-            placeholder="Sim"
-            items={[
-              { label: 'Sim', value: true },
-              { label: 'Não', value: false },
-            ]}
-          />
           <SquaredTextInput name="Instagram" state={instagram} setState={setInstagram} text="Digite o seu user do instagram" />
           <SquaredTextInput name="Facebook" state={facebook} setState={setFacebook} text="Digite o seu user do facebook" />
           <SquaredTextInput name="Twitter" state={twitter} setState={setTwitter} text="Digite o seu user do Twitter" />
           <SquaredTextInput name="Whatsapp" state={numero} setState={setNumero} text="Digite o seu numero do whatsapp" />
           <Text style={styles.title}> Sua Turma</Text>
-          <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o seu curso" />
+          <Text>Cursos</Text>
+          <Select
+            state={curso}
+            setState={setCurso}
+            items={cursos}
+          />
           <Text>Serie</Text>
           <Select
             state={serie}
