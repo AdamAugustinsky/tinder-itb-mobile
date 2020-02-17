@@ -29,7 +29,7 @@ const Main = ({ navigation }) => {
     setMatch(response.data[0]);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     getNewMatch();
   }, []);
 

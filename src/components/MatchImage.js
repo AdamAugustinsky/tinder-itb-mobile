@@ -57,7 +57,7 @@ const MatchImage = ({ match }) => {
   };
 
   useEffect(() => {
-    const setNewMatchAge = () => {
+    const setNewMatchAge = async () => {
       const birthDate = new Date(match.data_nascimento);
       setMatchAge(calculateAge(birthDate.getMonth(), birthDate.getDate(), birthDate.getFullYear()));
     };
