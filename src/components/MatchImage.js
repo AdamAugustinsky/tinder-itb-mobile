@@ -9,8 +9,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import School from '../assets/school.svg';
 import Grade from '../assets/grade.svg';
 
-import api from '../services/api';
-
 const styles = StyleSheet.create({
   profileImage: {
     width: '100%',
@@ -40,29 +38,32 @@ const styles = StyleSheet.create({
 });
 
 const MatchImage = ({ match }) => {
-  const [age, setAge] = useState('');
-  const [schoolName, setSchoolName] = useState('');
+  const [matchAge, setMatchAge] = useState();
 
-  const getAge = (dateString) => {
-    const today = new Date();
-    const birthDate = new Date(dateString);
-    let idade = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      idade -= 1;
+  const calculateAge = (birthMonth, birthDay, birthYear) => {
+    const todayDate = new Date();
+    const todayYear = todayDate.getFullYear();
+    const todayMonth = todayDate.getMonth();
+    const todayDay = todayDate.getDate();
+    let age = todayYear - birthYear;
+
+    if (todayMonth < (birthMonth - 1)) {
+      age -= 1;
     }
-    setAge(idade);
-  };
-
-  const getSchoolName = async (schoolId) => {
-    const response = await api.get(`/schools/${schoolId}`);
-    setSchoolName(response.data.nome);
+    if (((birthMonth - 1) === todayMonth) && (todayDay < birthDay)) {
+      age -= 1;
+    }
+    return age;
   };
 
   useEffect(() => {
-    getAge(match.data_nascimento);
-    getSchoolName(match.escola);
-  }, []);
+    const setNewMatchAge = () => {
+      const birthDate = new Date(match.data_nascimento);
+      setMatchAge(calculateAge(birthDate.getMonth(), birthDate.getDate(), birthDate.getFullYear()));
+    };
+
+    setNewMatchAge();
+  }, [match.data_nascimento]);
 
   return (
     <ImageBackground
@@ -82,11 +83,11 @@ const MatchImage = ({ match }) => {
               {match.nome}
               {', '}
             </Text>
-            {age}
+            {matchAge}
           </Text>
           <Text style={styles.texts}>
             <School />
-            {schoolName}
+            {match.nome_escola}
           </Text>
           <Text style={styles.texts}>
             <Grade />

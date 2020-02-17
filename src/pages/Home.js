@@ -23,16 +23,13 @@ const Main = ({ navigation }) => {
   const [isMatch, setIsMatch] = useState(false);
   const [match, setMatch] = useState({});
 
-  /*
-  headers: {'Authorization': "bearer " + navigation.getParam('jwt')}
-  */
-
   const getNewMatch = async () => {
     const response = await api.get('/users', { headers: { Authorization: `Bearer ${navigation.getParam('jwt')}` } });
+
     setMatch(response.data[0]);
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     getNewMatch();
   }, []);
 
