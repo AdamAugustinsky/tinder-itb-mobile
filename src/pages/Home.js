@@ -30,7 +30,6 @@ const Main = ({ navigation }) => {
 
     setMatch(response.data[0]);
   };
-
   useEffect(() => {
     getNewMatch();
   }, []);
@@ -39,7 +38,7 @@ const Main = ({ navigation }) => {
     <>
       <Header main navigate={navigate} jwt={jwt} myId={myId} />
       <View style={styles.container}>
-        <MatchImage match={match} />
+        <MatchImage match={match} myId={myId} />
         <Match
           match={match}
           isMatch={isMatch}
