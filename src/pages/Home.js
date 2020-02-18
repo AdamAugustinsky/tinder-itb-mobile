@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import MatchImage from '../components/MatchImage';
 import Header from '../components/MainHeader';
 import Footer from '../components/Footer';
 import Match from '../components/Match';
 
-import icon from '../assets/icon.png';
-import myIcon from '../assets/match.jpeg';
+import api from '../services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,41 +21,26 @@ const styles = StyleSheet.create({
 const Main = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
-  const [match, setMatch] = useState({
-    icon,
-    name: 'Cauã',
-    school: 'ITB brasílio flores de azevedo',
-    grade: 'Informatica 1F',
-    year: 2,
-    age: 16,
-    whatsappNumber: '5511912345678',
-    instagramUsername: 'caua',
-    facebookUsername: 'sadfasdf',
-  });
+  const [match, setMatch] = useState({});
+  const jwt = navigation.getParam('jwt');
+  const myId = navigation.getParam('myId');
 
-  const me = {
-    icon: myIcon,
-    name: 'Dani',
-    school: 'ITB brasílio flores de azevedo',
-    grade: 'Informatica 1F',
-    year: 2,
-    age: 16,
+  const getNewMatch = async () => {
+    const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
+
+    setMatch(response.data[0]);
   };
-
   useEffect(() => {
-    // console.log(JSON.stringify(navigation.getParam('_id')));
-    setMatch(match);
+    getNewMatch();
   }, []);
 
   return (
     <>
-      <Header main navigate={navigate} />
-      <Button title="Testa o Match" onPress={() => setIsMatch(true)} />
+      <Header main navigate={navigate} jwt={jwt} myId={myId} />
       <View style={styles.container}>
-        <MatchImage match={match} />
+        <MatchImage match={match} myId={myId} />
         <Match
           match={match}
-          me={me}
           isMatch={isMatch}
           setIsMatch={setIsMatch}
         />
