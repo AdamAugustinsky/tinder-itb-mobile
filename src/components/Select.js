@@ -17,12 +17,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const Select = ({ state, setState, items }) => (
+const Select = ({
+  state, setState, items, onOpen,
+}) => (
   <TouchableOpacity style={styles.select}>
     <RNPickerSelect
       onValueChange={(value) => setState(value)}
       placeHolder={state}
       items={items}
+      onOpen={onOpen}
     />
   </TouchableOpacity>
 );

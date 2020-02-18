@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity,
+  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
 
 import SquaredTextInput from '../components/SquaredTextInput';
@@ -65,16 +65,26 @@ const MatchTriagem = ({ navigation }) => {
 
   const getprm = navigation.getParam;
 
+  const handleLogin = async () => {
+    const response = await api.post('/sessions', {
+      email: getprm('myEmail'),
+      password: getprm('myPassword'),
+    });
+
+    return navigate('Home', {
+      // eslint-disable-next-line no-underscore-dangle
+      myId: response.data.user.id,
+      jwt: response.data.jwt,
+    });
+  };
+
   const handleCadastro = async () => {
-    const response = await api.post('/users', {
+    await api.post('/users', {
       nome: getprm('myNome'),
       genero: getprm('myGenero'),
       data_nascimento: getprm('myBirthDate'),
       bio: getprm('myBio'),
       email: getprm('myEmail'),
-      detalhes: {
-        password: getprm('myPassword'),
-      },
       contatos: {
         numero: getprm('myNumero'),
         twitter: getprm('myTwitter'),
@@ -84,14 +94,14 @@ const MatchTriagem = ({ navigation }) => {
       ano: getprm('mySerie'),
       periodo: getprm('myTurno'),
       sala: getprm('mySala'),
-      escola: 'ITB BRASÍLIO FLORES DE AZEVEDO',
-      curso: 'INFORMÁTICA',
-    });
-
-    navigate('Home', {
-      // eslint-disable-next-line no-underscore-dangle
-      _id: response.data._id,
-    });
+      escola: getprm('myEscola'),
+      curso: getprm('myCurso'),
+      password: getprm('myPassword'),
+    }).then(handleLogin()).catch(
+      (error) => {
+        Alert.alert('', error);
+      },
+    );
   };
 
   useEffect(() => {

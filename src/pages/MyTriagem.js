@@ -117,7 +117,7 @@ const MyTriagem = ({ navigation }) => {
       Alert.alert('', 'Digite o genero');
       return false;
     } if (!escola) {
-      Alert.alert('', 'Digite o escola');
+      Alert.alert('', 'Selecione o escola');
       return false;
     } if (!turno) {
       Alert.alert('', 'Digite o turno');
@@ -126,7 +126,7 @@ const MyTriagem = ({ navigation }) => {
       Alert.alert('', 'Digite alguma rede social');
       return false;
     } if (!curso) {
-      Alert.alert('', 'Digite o curso');
+      Alert.alert('', 'Selecione o curso');
       return false;
     } if (!serie) {
       Alert.alert('', 'Digite o serie');

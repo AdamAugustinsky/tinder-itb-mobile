@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 });
 
 const Header = ({
-  profile, main, message, navigate,
+  profile, main, message, navigate, jwt, myId,
 }) => {
   const setProfileIcon = () => {
     if (profile) {
@@ -59,15 +59,15 @@ const Header = ({
   return (
     <View style={styles.header}>
 
-      <TouchableOpacity style={styles.icon} onPress={() => navigate('Profile')}>
+      <TouchableOpacity style={styles.icon} onPress={() => navigate('Profile', { jwt, myId })}>
         {profileIcon}
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.icon} onPress={() => navigate('Home')}>
+      <TouchableOpacity style={styles.icon} onPress={() => navigate('Home', { jwt, myId })}>
         {mainIcon}
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.icon} onPress={() => navigate('Messages')}>
+      <TouchableOpacity style={styles.icon} onPress={() => navigate('Messages', { jwt, myId })}>
         {messageIcon}
       </TouchableOpacity>
 
