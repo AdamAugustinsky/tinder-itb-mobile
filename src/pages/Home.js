@@ -22,9 +22,11 @@ const Main = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
   const [match, setMatch] = useState({});
+  const jwt = navigation.getParam('jwt');
+  const myId = navigation.getParam('myId');
 
   const getNewMatch = async () => {
-    const response = await api.get('/users', { headers: { Authorization: `Bearer ${navigation.getParam('jwt')}` } });
+    const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
 
     setMatch(response.data[0]);
   };
@@ -35,7 +37,7 @@ const Main = ({ navigation }) => {
 
   return (
     <>
-      <Header main navigate={navigate} />
+      <Header main navigate={navigate} jwt={jwt} myId={myId} />
       <View style={styles.container}>
         <MatchImage match={match} />
         <Match
