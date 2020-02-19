@@ -4,7 +4,6 @@ import {
   ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
 
-import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
 import Button from '../components/Button';
 
@@ -60,6 +59,7 @@ const MatchTriagem = ({ navigation }) => {
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
   const [escolas, setEscolas] = useState([]);
+  const [cursos, setCursos] = useState([]);
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
 
@@ -116,6 +116,17 @@ const MatchTriagem = ({ navigation }) => {
     getSchoolsFromApi();
   }, []);
 
+  useEffect(() => {
+    const getCursosFromApi = async () => {
+      const schools = await api.get(`/schools/${escola}`);
+      const listOfCursos = schools.data.cursos.map((curs) => (
+        { label: curs, value: curs }));
+      setCursos(listOfCursos);
+    };
+
+    getCursosFromApi();
+  }, [escola]);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -138,7 +149,12 @@ const MatchTriagem = ({ navigation }) => {
             setState={setEscola}
             items={escolas}
           />
-          <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o Curso dos pretendentes" />
+          <Text>Cursos</Text>
+          <Select
+            state={curso}
+            setState={setCurso}
+            items={cursos}
+          />
           <Text>Serie</Text>
           <Select
             state={serie}
