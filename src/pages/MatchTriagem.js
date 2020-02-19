@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, Alert,
+  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 
 import Select from '../components/Select';
@@ -59,24 +59,9 @@ const MatchTriagem = ({ navigation }) => {
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
   const [escolas, setEscolas] = useState([]);
-  const [cursos, setCursos] = useState([]);
-  const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
 
   const getprm = navigation.getParam;
-
-  const handleLogin = async () => {
-    const response = await api.post('/sessions', {
-      email: getprm('myEmail'),
-      password: getprm('myPassword'),
-    });
-
-    return navigate('Home', {
-      // eslint-disable-next-line no-underscore-dangle
-      myId: response.data.user.id,
-      jwt: response.data.jwt,
-    });
-  };
 
   const handleCadastro = async () => {
     await api.post('/users', {
@@ -97,11 +82,24 @@ const MatchTriagem = ({ navigation }) => {
       escola: getprm('myEscola'),
       curso: getprm('myCurso'),
       password: getprm('myPassword'),
-    }).then(handleLogin()).catch(
-      (error) => {
-        Alert.alert('', error);
+      prefs: {
+        genero,
+        escola,
+        serie,
       },
-    );
+    });
+
+
+    const response = await api.post('/sessions', {
+      email: getprm('myEmail'),
+      password: getprm('myPassword'),
+    });
+
+    navigate('Home', {
+      // eslint-disable-next-line no-underscore-dangle
+      myId: response.data.user.id,
+      jwt: response.data.jwt,
+    });
   };
 
   useEffect(() => {
@@ -115,17 +113,6 @@ const MatchTriagem = ({ navigation }) => {
 
     getSchoolsFromApi();
   }, []);
-
-  useEffect(() => {
-    const getCursosFromApi = async () => {
-      const schools = await api.get(`/schools/${escola}`);
-      const listOfCursos = schools.data.cursos.map((curs) => (
-        { label: curs, value: curs }));
-      setCursos(listOfCursos);
-    };
-
-    getCursosFromApi();
-  }, [escola]);
 
   return (
     <>
@@ -148,12 +135,6 @@ const MatchTriagem = ({ navigation }) => {
             state={escola}
             setState={setEscola}
             items={escolas}
-          />
-          <Text>Cursos</Text>
-          <Select
-            state={curso}
-            setState={setCurso}
-            items={cursos}
           />
           <Text>Serie</Text>
           <Select
