@@ -32,6 +32,8 @@ const Cadastro = ({ navigation }) => {
       password,
     });
 
+    console.log(response.data);
+
     return navigate('Home', {
       // eslint-disable-next-line no-underscore-dangle
       myId: response.data.user.id,
