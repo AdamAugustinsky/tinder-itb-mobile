@@ -55,6 +55,18 @@ const Main = ({ navigation }) => {
     }));
   };
 
+  const dislike = async (matchId) => {
+    console.log(jwt);
+    await api.post(`/users/likes/${matchId}`, {
+      headers: { Authorization: `Bearer ${jwt}` },
+    }).then((data) => {
+      console.log(data);
+      getNewMatch();
+    }).catch(((error) => {
+      console.log(error);
+    }));
+  };
+
   useEffect(() => {
     getNewMatch();
   });
@@ -72,7 +84,7 @@ const Main = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.dislike}>
+        <TouchableOpacity style={styles.dislike} onPress={() => dislike(match._id)}>
           <Dislike />
         </TouchableOpacity>
 
