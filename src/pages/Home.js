@@ -44,32 +44,21 @@ const Main = ({ navigation }) => {
   };
 
   const like = async (matchId) => {
-    console.log(jwt);
-    await api.post(`/users/likes/${matchId}`, {
-      headers: { Authorization: `Bearer ${jwt}` },
-    }).then((data) => {
-      console.log(data);
-      getNewMatch();
-    }).catch(((error) => {
-      console.log(error);
-    }));
+    await api.post(`/users/likes/${matchId}`, { headers: { Authorization: `Bearer ${jwt}` } });
+
+    getNewMatch();
   };
 
   const dislike = async (matchId) => {
-    console.log(jwt);
-    await api.post(`/users/likes/${matchId}`, {
-      headers: { Authorization: `Bearer ${jwt}` },
-    }).then((data) => {
-      console.log(data);
-      getNewMatch();
-    }).catch(((error) => {
-      console.log(error);
-    }));
+    await api.post(`/users/deslikes/${matchId}`, { headers: { Authorization: `Bearer ${jwt}` } });
+
+    getNewMatch();
   };
 
   useEffect(() => {
     getNewMatch();
-  });
+    like(match._id);
+  }, []);
 
   return (
     <>
