@@ -57,7 +57,6 @@ const Main = ({ navigation }) => {
 
   useEffect(() => {
     getNewMatch();
-    like(match._id);
   }, []);
 
   return (

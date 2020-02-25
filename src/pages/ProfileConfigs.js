@@ -54,11 +54,21 @@ const MyProfile = ({ navigation }) => {
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
   const [sala, setSala] = useState('');
+  const jwt = navigation.getParam('jwt');
+  const myId = navigation.getParam('myId');
 
   return (
     <>
       <View style={styles.top}>
-        <TouchableOpacity style={styles.back} onPress={() => navigate('Profile')}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => {
+            console.log(jwt);
+            console.log(myId);
+
+            navigate('Profile', { jwt, myId });
+          }}
+        >
           <BackArrow width={30} height={30} />
         </TouchableOpacity>
       </View>
@@ -109,11 +119,16 @@ const MatchProfile = ({ navigation }) => {
   const [escola, setEscola] = useState('');
   const [curso, setCurso] = useState('');
   const [serie, setSerie] = useState();
+  const jwt = navigation.getParam('jwt');
+  const myId = navigation.getParam('myId');
 
   return (
     <>
       <View style={styles.top}>
-        <TouchableOpacity style={styles.back} onPress={() => navigate('Profile')}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigate('Profile', { jwt, myId })}
+        >
           <BackArrow width={30} height={30} />
         </TouchableOpacity>
       </View>
