@@ -46,23 +46,23 @@ const styles = StyleSheet.create({
 const MatchChatMedias = ({
   match, modalVisibility, setModalVisibility,
 }) => {
-  const { instagramUsername, facebookUsername, whatsappNumber } = match;
+  const { numero, facebook, instagram } = match.contatos;
 
   const loadInstagram = () => {
-    if (instagramUsername) {
+    if (instagram) {
       return <InstagramLogo width="50" height="50" />;
     }
     return <Text />;
   };
   const loadFacebook = () => {
-    if (facebookUsername) {
+    if (facebook) {
       return <FacebookLogo width="50" height="50" />;
     }
     return <Text />;
   };
 
   const loadWhatsapp = () => {
-    if (whatsappNumber) {
+    if (numero) {
       return <WhatsappLogo width="50" height="50" />;
     }
     return <Text />;
@@ -84,15 +84,15 @@ const MatchChatMedias = ({
             {match.name}
           </Text>
           <View style={styles.icons}>
-            <TouchableOpacity onPress={() => Linking.openURL(`https://www.instagram.com/${instagramUsername}`)}>
+            <TouchableOpacity onPress={() => Linking.openURL(`https://www.instagram.com/${instagram}`)}>
               {loadInstagram()}
             </TouchableOpacity>
             <View style={styles.space} />
-            <TouchableOpacity onPress={() => Linking.openURL(`https://www.facebook.com/${facebookUsername}`)}>
+            <TouchableOpacity onPress={() => Linking.openURL(`https://www.facebook.com/${facebook}`)}>
               {loadFacebook()}
             </TouchableOpacity>
             <View style={styles.space} />
-            <TouchableOpacity onPress={() => Linking.openURL(`https://wa.me/${whatsappNumber}`)}>
+            <TouchableOpacity onPress={() => Linking.openURL(`https://wa.me/${numero}`)}>
               {loadWhatsapp()}
             </TouchableOpacity>
           </View>

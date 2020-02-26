@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
 
 
 const MatchChat = ({ match, setModalVisibility }) => {
-  const { icon, name } = match;
+  const { nome } = match;
 
   return (
     <TouchableOpacity
       style={styles.chat}
       onPress={() => setModalVisibility(true)}
     >
-      <Image style={styles.image} source={icon} />
+      <Image style={styles.image} />
       <Text style={styles.name}>
-        {name}
+        {nome}
       </Text>
     </TouchableOpacity>
   );
