@@ -63,9 +63,6 @@ const MyProfile = ({ navigation }) => {
         <TouchableOpacity
           style={styles.back}
           onPress={() => {
-            console.log(jwt);
-            console.log(myId);
-
             navigate('Profile', { jwt, myId });
           }}
         >
