@@ -42,10 +42,6 @@ const Profile = ({ navigation }) => {
         <MatchImage match={myInformations} />
       </View>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => navigate('ProfileConfigs', { jwt, myId })}>
-          <Button text="Meu Perfil" />
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => navigate('Login')}>
           <Button text="Sair" />
         </TouchableOpacity>
