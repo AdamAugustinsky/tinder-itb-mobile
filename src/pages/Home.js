@@ -44,13 +44,13 @@ const Main = ({ navigation }) => {
   };
 
   const like = async (matchId) => {
-    await api.post(`/users/likes/${matchId}`, { headers: { Authorization: `Bearer ${jwt}` } });
+    await api.post(`/users/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
 
     getNewMatch();
   };
 
   const dislike = async (matchId) => {
-    await api.post(`/users/deslikes/${matchId}`, { headers: { Authorization: `Bearer ${jwt}` } });
+    await api.post(`/users/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
 
     getNewMatch();
   };
