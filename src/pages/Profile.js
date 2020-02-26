@@ -27,7 +27,7 @@ const Profile = ({ navigation }) => {
   const myId = navigation.getParam('myId');
 
   const getMyInformations = async () => {
-    const response = await api.get('/users/show', { headers: { Authorization: `Bearer ${jwt}` } });
+    const response = await api.get(`/users/${myId}`);
     setMyInformations(response.data);
   };
 
