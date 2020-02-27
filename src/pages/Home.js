@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View, StyleSheet, TouchableOpacity, AsyncStorage, Alert,
+} from 'react-native';
 
 import MatchImage from '../components/MatchImage';
 import Header from '../components/MainHeader';
@@ -35,24 +37,46 @@ const Home = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
   const [match, setMatch] = useState({});
-  const jwt = navigation.getParam('jwt');
-  const myId = navigation.getParam('myId');
+
+  const getJwt = async () => {
+    try {
+      const jwt = await AsyncStorage.getItem('jwt');
+      return jwt;
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possivel se comunicar com a armazenamento');
+      return false;
+    }
+  };
 
   const getNewMatch = async () => {
-    const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
-    setMatch(response.data[0]);
+    const jwt = await getJwt();
+    try {
+      const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
+      setMatch(response.data[0]);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possivel se comunicar com a api');
+    }
   };
 
   const like = async (matchId) => {
-    await api.post(`/users/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
-
-    getNewMatch();
+    const jwt = await getJwt();
+    try {
+      await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
+      getNewMatch();
+    } catch (error) {
+      Alert.alert('Erro', 'Houve um erro de comunicação com a api');
+    }
   };
 
   const dislike = async (matchId) => {
-    await api.post(`/users/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
-
-    getNewMatch();
+    const jwt = await getJwt();
+    try {
+      await api.post(`/profile/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
+      getNewMatch();
+    } catch (error) {
+      Alert.alert('Erro', 'Houve um erro de comunicação com a api');
+    }
   };
 
   useEffect(() => {
@@ -61,9 +85,9 @@ const Home = ({ navigation }) => {
 
   return (
     <>
-      <Header main navigate={navigate} jwt={jwt} myId={myId} />
+      <Header main navigate={navigate} />
       <View style={styles.container}>
-        <MatchImage match={match} myId={myId} />
+        <MatchImage match={match} />
         <Match
           match={match}
           isMatch={isMatch}
