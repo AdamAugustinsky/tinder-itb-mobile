@@ -1,11 +1,17 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import {
+  View, StyleSheet, TouchableOpacity, AsyncStorage, Alert,
+} from 'react-native';
 
 import MatchImage from '../components/MatchImage';
 import Header from '../components/MainHeader';
-import Footer from '../components/Footer';
 import Match from '../components/Match';
+
+
+import Like from '../assets/like.svg';
+import Dislike from '../assets/dislike.svg';
 
 import api from '../services/api';
 
@@ -16,29 +22,72 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  footer: {
+    flexDirection: 'row',
+    bottom: 0,
+    alignItems: 'center',
+  },
+  dislike: {
+    left: '50%',
+    marginLeft: '18%',
+  },
 });
 
-const Main = ({ navigation }) => {
+const Home = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
   const [match, setMatch] = useState({});
-  const jwt = navigation.getParam('jwt');
-  const myId = navigation.getParam('myId');
+
+  const getJwt = async () => {
+    try {
+      const jwt = await AsyncStorage.getItem('jwt');
+      return jwt;
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possivel se comunicar com a armazenamento');
+      return false;
+    }
+  };
 
   const getNewMatch = async () => {
-    const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
-
-    setMatch(response.data[0]);
+    const jwt = await getJwt();
+    try {
+      const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
+      setMatch(response.data[0]);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possivel se comunicar com a api');
+    }
   };
+
+  const like = async (matchId) => {
+    const jwt = await getJwt();
+    try {
+      await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
+      getNewMatch();
+    } catch (error) {
+      Alert.alert('Erro', 'Houve um erro de comunicação com a api');
+    }
+  };
+
+  const dislike = async (matchId) => {
+    const jwt = await getJwt();
+    try {
+      await api.post(`/profile/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
+      getNewMatch();
+    } catch (error) {
+      Alert.alert('Erro', 'Houve um erro de comunicação com a api');
+    }
+  };
+
   useEffect(() => {
     getNewMatch();
   }, []);
 
   return (
     <>
-      <Header main navigate={navigate} jwt={jwt} myId={myId} />
+      <Header main navigate={navigate} />
       <View style={styles.container}>
-        <MatchImage match={match} myId={myId} />
+        <MatchImage match={match} />
         <Match
           match={match}
           isMatch={isMatch}
@@ -46,9 +95,17 @@ const Main = ({ navigation }) => {
         />
       </View>
 
-      <Footer />
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.dislike} onPress={() => dislike(match._id)}>
+          <Dislike />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.dislike} onPress={() => like(match._id)}>
+          <Like />
+        </TouchableOpacity>
+      </View>
     </>
   );
 };
 
-export default Main;
+export default Home;
