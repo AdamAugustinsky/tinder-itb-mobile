@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, TouchableOpacity,
+  Text, KeyboardAvoidingView, Alert, TouchableOpacity, AsyncStorage,
 } from 'react-native';
 
 import BorderedTextInput from '../components/BorderedTextInput';
@@ -27,16 +27,26 @@ const Cadastro = ({ navigation }) => {
       return false;
     }
 
-    const response = await api.post('/sessions', {
-      email,
-      password,
-    });
+    try {
+      const response = await api.post('/sessions', {
+        email,
+        password,
+      });
 
-    return navigate('Home', {
-      // eslint-disable-next-line no-underscore-dangle
-      myId: response.data.user.id,
-      jwt: response.data.jwt,
-    });
+      try {
+        await AsyncStorage.setItem('jwt', response.data.jwt);
+        await AsyncStorage.setItem('myId', response.data.user.id);
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Falha', 'Erro ao salvar dados no dispositivo');
+
+        return false;
+      }
+    } catch (error) {
+      Alert.alert('Falha', 'Erro ao se comunicar com a api');
+      return false;
+    }
+    return navigate('Home');
   };
 
   return (
