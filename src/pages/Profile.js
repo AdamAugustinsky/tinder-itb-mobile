@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet, View, TouchableOpacity, Alert, AsyncStorage,
+} from 'react-native';
 
 import Header from '../components/MainHeader';
 import MatchImage from '../components/MatchImage';
@@ -23,12 +25,27 @@ const styles = StyleSheet.create({
 const Profile = ({ navigation }) => {
   const { navigate } = navigation;
   const [myInformations, setMyInformations] = useState({});
-  const jwt = navigation.getParam('jwt');
-  const myId = navigation.getParam('myId');
+
+  const getJwt = async () => {
+    try {
+      const jwt = await AsyncStorage.getItem('jwt');
+      return jwt;
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possivel se comunicar com a armazenamento');
+      return false;
+    }
+  };
 
   const getMyInformations = async () => {
-    const response = await api.get(`/users/${myId}`);
-    setMyInformations(response.data);
+    const jwt = await getJwt();
+    try {
+      const response = await api.get('/profile', { headers: { Authorization: `Bearer ${jwt}` } });
+      setMyInformations(response.data);
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Não foi possivel se comunicar com a api');
+    }
   };
 
   useEffect(() => {
@@ -37,7 +54,7 @@ const Profile = ({ navigation }) => {
 
   return (
     <>
-      <Header navigate={navigate} profile jwt={jwt} myId={myId} />
+      <Header navigate={navigate} profile />
       <View style={styles.container}>
         <MatchImage match={myInformations} />
       </View>
