@@ -35,7 +35,7 @@ const Cadastro = ({ navigation }) => {
 
       try {
         await AsyncStorage.setItem('jwt', response.data.jwt);
-        await AsyncStorage.setItem('myId', response.data.user.id);
+        await AsyncStorage.setItem('userId', response.data.user.id);
       } catch (error) {
         console.error(error);
         Alert.alert('Falha', 'Erro ao salvar dados no dispositivo');
