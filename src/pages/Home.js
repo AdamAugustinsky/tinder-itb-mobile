@@ -1,11 +1,15 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import MatchImage from '../components/MatchImage';
 import Header from '../components/MainHeader';
-import Footer from '../components/Footer';
 import Match from '../components/Match';
+
+
+import Like from '../assets/like.svg';
+import Dislike from '../assets/dislike.svg';
 
 import api from '../services/api';
 
@@ -15,6 +19,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  footer: {
+    flexDirection: 'row',
+    bottom: 0,
+    alignItems: 'center',
+  },
+  dislike: {
+    left: '50%',
+    marginLeft: '18%',
   },
 });
 
@@ -27,9 +40,21 @@ const Main = ({ navigation }) => {
 
   const getNewMatch = async () => {
     const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
-
     setMatch(response.data[0]);
   };
+
+  const like = async (matchId) => {
+    await api.post(`/users/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
+
+    getNewMatch();
+  };
+
+  const dislike = async (matchId) => {
+    await api.post(`/users/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
+
+    getNewMatch();
+  };
+
   useEffect(() => {
     getNewMatch();
   }, []);
@@ -46,7 +71,15 @@ const Main = ({ navigation }) => {
         />
       </View>
 
-      <Footer />
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.dislike} onPress={() => dislike(match._id)}>
+          <Dislike />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.dislike} onPress={() => like(match._id)}>
+          <Like />
+        </TouchableOpacity>
+      </View>
     </>
   );
 };

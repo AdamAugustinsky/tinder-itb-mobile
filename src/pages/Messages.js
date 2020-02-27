@@ -6,6 +6,8 @@ import Header from '../components/MainHeader';
 import MatchChat from '../components/MatchChat';
 import MatchChatMedias from '../components/MatchChatMedias';
 
+import api from '../services/api';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -23,7 +25,14 @@ const Messages = ({ navigation }) => {
   const jwt = navigation.getParam('jwt');
   const myId = navigation.getParam('myId');
 
-  useEffect(() => setMatchs([...matchs]), []);
+  const getMatchs = async () => {
+    const response = await api.get('/profile/matchs', { headers: { Authorization: `Bearer ${jwt}` } });
+    setMatchs(response.data.matchs);
+  };
+
+  useEffect(() => {
+    getMatchs();
+  }, []);
 
   return (
     <>

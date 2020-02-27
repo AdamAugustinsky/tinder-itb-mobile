@@ -27,8 +27,7 @@ const Profile = ({ navigation }) => {
   const myId = navigation.getParam('myId');
 
   const getMyInformations = async () => {
-    const response = await api.get(`/users/${myId}`, { headers: { Authorization: `Bearer ${jwt}` } });
-
+    const response = await api.get(`/users/${myId}`);
     setMyInformations(response.data);
   };
 
@@ -43,10 +42,6 @@ const Profile = ({ navigation }) => {
         <MatchImage match={myInformations} />
       </View>
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
-          <Button text="Meu Perfil" />
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => navigate('Login')}>
           <Button text="Sair" />
         </TouchableOpacity>

@@ -18,8 +18,11 @@ const Cadastro = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleCheck = () => {
-    if (email.length === 0 || fullName.length === 0 || password.length === 0) {
+    if (email.length === 0 || fullName.length === 0) {
       Alert.alert('', 'Preencha todos os campos para se cadastrar');
+      return false;
+    } if (password.length < 6) {
+      Alert.alert('', 'A senha precisa ser maior que 6');
       return false;
     }
     return navigate('MyTriagem', {
