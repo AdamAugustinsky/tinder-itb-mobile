@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Main = ({ navigation }) => {
+const Home = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
   const [match, setMatch] = useState({});
@@ -84,4 +84,4 @@ const Main = ({ navigation }) => {
   );
 };
 
-export default Main;
+export default Home;
