@@ -1,5 +1,5 @@
 <a href="https://github.com/AdamAugustinsky/tinder_itb-mobile/blob/master/LICENSE">
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="React Native is released under the MIT license." />
+  <p><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="React Native is released under the MIT license." /></p>
 </a>
 
 # TinderITB Mobile
@@ -20,11 +20,11 @@ Aplicativo mobile do TinderITB desenvolvido com React Native
 
 ### Configurando o Axios para a sua maquina
 **Abra o codigo do app, em src/services/api.js**
-<img src="http://i.imgur.com/MRhC5mF.png" alt="ip no BaseURL em api.js">
+<p><img src="http://i.imgur.com/MRhC5mF.png" alt="ip no BaseURL em api.js"></p>
 **No navegador vá ate o Metro Bundler aberto apos executar o `expo start`**
-<img src="http://i.imgur.com/p5LuPq7.png" alt="No Metro Bundler" />
+<p><img src="http://i.imgur.com/p5LuPq7.png" alt="No Metro Bundler" /></p>
 **Na aba do Metro Bundler que foi aberta no seu browser, seleciona o seu ip acima do QR Code**
-<img src="http://i.imgur.com/rYNeNfk.png" alt="Seu Ip depois do exp:// e antes do :">
+<p><img src="http://i.imgur.com/rYNeNfk.png" alt="Seu Ip depois do exp:// e antes do :"></p>
 **Substitua o ip atual em src/services/api.js pelo seu ip**
 
 ## Tenha a API rodando antes de prosseguir https://github.com/Cauaspinheiro/tinder-itb-backend
@@ -36,5 +36,5 @@ Aplicativo mobile do TinderITB desenvolvido com React Native
   Leia o QR Code do Metro Bundler com o app
 - **Para Emuladores:**
   Execute o Emulador
-  <img src="http://i.imgur.com/aTsGSx1.png">
+  <p><img src="http://i.imgur.com/aTsGSx1.png"></p>
   Clique no botão **Run on Android device/emulator** no Metro Bundler
