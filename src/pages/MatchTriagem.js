@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity,
+  ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, AsyncStorage, Alert,
 } from 'react-native';
 
 import Select from '../components/Select';
@@ -56,50 +57,67 @@ const styles = StyleSheet.create({
 const MatchTriagem = ({ navigation }) => {
   const { navigate } = navigation;
 
-  const [genero, setGenero] = useState('');
-  const [escola, setEscola] = useState('');
+  const [genero, setGenero] = useState();
+  const [escola, setEscola] = useState();
   const [escolas, setEscolas] = useState([]);
   const [serie, setSerie] = useState();
 
   const getprm = navigation.getParam;
 
   const handleCadastro = async () => {
-    await api.post('/users', {
-      nome: getprm('myNome'),
-      genero: getprm('myGenero'),
-      data_nascimento: getprm('myBirthDate'),
-      bio: getprm('myBio'),
-      email: getprm('myEmail'),
-      contatos: {
-        numero: getprm('myNumero'),
-        twitter: getprm('myTwitter'),
-        facebook: getprm('myFacebook'),
-        instagram: getprm('myInstagram'),
-      },
-      ano: getprm('mySerie'),
-      periodo: getprm('myTurno'),
-      sala: getprm('mySala'),
-      escola: getprm('myEscola'),
-      curso: getprm('myCurso'),
-      password: getprm('myPassword'),
-      prefs: {
-        genero,
-        escola,
-        serie,
-      },
-    });
+    // Cadastro
+    try {
+      await api.post('/profile', {
+        nome: getprm('myNome'),
+        genero: getprm('myGenero'),
+        data_nascimento: getprm('myBirthDate'),
+        bio: getprm('myBio'),
+        email: getprm('myEmail'),
+        contatos: {
+          numero: getprm('myNumero'),
+          twitter: getprm('myTwitter'),
+          facebook: getprm('myFacebook'),
+          instagram: getprm('myInstagram'),
+        },
+        ano: getprm('mySerie'),
+        periodo: getprm('myTurno'),
+        sala: getprm('mySala'),
+        escola: getprm('myEscola'),
+        curso: getprm('myCurso'),
+        password: getprm('myPassword'),
+        prefs: {
+          genero,
+          escola,
+          serie,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Erro', 'Erro de conexão com a api');
+    }
 
+    // Login
+    try {
+      const response = await api.post('/sessions', {
+        email: getprm('myEmail'),
+        password: getprm('myPassword'),
+      });
 
-    const response = await api.post('/sessions', {
-      email: getprm('myEmail'),
-      password: getprm('myPassword'),
-    });
+      try {
+        await AsyncStorage.setItem('jwt', response.data.jwt);
+        await AsyncStorage.setItem('userId', response.data.user.id);
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Falha', 'Erro ao salvar dados no dispositivo');
 
-    navigate('Home', {
-      // eslint-disable-next-line no-underscore-dangle
-      myId: response.data.user.id,
-      jwt: response.data.jwt,
-    });
+        return false;
+      }
+    } catch (error) {
+      Alert.alert('Falha', 'Erro ao se comunicar com a api');
+      return false;
+    }
+
+    return navigate('Home');
   };
 
   useEffect(() => {
