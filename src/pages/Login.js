@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
@@ -19,6 +20,8 @@ const Cadastro = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
+    console.log(window.location);
+
     if (email.length === 0) {
       Alert.alert('', 'Digite o email para entrar');
       return false;
@@ -46,6 +49,7 @@ const Cadastro = ({ navigation }) => {
       Alert.alert('Falha', 'Erro ao se comunicar com a api');
       return false;
     }
+
     return navigate('Home');
   };
 

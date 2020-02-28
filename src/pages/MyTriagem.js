@@ -75,7 +75,7 @@ const MyTriagem = ({ navigation }) => {
   const [nome, setNome] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [genero, setGenero] = useState('');
-  const [escola, setEscola] = useState('');
+  const [escola, setEscola] = useState();
   const [escolas, setEscolas] = useState([]);
   const [curso, setCurso] = useState('');
   const [cursos, setCursos] = useState([]);
@@ -85,10 +85,10 @@ const MyTriagem = ({ navigation }) => {
   const [turno, setTurno] = useState('');
 
 
-  const [numero, setNumero] = useState('');
-  const [instagram, setInstagram] = useState('');
-  const [twitter, setTwitter] = useState('');
-  const [facebook, setFacebook] = useState('');
+  const [numero, setNumero] = useState();
+  const [instagram, setInstagram] = useState();
+  const [twitter, setTwitter] = useState();
+  const [facebook, setFacebook] = useState();
 
   const showPicker = () => {
     setIsPickerVisible(true);
