@@ -121,7 +121,16 @@ const MyProfile = ({ navigation }) => {
             setState={setCurso}
             items={cursos}
           />
-          <SquaredTextInput name="Serie" state={serie} setState={setSerie} text="Digite a sua serie(1,2,3)" maxLength={1} />
+          <Text>Serie</Text>
+          <Select
+            state={serie}
+            setState={setSerie}
+            items={[
+              { label: '1', value: 1 },
+              { label: '2', value: 2 },
+              { label: '3', value: 3 },
+            ]}
+          />
           <SquaredTextInput name="Sala" state={sala} setState={setSala} text="Digite a letra da sua Turma" maxLength={1} />
         </ScrollView>
       </KeyboardAvoidingView>
