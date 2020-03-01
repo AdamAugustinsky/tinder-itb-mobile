@@ -48,7 +48,6 @@ const MyProfile = ({ navigation }) => {
   const { navigate } = navigation;
 
   const [nome, setNome] = useState('');
-  const [idade, setIdade] = useState('');
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
   const [curso, setCurso] = useState('');
@@ -77,7 +76,6 @@ const MyProfile = ({ navigation }) => {
         <ScrollView style={styles.container}>
           <Text style={styles.title}> Você</Text>
           <SquaredTextInput name="Nome" state={nome} setState={setNome} text="Digite o seu Nome" />
-          <SquaredTextInput name="Idade" state={idade} setState={setIdade} text="Digite a sua Idade" />
           <Text>Genero</Text>
           <Select
             state={genero}
