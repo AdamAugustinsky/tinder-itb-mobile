@@ -113,7 +113,6 @@ const MatchProfile = ({ navigation }) => {
   const [genero, setGenero] = useState('');
   const [escola, setEscola] = useState('');
   const [curso, setCurso] = useState('');
-  const [serie, setSerie] = useState();
   const jwt = navigation.getParam('jwt');
   const myId = navigation.getParam('myId');
 
@@ -154,7 +153,6 @@ const MatchProfile = ({ navigation }) => {
               { label: 'ITB Professor Antonio Arantes Filho', value: 'Viana' }]}
           />
           <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o Curso dos pretendentes" />
-          <SquaredTextInput name="Serie" state={serie} setState={setSerie} text="Digite a Serie dos pretendentes(1,2,3)" maxLength={1} />
           <Text>Para abrangir um publico maior, não preencha</Text>
         </ScrollView>
       </KeyboardAvoidingView>
