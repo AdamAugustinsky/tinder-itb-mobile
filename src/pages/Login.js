@@ -20,8 +20,6 @@ const Cadastro = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    console.log(window.location);
-
     if (email.length === 0) {
       Alert.alert('', 'Digite o email para entrar');
       return false;
