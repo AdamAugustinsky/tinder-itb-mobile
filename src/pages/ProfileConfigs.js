@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
@@ -10,6 +10,7 @@ import BackArrow from '../assets/backArrow.svg';
 import SquaredTextInput from '../components/SquaredTextInput';
 import Select from '../components/Select';
 
+import api from '../services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,14 +48,37 @@ const styles = StyleSheet.create({
 const MyProfile = ({ navigation }) => {
   const { navigate } = navigation;
 
-  const [nome, setNome] = useState('');
-  const [genero, setGenero] = useState('');
-  const [escola, setEscola] = useState('');
-  const [curso, setCurso] = useState('');
+  const [nome, setNome] = useState();
+  const [genero, setGenero] = useState();
+  const [escola, setEscola] = useState();
+  const [escolas, setEscolas] = useState([]);
+  const [curso, setCurso] = useState();
+  const [cursos, setCursos] = useState([]);
   const [serie, setSerie] = useState();
-  const [sala, setSala] = useState('');
-  const jwt = navigation.getParam('jwt');
-  const myId = navigation.getParam('myId');
+  const [sala, setSala] = useState();
+
+  const getSchoolsFromApi = async () => {
+    const schools = await api.get('/schools');
+    const listOfSchools = schools.data.map((school) => (
+      // eslint-disable-next-line no-underscore-dangle
+      { label: school.nome, value: school._id }));
+    setEscolas(listOfSchools);
+  };
+
+  useEffect(() => {
+    getSchoolsFromApi();
+  }, []);
+
+  const getCursosFromApi = async () => {
+    const schools = await api.get(`/schools/${escola}`);
+    const listOfCursos = schools.data.cursos.map((curs) => (
+      { label: curs, value: curs }));
+    setCursos(listOfCursos);
+  };
+
+  useEffect(() => {
+    getCursosFromApi();
+  }, [escola]);
 
   return (
     <>
@@ -62,7 +86,7 @@ const MyProfile = ({ navigation }) => {
         <TouchableOpacity
           style={styles.back}
           onPress={() => {
-            navigate('Profile', { jwt, myId });
+            navigate('Profile');
           }}
         >
           <BackArrow width={30} height={30} />
@@ -88,16 +112,15 @@ const MyProfile = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={[
-              { label: 'ITB Brasílio Flores de Azevedo', value: 'Belval' },
-              { label: 'ITB Professor Munir José', value: 'Paulista' },
-              { label: 'ITB Professora Maria Sylvia Chaluppe Mello', value: 'Engenho' },
-              { label: 'ITB Professor Hércules Alves de Oliveira', value: 'Mutinga' },
-              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi', value: 'Imperial' },
-              { label: 'ITB Professor Antonio Arantes Filho', value: 'Viana' }]}
+            items={escolas}
           />
           <Text style={styles.title}> Sua Turma</Text>
-          <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o seu curso" />
+          <Text>Cursos</Text>
+          <Select
+            state={curso}
+            setState={setCurso}
+            items={cursos}
+          />
           <SquaredTextInput name="Serie" state={serie} setState={setSerie} text="Digite a sua serie(1,2,3)" maxLength={1} />
           <SquaredTextInput name="Sala" state={sala} setState={setSala} text="Digite a letra da sua Turma" maxLength={1} />
         </ScrollView>
@@ -110,11 +133,36 @@ const MyProfile = ({ navigation }) => {
 const MatchProfile = ({ navigation }) => {
   const { navigate } = navigation;
 
-  const [genero, setGenero] = useState('');
-  const [escola, setEscola] = useState('');
-  const [curso, setCurso] = useState('');
+  const [genero, setGenero] = useState();
+  const [escola, setEscola] = useState();
+  const [escolas, setEscolas] = useState([]);
+  const [curso, setCurso] = useState();
+  const [cursos, setCursos] = useState([]);
   const jwt = navigation.getParam('jwt');
   const myId = navigation.getParam('myId');
+
+  const getSchoolsFromApi = async () => {
+    const schools = await api.get('/schools');
+    const listOfSchools = schools.data.map((school) => (
+      // eslint-disable-next-line no-underscore-dangle
+      { label: school.nome, value: school._id }));
+    setEscolas(listOfSchools);
+  };
+
+  useEffect(() => {
+    getSchoolsFromApi();
+  }, []);
+
+  const getCursosFromApi = async () => {
+    const schools = await api.get(`/schools/${escola}`);
+    const listOfCursos = schools.data.cursos.map((curs) => (
+      { label: curs, value: curs }));
+    setCursos(listOfCursos);
+  };
+
+  useEffect(() => {
+    getCursosFromApi();
+  }, [escola]);
 
   return (
     <>
@@ -144,15 +192,14 @@ const MatchProfile = ({ navigation }) => {
           <Select
             state={escola}
             setState={setEscola}
-            items={[
-              { label: 'ITB Brasílio Flores de Azevedo', value: 'Belval' },
-              { label: 'ITB Professor Munir José', value: 'Paulista' },
-              { label: 'ITB Professora Maria Sylvia Chaluppe Mello', value: 'Engenho' },
-              { label: 'ITB Professor Hércules Alves de Oliveira', value: 'Mutinga' },
-              { label: 'ITB Professor Moacyr Domingos Sávio Veronezi', value: 'Imperial' },
-              { label: 'ITB Professor Antonio Arantes Filho', value: 'Viana' }]}
+            items={escolas}
           />
-          <SquaredTextInput name="Curso" state={curso} setState={setCurso} text="Digite o Curso dos pretendentes" />
+          <Text>Cursos</Text>
+          <Select
+            state={curso}
+            setState={setCurso}
+            items={cursos}
+          />
           <Text>Para abrangir um publico maior, não preencha</Text>
         </ScrollView>
       </KeyboardAvoidingView>
