@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ScrollView, KeyboardAvoidingView, Text, StyleSheet, TouchableOpacity, View,
 } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import BackArrow from '../assets/backArrow.svg';
 
@@ -43,11 +42,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
+  header: {
+    width: '100%',
+    flexDirection: 'row',
+  },
+  pretendente: {
+    right: 0,
+  },
 });
 
-const MyProfile = ({ navigation }) => {
-  const { navigate } = navigation;
-
+const MyProfile = () => {
   const [nome, setNome] = useState();
   const [genero, setGenero] = useState();
   const [escola, setEscola] = useState();
@@ -81,74 +85,58 @@ const MyProfile = ({ navigation }) => {
   }, [escola]);
 
   return (
-    <>
-      <View style={styles.top}>
-        <TouchableOpacity
-          style={styles.back}
-          onPress={() => {
-            navigate('Profile');
-          }}
-        >
-          <BackArrow width={30} height={30} />
-        </TouchableOpacity>
-      </View>
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={{ flex: 1 }}
-      >
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={{ flex: 1 }}
+    >
 
-        <ScrollView style={styles.container}>
-          <Text style={styles.title}> Você</Text>
-          <SquaredTextInput name="Nome" state={nome} setState={setNome} text="Digite o seu Nome" />
-          <Text>Genero</Text>
-          <Select
-            state={genero}
-            setState={setGenero}
-            items={[
-              { label: 'Masculino', value: 'M' },
-              { label: 'Feminino', value: 'F' }]}
-          />
-          <Text>Escola</Text>
-          <Select
-            state={escola}
-            setState={setEscola}
-            items={escolas}
-          />
-          <Text style={styles.title}> Sua Turma</Text>
-          <Text>Cursos</Text>
-          <Select
-            state={curso}
-            setState={setCurso}
-            items={cursos}
-          />
-          <Text>Serie</Text>
-          <Select
-            state={serie}
-            setState={setSerie}
-            items={[
-              { label: '1', value: 1 },
-              { label: '2', value: 2 },
-              { label: '3', value: 3 },
-            ]}
-          />
-          <SquaredTextInput name="Sala" state={sala} setState={setSala} text="Digite a letra da sua Turma" maxLength={1} />
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </>
+      <ScrollView style={styles.container}>
+        <Text style={styles.title}> Você</Text>
+        <SquaredTextInput name="Nome" state={nome} setState={setNome} text="Digite o seu Nome" />
+        <Text>Genero</Text>
+        <Select
+          state={genero}
+          setState={setGenero}
+          items={[
+            { label: 'Masculino', value: 'M' },
+            { label: 'Feminino', value: 'F' }]}
+        />
+        <Text>Escola</Text>
+        <Select
+          state={escola}
+          setState={setEscola}
+          items={escolas}
+        />
+        <Text style={styles.title}> Sua Turma</Text>
+        <Text>Cursos</Text>
+        <Select
+          state={curso}
+          setState={setCurso}
+          items={cursos}
+        />
+        <Text>Serie</Text>
+        <Select
+          state={serie}
+          setState={setSerie}
+          items={[
+            { label: '1', value: 1 },
+            { label: '2', value: 2 },
+            { label: '3', value: 3 },
+          ]}
+        />
+        <SquaredTextInput name="Sala" state={sala} setState={setSala} text="Digite a letra da sua Turma" maxLength={1} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 
-const MatchProfile = ({ navigation }) => {
-  const { navigate } = navigation;
-
+const MatchProfile = () => {
   const [genero, setGenero] = useState();
   const [escola, setEscola] = useState();
   const [escolas, setEscolas] = useState([]);
   const [curso, setCurso] = useState();
   const [cursos, setCursos] = useState([]);
-  const jwt = navigation.getParam('jwt');
-  const myId = navigation.getParam('myId');
 
   const getSchoolsFromApi = async () => {
     const schools = await api.get('/schools');
@@ -174,68 +162,70 @@ const MatchProfile = ({ navigation }) => {
   }, [escola]);
 
   return (
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={{ flex: 1 }}
+    >
+
+      <ScrollView style={styles.container}>
+        <Text>Genero</Text>
+        <Select
+          state={genero}
+          setState={setGenero}
+          items={[
+            { label: 'Masculino', value: 'M' },
+            { label: 'Feminino', value: 'F' }]}
+        />
+        <Text>Escola</Text>
+        <Select
+          state={escola}
+          setState={setEscola}
+          items={escolas}
+        />
+        <Text>Cursos</Text>
+        <Select
+          state={curso}
+          setState={setCurso}
+          items={cursos}
+        />
+        <Text>Para abrangir um publico maior, não preencha</Text>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+
+const ProfileConfigs = ({ navigation }) => {
+  const [currentScreen, setCurrentScreen] = useState(<MyProfile />);
+
+  const changeCurrentScreen = (componentId) => {
+    if (componentId === 1 && currentScreen !== <MyProfile />) {
+      setCurrentScreen(<MyProfile />);
+    } else if (componentId === 2 && currentScreen !== <MatchProfile />) {
+      setCurrentScreen(<MatchProfile />);
+    }
+  };
+
+  return (
     <>
       <View style={styles.top}>
         <TouchableOpacity
           style={styles.back}
-          onPress={() => navigate('Profile', { jwt, myId })}
+          onPress={() => navigation.navigate('Profile')}
         >
           <BackArrow width={30} height={30} />
         </TouchableOpacity>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.voce} onPress={() => changeCurrentScreen(1)}>
+            <Text>Você</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.pretendente} onPress={() => changeCurrentScreen(2)}>
+            <Text>Pretendente</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={{ flex: 1 }}
-      >
-
-        <ScrollView style={styles.container}>
-          <Text>Genero</Text>
-          <Select
-            state={genero}
-            setState={setGenero}
-            items={[
-              { label: 'Masculino', value: 'M' },
-              { label: 'Feminino', value: 'F' }]}
-          />
-          <Text>Escola</Text>
-          <Select
-            state={escola}
-            setState={setEscola}
-            items={escolas}
-          />
-          <Text>Cursos</Text>
-          <Select
-            state={curso}
-            setState={setCurso}
-            items={cursos}
-          />
-          <Text>Para abrangir um publico maior, não preencha</Text>
-        </ScrollView>
-      </KeyboardAvoidingView>
+      {currentScreen}
     </>
   );
 };
 
-export default createBottomTabNavigator({
-  Você: {
-    screen: MyProfile,
-    navigationOptions: {
-      activeColor: '#000',
-    },
-  },
-  Pretendente: MatchProfile,
-}, {
-  tabBarOptions: {
-    labelStyle: {
-      fontSize: 25,
-    },
-    tabStyle: {
-      width: 100,
-    },
-    style: {
-      backgroundColor: '#FD3477',
-    },
-    activeTintColor: '#fff',
-    inactiveTintColor: '#000',
-  },
-});
+export default ProfileConfigs;

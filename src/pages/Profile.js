@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import {
@@ -59,6 +60,10 @@ const Profile = ({ navigation }) => {
         <MatchImage match={myInformations} />
       </View>
       <View style={styles.buttons}>
+        <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
+          <Button text="Configurações" />
+        </TouchableOpacity>
+
         <TouchableOpacity onPress={() => navigate('Login')}>
           <Button text="Sair" />
         </TouchableOpacity>
