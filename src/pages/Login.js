@@ -53,19 +53,20 @@ const Cadastro = ({ navigation }) => {
     return navigate('Home');
   };
 
-  useEffect(() => {
-    const automaticallyLogin = async () => {
-      const storageEmail = await AsyncStorage.getItem('email');
-      const storagePassword = await AsyncStorage.getItem('password');
+  const automaticallyLogin = async () => {
+    const storageEmail = await AsyncStorage.getItem('email');
+    const storagePassword = await AsyncStorage.getItem('password');
 
-      if (storageEmail && storagePassword) {
-        setEmail(storageEmail);
-        setPassword(storagePassword);
-        handleLogin();
-      }
-    };
+    if (storageEmail && storagePassword) {
+      setEmail(storageEmail);
+      setPassword(storagePassword);
+      handleLogin();
+    }
+  };
+
+  useEffect(() => {
     automaticallyLogin();
-  }, []);
+  });
 
   return (
     <KeyboardAvoidingView
