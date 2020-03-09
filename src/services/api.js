@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://SubstituaPeloSeuIP:3001',
+  baseURL: 'https://tinder-itb-backend.herokuapp.com/',
 });
 
 export default api;
