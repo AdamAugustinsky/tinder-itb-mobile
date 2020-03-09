@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   top: {
     width: '100%',
     backgroundColor: '#FD3477',
-    paddingBottom: 10,
   },
   inputField: {
     position: 'relative',
@@ -47,7 +46,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   pretendente: {
-    right: 0,
+    width: '50%',
+    height: 40,
+
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  voce: {
+    width: '50%',
+    height: 40,
+
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -216,10 +226,10 @@ const ProfileConfigs = ({ navigation }) => {
         </TouchableOpacity>
         <View style={styles.header}>
           <TouchableOpacity style={styles.voce} onPress={() => changeCurrentScreen(1)}>
-            <Text>Você</Text>
+            <Text style={{ fontSize: 20 }}>Você</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.pretendente} onPress={() => changeCurrentScreen(2)}>
-            <Text>Pretendente</Text>
+            <Text style={{ fontSize: 20 }}>Pretendente</Text>
           </TouchableOpacity>
         </View>
       </View>
