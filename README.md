@@ -5,6 +5,14 @@
 # TinderITB Mobile
 Aplicativo mobile do TinderITB desenvolvido com React Native
 
+<p align="center" >
+  <img src="https://i.imgur.com/B6C3bmu.png" />
+  <img src="https://i.imgur.com/ibn8zc9.png" />
+  <img src="https://i.imgur.com/HRhyTWs.png" />
+  <img src="https://i.imgur.com/wqP6Fni.png" />
+  <img src="https://i.imgur.com/5j1oSmM.png" />
+</p>
+
 ### Para conseguir executar o aplicativo siga os passos a seguir:
 - Baixe e Instale o NodeJS  https://nodejs.org/en/download/
 - Baixe e instale o Yarn https://classic.yarnpkg.com/en/docs/install#windows-stable - opcional
