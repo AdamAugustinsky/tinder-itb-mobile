@@ -154,27 +154,26 @@ const MyTriagem = ({ navigation }) => {
     });
   };
 
+  const getSchoolsFromApi = async () => {
+    const schools = await api.get('/schools');
+    const listOfSchools = schools.data.map((school) => (
+      { label: school.nome, value: school._id }));
+    setEscolas(listOfSchools);
+  };
+
   useEffect(() => {
     setNome(navigation.getParam('name'));
-
-    const getSchoolsFromApi = async () => {
-      const schools = await api.get('/schools');
-      const listOfSchools = schools.data.map((school) => (
-        { label: school.nome, value: school._id }));
-      setEscolas(listOfSchools);
-    };
-
     getSchoolsFromApi();
   }, []);
 
-  useEffect(() => {
-    const getCursosFromApi = async () => {
-      const schools = await api.get(`/schools/${escola}`);
-      const listOfCursos = schools.data.cursos.map((curs) => (
-        { label: curs, value: curs }));
-      setCursos(listOfCursos);
-    };
+  const getCursosFromApi = async () => {
+    const schools = await api.get(`/schools/${escola}`);
+    const listOfCursos = schools.data.cursos.map((curs) => (
+      { label: curs, value: curs }));
+    setCursos(listOfCursos);
+  };
 
+  useEffect(() => {
     getCursosFromApi();
   }, [escola]);
 
