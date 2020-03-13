@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, TouchableOpacity, AsyncStorage, Alert,
+  View, StyleSheet, TouchableOpacity, AsyncStorage, Alert, Text,
 } from 'react-native';
 
 import MatchImage from '../components/MatchImage';
@@ -43,7 +43,6 @@ const Home = ({ navigation }) => {
       const jwt = await AsyncStorage.getItem('jwt');
       return jwt;
     } catch (error) {
-      console.log(error);
       Alert.alert('Erro', 'Não foi possivel se comunicar com a armazenamento');
       return false;
     }
@@ -86,14 +85,20 @@ const Home = ({ navigation }) => {
   return (
     <>
       <Header main navigate={navigate} />
-      <View style={styles.container}>
-        <MatchImage match={match} />
-        <Match
-          match={match}
-          isMatch={isMatch}
-          setIsMatch={setIsMatch}
-        />
-      </View>
+      { () => (match ? (
+        <View style={styles.container}>
+          <MatchImage match={match} />
+          <Match
+            match={match}
+            isMatch={isMatch}
+            setIsMatch={setIsMatch}
+          />
+        </View>
+      ) : (
+        <Text style={styles.container}>
+          Não há mais pretendentes, por favor redefina as suas preferencias para mais
+        </Text>
+      ))}
 
       <View style={styles.footer}>
         <TouchableOpacity style={styles.dislike} onPress={() => dislike(match._id)}>
