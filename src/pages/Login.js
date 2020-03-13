@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text, KeyboardAvoidingView, Alert, TouchableOpacity, AsyncStorage,
 } from 'react-native';
@@ -20,8 +20,6 @@ const Cadastro = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    console.log(window.location);
-
     if (email.length === 0) {
       Alert.alert('', 'Digite o email para entrar');
       return false;
@@ -37,6 +35,8 @@ const Cadastro = ({ navigation }) => {
       });
 
       try {
+        await AsyncStorage.setItem('email', email);
+        await AsyncStorage.setItem('password', password);
         await AsyncStorage.setItem('jwt', response.data.jwt);
         await AsyncStorage.setItem('userId', response.data.user.id);
       } catch (error) {
@@ -52,6 +52,21 @@ const Cadastro = ({ navigation }) => {
 
     return navigate('Home');
   };
+
+  const automaticallyLogin = async () => {
+    const storageEmail = await AsyncStorage.getItem('email');
+    const storagePassword = await AsyncStorage.getItem('password');
+
+    if (storageEmail && storagePassword) {
+      setEmail(storageEmail);
+      setPassword(storagePassword);
+      handleLogin();
+    }
+  };
+
+  useEffect(() => {
+    automaticallyLogin();
+  });
 
   return (
     <KeyboardAvoidingView

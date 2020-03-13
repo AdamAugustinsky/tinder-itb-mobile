@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
 import {
@@ -55,9 +56,13 @@ const Profile = ({ navigation }) => {
   return (
     <>
       <Header navigate={navigate} profile />
-      <View style={styles.container}>
-        <MatchImage match={myInformations} />
-      </View>
+      {
+        () => (myInformations ? (
+          <View style={styles.container}>
+            <MatchImage match={myInformations} />
+          </View>
+        ) : <View />)
+      }
       <View style={styles.buttons}>
         <TouchableOpacity onPress={() => navigate('Login')}>
           <Button text="Sair" />
