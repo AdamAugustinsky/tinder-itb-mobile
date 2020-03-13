@@ -64,10 +64,6 @@ const Profile = ({ navigation }) => {
         ) : <View />)
       }
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
-          <Button text="Configurações" />
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => navigate('Login')}>
           <Button text="Sair" />
         </TouchableOpacity>
