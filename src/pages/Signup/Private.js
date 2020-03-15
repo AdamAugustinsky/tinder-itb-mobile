@@ -12,9 +12,6 @@ import globalStyles from '../../styles/entryStyle';
 import BorderedTextInput from '../../components/BorderedTextInput';
 
 const styles = StyleSheet.create({
-  logo: {
-    marginBottom: 16,
-  },
   title: {
     fontSize: 32,
     marginVertical: 12,
@@ -49,7 +46,7 @@ const Cadastro = ({ navigation }) => {
       behavior="padding"
       style={globalStyles.container}
     >
-      <Logo style={styles.logo} />
+      <Logo style={globalStyles.logo} />
       <Text style={styles.title}>CADASTRE-SE</Text>
       <BorderedTextInput
         name="Digite seu email"

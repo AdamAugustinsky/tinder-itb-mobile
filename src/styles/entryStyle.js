@@ -14,6 +14,14 @@ const styles = StyleSheet.create({
   linkText: {
     textDecorationLine: 'underline',
   },
+  logo: {
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 32,
+    marginVertical: 12,
+    fontFamily: 'Poppins-bold',
+  },
 });
 
 export default styles;
