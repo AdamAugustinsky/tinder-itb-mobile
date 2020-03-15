@@ -49,6 +49,15 @@ const Profile = ({ navigation }) => {
     }
   };
 
+  const getOut = async () => {
+    AsyncStorage.removeItem('email');
+    AsyncStorage.removeItem('password');
+    await AsyncStorage.removeItem('jwt');
+    await AsyncStorage.removeItem('userId');
+
+    return navigate('Login');
+  };
+
   useEffect(() => {
     getMyInformations();
   }, []);
@@ -64,7 +73,7 @@ const Profile = ({ navigation }) => {
         ) : <View />)
       }
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => navigate('Login')}>
+        <TouchableOpacity onPress={getOut}>
           <Button text="Sair" />
         </TouchableOpacity>
       </View>
