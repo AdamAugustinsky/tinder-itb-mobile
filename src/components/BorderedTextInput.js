@@ -12,20 +12,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius: 12,
+    borderColor: '#2d2d2d',
+    borderRadius: 16,
+
+    paddingLeft: 16,
   },
 });
 
 const BorderedTextInput = ({
-  name, state, setState, secureTextEntry,
+  name, state, setState, secureTextEntry, keyboardType, autoCorrect,
 }) => (
   <TextInput
     style={styles.inputField}
-    placeholder={`     ${name}`}
+    placeholder={name}
+    keyboardType={keyboardType}
     placeholderTextColor="#c0c0c0"
     autoCapitalize="none"
-    autoCorrect={false}
+    autoCorrect={autoCorrect}
     value={state}
     secureTextEntry={secureTextEntry}
     onChangeText={setState}
