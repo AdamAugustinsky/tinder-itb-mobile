@@ -1,6 +1,6 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
-import Cadastro from './pages/Cadastro';
+import Private from './pages/Signup/Private';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Messages from './pages/Messages';
@@ -12,7 +12,7 @@ import MatchTriagem from './pages/MatchTriagem';
 export default createAppContainer(
   createSwitchNavigator({
     Login,
-    Cadastro,
+    Private,
     MyTriagem,
     MatchTriagem,
     Home,
