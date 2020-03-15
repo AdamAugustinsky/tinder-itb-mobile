@@ -73,7 +73,9 @@ const Cadastro = ({ navigation }) => {
       behavior="padding"
       style={styles.container}
     >
-      <Logo />
+      <Logo style={styles.logo} />
+
+      <Text style={styles.title}>LOGIN</Text>
 
       <BorderedTextInput name="Email" state={email} setState={setEmail} />
       <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
@@ -86,7 +88,7 @@ const Cadastro = ({ navigation }) => {
         Ainda não tem uma conta?
         <Text
           style={styles.linkText}
-          onPress={() => navigate('Cadastro')}
+          onPress={() => navigate('Private')}
         >
           Cadastre-se
         </Text>
