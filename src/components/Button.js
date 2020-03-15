@@ -9,12 +9,14 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 40,
     borderRadius: 20,
+    alignItems: 'center',
+    alignContent: 'center',
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 30,
-    textAlign: 'center',
+    marginTop: 3,
   },
 });
 
