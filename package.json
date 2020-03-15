@@ -5,11 +5,13 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "ct": "git-cz"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
@@ -41,6 +43,10 @@
     "react-navigation-tabs": "^2.7.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "3.1.0",
     "@babel/core": "^7.0.0",
     "babel-preset-expo": "~8.0.0",
     "eslint": "^6.8.0",
@@ -50,6 +56,11 @@
     "eslint-plugin-react": "^7.18.0",
     "husky": "^4.2.1",
     "lint-staged": "^10.0.7"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "private": true
 }
