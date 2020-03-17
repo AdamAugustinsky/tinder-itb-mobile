@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 const Profile = ({ navigation }) => {
   const { navigate } = navigation;
-  const [myInformations, setMyInformations] = useState({});
+  const [myInformations, setMyInformations] = useState();
 
   const getJwt = async () => {
     try {
@@ -49,6 +49,15 @@ const Profile = ({ navigation }) => {
     }
   };
 
+  const handleSignOut = async () => {
+    await AsyncStorage.removeItem('email');
+    await AsyncStorage.removeItem('password');
+    await AsyncStorage.removeItem('jwt');
+    await AsyncStorage.removeItem('userId');
+
+    navigate('Login');
+  };
+
   useEffect(() => {
     getMyInformations();
   }, []);
@@ -64,7 +73,7 @@ const Profile = ({ navigation }) => {
           <Button text="Configurações" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigate('Login')}>
+        <TouchableOpacity onPress={() => handleSignOut()}>
           <Button text="Sair" />
         </TouchableOpacity>
       </View>
