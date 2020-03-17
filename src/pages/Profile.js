@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 
 const Profile = ({ navigation }) => {
   const { navigate } = navigation;
-  const [myInformations, setMyInformations] = useState();
+  const [myInformations, setMyInformations] = useState({});
 
   const getJwt = async () => {
     try {
