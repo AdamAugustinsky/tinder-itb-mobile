@@ -16,8 +16,8 @@ import styles from '../styles/entryStyle';
 const Cadastro = ({ navigation }) => {
   const { navigate } = navigation;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
   const handleLogin = async () => {
     if (email.length === 0) {
