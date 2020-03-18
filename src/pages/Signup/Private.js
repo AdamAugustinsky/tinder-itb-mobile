@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, TouchableOpacity, StyleSheet,
+  Text, KeyboardAvoidingView, Alert, TouchableOpacity,
 } from 'react-native';
 
 import Button from '../../components/Button';
@@ -11,18 +11,11 @@ import Logo from '../../assets/logo.svg';
 import globalStyles from '../../styles/entryStyle';
 import BorderedTextInput from '../../components/BorderedTextInput';
 
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 32,
-    marginVertical: 12,
-    fontFamily: 'Poppins-bold',
-  },
-});
-
-const Cadastro = ({ navigation }) => {
+const Private = ({ navigation }) => {
   const { navigate } = navigation;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   const handleCheck = () => {
     if (email.length === 0) {
@@ -35,7 +28,7 @@ const Cadastro = ({ navigation }) => {
       return false;
     }
 
-    return navigate('MyTriagem', {
+    return navigate('About', {
       email,
       password,
     });
@@ -47,7 +40,7 @@ const Cadastro = ({ navigation }) => {
       style={globalStyles.container}
     >
       <Logo style={globalStyles.logo} />
-      <Text style={styles.title}>CADASTRE-SE</Text>
+      <Text style={globalStyles.title}>CADASTRE-SE</Text>
       <BorderedTextInput
         name="Digite seu email"
         keyboardType="email-address"
@@ -66,14 +59,8 @@ const Cadastro = ({ navigation }) => {
         <Button text="Avançar" />
       </TouchableOpacity>
 
-      <Text style={globalStyles.text}>
-        Já tem uma conta?
-        <Text
-          style={globalStyles.linkText}
-          onPress={() => navigate('Login')}
-        >
-           Logar
-        </Text>
+      <Text onPress={() => navigate('Login')} style={globalStyles.linkText}>
+        Já tem uma conta? Logar
       </Text>
 
     </KeyboardAvoidingView>
@@ -81,4 +68,4 @@ const Cadastro = ({ navigation }) => {
 };
 
 
-export default Cadastro;
+export default Private;
