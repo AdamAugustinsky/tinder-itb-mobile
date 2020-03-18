@@ -7,18 +7,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
+  linkText: {
     marginTop: 20,
     textAlign: 'center',
-  },
-  linkText: {
     textDecorationLine: 'underline',
   },
   logo: {
     marginBottom: 16,
   },
   title: {
-    fontSize: 32,
+    fontSize: 36,
     marginVertical: 12,
     fontFamily: 'Poppins-bold',
   },
