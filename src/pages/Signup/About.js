@@ -1,14 +1,18 @@
 import {
   KeyboardAvoidingView, Text, TextInput, StyleSheet, ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import React, { useState } from 'react';
 import Logo from '../../assets/logo.svg';
 import globalStyles from '../../styles/entryStyle';
 import BorderedTextInput from '../../components/BorderedTextInput';
 import Select from '../../components/Select';
+import Button from '../../components/Button';
 
 
-const About = () => {
+const About = ({ navigation }) => {
+  const { navigate } = navigation;
+
   const [name, setName] = useState('');
 
   const [gender, setGender] = useState('');
@@ -38,7 +42,8 @@ const About = () => {
       flex: 1,
     },
     container: {
-      marginVertical: 80,
+      marginTop: 80,
+      marginBottom: 20,
     },
   });
 
@@ -76,6 +81,9 @@ const About = () => {
           style={styles.bigInput}
         />
 
+        <TouchableOpacity onPress={() => navigate('School')}>
+          <Button text="Avançar" />
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </ScrollView>
   );
