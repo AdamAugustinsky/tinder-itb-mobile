@@ -5,12 +5,10 @@ import { TextInput, StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   inputField: {
     position: 'relative',
-    width: 300,
-    height: 50,
+    width: '80%',
+    height: 46,
     marginTop: 15,
 
-    backgroundColor: '#FFFFFF',
-    borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#2d2d2d',
     borderRadius: 16,
@@ -20,14 +18,14 @@ const styles = StyleSheet.create({
 });
 
 const BorderedTextInput = ({
-  name, state, setState, secureTextEntry, keyboardType, autoCorrect,
+  name, state, setState, secureTextEntry, keyboardType, autoCorrect, autoCapitalize,
 }) => (
   <TextInput
     style={styles.inputField}
     placeholder={name}
     keyboardType={keyboardType}
     placeholderTextColor="#c0c0c0"
-    autoCapitalize="none"
+    autoCapitalize={autoCapitalize}
     autoCorrect={autoCorrect}
     value={state}
     secureTextEntry={secureTextEntry}
