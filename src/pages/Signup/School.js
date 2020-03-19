@@ -49,11 +49,11 @@ const SchoolPage = () => {
         value: item._id,
         courses: item.cursos,
       })));
+
+      setIsReady(true);
     }
 
     getSchools();
-
-    setIsReady(true);
   }, []);
 
   useEffect(() => {
