@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Picker, View } from 'react-native';
 
 const Select = ({
-  enabled, items, setState, state, placeHolder, isValid,
+  enabled, items, setState, state, placeHolder, isValid = true,
 }) => {
   const styles = StyleSheet.create({
     view: {

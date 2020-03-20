@@ -4,7 +4,7 @@ import { TextInput, StyleSheet } from 'react-native';
 
 
 const BorderedTextInput = ({
-  name, state, setState, secureTextEntry, keyboardType, autoCorrect, autoCapitalize, isValid,
+  name, state, setState, secureTextEntry, keyboardType, autoCorrect, autoCapitalize, isValid = true,
 }) => {
   const styles = StyleSheet.create({
     inputField: {
