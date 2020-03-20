@@ -11,21 +11,23 @@ import BackButton from '../../components/BackButton';
 const SchoolPage = ({ navigation }) => {
   const { navigate } = navigation;
 
-  const [school, setSchool] = useState('');
+  const user = navigation.getParam('user');
+
+  const [school, setSchool] = useState(user.school);
   const [schools, setSchools] = useState([]);
 
-  const [course, setCourse] = useState('');
+  const [course, setCourse] = useState(user.course);
   const [courses, setCourses] = useState([]);
   const [enabled, setEnabled] = useState(false);
 
-  const [grade, setGrade] = useState('');
+  const [grade, setGrade] = useState(user.grade);
   const grades = [
     { label: '1º Ano', value: '1' },
     { label: '2º Ano', value: '2' },
     { label: '3º Ano', value: '3' },
   ];
 
-  const [schoolClass, setSchoolClass] = useState('');
+  const [schoolClass, setSchoolClass] = useState(user.schoolClass);
   const classes = [
     { label: 'A', value: 'A' },
     { label: 'B', value: 'B' },
@@ -40,7 +42,7 @@ const SchoolPage = ({ navigation }) => {
   const [isReady, setIsReady] = useState(false);
 
 
-  const handleBackNavigation = () => navigate('About');
+  const handleBackNavigation = () => navigate('About', { user });
 
   BackHandler.addEventListener('hardwareBackPress', () => {
     handleBackNavigation();

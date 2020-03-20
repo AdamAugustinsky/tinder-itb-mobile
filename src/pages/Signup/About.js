@@ -13,21 +13,22 @@ import BackButton from '../../components/BackButton';
 
 const About = ({ navigation }) => {
   const { navigate } = navigation;
+  const user = navigation.getParam('user');
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState(user.name);
   const [isNameValid, setIsNameValid] = useState(true);
 
-  const [gender, setGender] = useState('');
+  const [gender, setGender] = useState(user.gender);
   const genders = [
     { label: 'Masculino', value: 'Masculino' },
     { label: 'Feminino', value: 'Feminino' },
   ];
   const [isGenderValid, setIsGenderValid] = useState(true);
 
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(user.inputBirthdate);
   const [isDateValid, setIsDateValid] = useState(true);
 
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState(user.bio);
   const [isBioValid, setIsBioValid] = useState(true);
 
   const styles = StyleSheet.create({
@@ -106,26 +107,31 @@ const About = ({ navigation }) => {
         'Digite seu nome completo');
     }
     setIsNameValid(true);
+    user.name = name;
 
     if (!gender) {
       setIsGenderValid(false);
       return Alert.alert(title, 'Escolha seu gênero');
     }
     setIsGenderValid(true);
+    user.gender = gender;
 
     const DbDate = checkIsDateValid(date, title);
 
     if (!DbDate) return false;
+    user.birthdate = DbDate;
+    user.inputBirthdate = date;
 
     if (!bio) {
       setIsBioValid(false);
       return Alert.alert(title, 'Digite sua descrição');
     }
+    user.bio = bio;
 
-    return navigate('School');
+    return navigate('School', { user });
   };
 
-  const handleBackNavigation = () => navigate('Private');
+  const handleBackNavigation = () => navigate('Private', { user });
 
   BackHandler.addEventListener('hardwareBackPress', () => {
     handleBackNavigation();
