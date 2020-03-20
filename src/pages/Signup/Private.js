@@ -15,10 +15,11 @@ const Private = ({ navigation }) => {
   const { navigate } = navigation;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
 
   const handleCheck = () => {
-    if (email.length === 0) {
+    if (email.length < 5) {
       Alert.alert('', 'Preencha todos os campos para se cadastrar');
       return false;
     }
@@ -27,6 +28,8 @@ const Private = ({ navigation }) => {
       Alert.alert('', 'A senha precisa ser maior que 6');
       return false;
     }
+
+    if (password !== confirmPassword) return Alert.alert('Erro de validação', 'Senhas diferentes');
 
     return navigate('About', {
       email,
@@ -52,6 +55,12 @@ const Private = ({ navigation }) => {
         name="Digite sua senha"
         state={password}
         setState={setPassword}
+        secureTextEntry
+      />
+      <BorderedTextInput
+        name="Confirme sua senha"
+        state={confirmPassword}
+        setState={setConfirmPassword}
         secureTextEntry
       />
 
