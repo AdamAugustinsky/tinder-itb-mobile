@@ -1,7 +1,6 @@
 import {
   KeyboardAvoidingView, Text, TextInput, StyleSheet, ScrollView,
-  TouchableOpacity,
-  Alert,
+  Alert, BackHandler,
 } from 'react-native';
 import React, { useState } from 'react';
 import { TextInputMask } from 'react-native-masked-text';
@@ -10,7 +9,7 @@ import globalStyles from '../../styles/entryStyle';
 import BorderedTextInput from '../../components/BorderedTextInput';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
-
+import BackButton from '../../components/BackButton';
 
 const About = ({ navigation }) => {
   const { navigate } = navigation;
@@ -114,7 +113,9 @@ const About = ({ navigation }) => {
     }
     setIsGenderValid(true);
 
-    checkIsDateValid(date, title);
+    const DbDate = checkIsDateValid(date, title);
+
+    if (!DbDate) return false;
 
     if (!bio) {
       setIsBioValid(false);
@@ -124,15 +125,30 @@ const About = ({ navigation }) => {
     return navigate('School');
   };
 
+  const handleBackNavigation = () => navigate('Private');
+
+  BackHandler.addEventListener('hardwareBackPress', () => {
+    handleBackNavigation();
+    return true;
+  });
 
   return (
-    <ScrollView style={styles.scroll}>
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={[globalStyles.container, styles.container]}
+    <KeyboardAvoidingView
+      behavior="padding"
+      style={{
+        width: '100%', flex: 1,
+      }}
+    >
+      <ScrollView
+        style={{ flex: 1, width: '100%' }}
+        contentContainerStyle={{
+          width: '100%', alignItems: 'center', paddingBottom: 30, paddingTop: 80,
+        }}
       >
         <Logo style={globalStyles.logo} />
         <Text style={globalStyles.title}>Sobre Você</Text>
+
+        <BackButton onPressed={handleBackNavigation} />
 
         <BorderedTextInput
           name="Digite seu nome completo"
@@ -161,7 +177,6 @@ const About = ({ navigation }) => {
           }}
           placeholder="Digite sua data de nascimento"
           placeholderTextColor={isDateValid ? '#c0c0c0' : '#EF173E'}
-
         />
 
         <TextInput
@@ -174,11 +189,10 @@ const About = ({ navigation }) => {
           placeholderTextColor={isBioValid ? '#c0c0c0' : '#EF173E'}
         />
 
-        <TouchableOpacity onPress={handleNavigation}>
-          <Button text="Avançar" />
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        <Button text="Avançar" onPressed={handleNavigation} />
+
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

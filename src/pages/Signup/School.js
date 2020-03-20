@@ -1,13 +1,16 @@
 import {
-  KeyboardAvoidingView, Text,
+  KeyboardAvoidingView, Text, BackHandler,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Logo from '../../assets/logo.svg';
 import globalStyles from '../../styles/entryStyle';
 import Select from '../../components/Select';
 import api from '../../services/api';
+import BackButton from '../../components/BackButton';
 
-const SchoolPage = () => {
+const SchoolPage = ({ navigation }) => {
+  const { navigate } = navigation;
+
   const [school, setSchool] = useState('');
   const [schools, setSchools] = useState([]);
 
@@ -35,6 +38,14 @@ const SchoolPage = () => {
   ];
 
   const [isReady, setIsReady] = useState(false);
+
+
+  const handleBackNavigation = () => navigate('About');
+
+  BackHandler.addEventListener('hardwareBackPress', () => {
+    handleBackNavigation();
+    return true;
+  });
 
   useEffect(() => {
     async function getSchools() {
@@ -89,6 +100,8 @@ const SchoolPage = () => {
     >
       <Logo style={globalStyles.logo} />
       <Text style={globalStyles.title}>Sua Escola</Text>
+
+      <BackButton onPressed={handleBackNavigation} />
 
       <Select
         items={schools}
