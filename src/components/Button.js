@@ -2,6 +2,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   button: {
@@ -20,12 +21,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({ text }) => (
-  <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0, 0]} end={[0.5, 0.5]} style={styles.button}>
-    <Text style={styles.buttonText}>
-      {text}
-    </Text>
-  </LinearGradient>
+const Button = ({ text, onPressed }) => (
+  <TouchableOpacity
+    onPress={onPressed}
+  >
+    <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0, 0]} end={[0.5, 0.5]} style={styles.button}>
+      <Text style={styles.buttonText}>
+        {text}
+      </Text>
+    </LinearGradient>
+  </TouchableOpacity>
 );
 
 export default Button;
