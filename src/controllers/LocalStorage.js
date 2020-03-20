@@ -10,6 +10,16 @@ class LocalStorage {
     await AsyncStorage.getItem('jwt').then((jwt) => { this.token = jwt; });
     return this.token;
   }
+
+  async setMatch(user) {
+    this.userInformations = user;
+    await AsyncStorage.setItem('match', this.userInformations);
+  }
+
+  async getMatch() {
+    this.user = await AsyncStorage.getItem('match');
+    return this.user;
+  }
 }
 
 export default LocalStorage;
