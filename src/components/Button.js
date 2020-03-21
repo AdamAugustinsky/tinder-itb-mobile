@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     height: 50,
-    marginTop: 40,
     borderRadius: 20,
     alignItems: 'center',
     alignContent: 'center',
@@ -21,11 +20,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({ text, onPressed }) => (
+const Button = ({ text, onPressed, style = { marginTop: 40 } }) => (
   <TouchableOpacity
     onPress={onPressed}
   >
-    <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0, 0]} end={[0.5, 0.5]} style={styles.button}>
+    <LinearGradient colors={['#FF0456', '#FF6A9B']} start={[0, 0]} end={[0.5, 0.5]} style={[styles.button, style]}>
       <Text style={styles.buttonText}>
         {text}
       </Text>
