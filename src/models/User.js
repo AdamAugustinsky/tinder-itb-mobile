@@ -13,6 +13,12 @@ class User {
     this.course = '';
     this.grade = '';
     this.schoolClass = '';
+
+    this.instagram = '';
+    this.facebook = '';
+    this.number = '';
+    this.twitter = '';
+    this.DBnumber = '';
   }
 }
 
