@@ -14,16 +14,16 @@ const Contacts = ({ navigation }) => {
   const { navigate } = navigation;
   const user = navigation.getParam('user');
 
-  const [instagram, setInstagram] = useState(user.instagram);
+  const [instagram, setInstagram] = useState(user.contacts.instagram);
   const [isInstagramValid, setIsInstagramValid] = useState(true);
 
-  const [number, setNumber] = useState(user.number);
+  const [number, setNumber] = useState(user.inputNumber);
   const [isNumberValid, setIsNumberValid] = useState(true);
 
-  const [facebook, setFacebook] = useState(user.facebook);
+  const [facebook, setFacebook] = useState(user.contacts.facebook);
   const [isFacebookValid, setIsFacebookValid] = useState(true);
 
-  const [twitter, setTwitter] = useState(user.twitter);
+  const [twitter, setTwitter] = useState(user.contacts.twitter);
   const [isTwitterValid, setIsTwitterValid] = useState(true);
 
   const styles = StyleSheet.create({
@@ -53,7 +53,7 @@ const Contacts = ({ navigation }) => {
       }
     }
     setIsInstagramValid(true);
-    user.instagram = instagram;
+    user.contacts.instagram = instagram;
 
     if (facebook) {
       if (facebook.split(' ').length > 1) {
@@ -62,7 +62,7 @@ const Contacts = ({ navigation }) => {
       }
     }
     setIsFacebookValid(true);
-    user.facebook = facebook;
+    user.contacts.facebook = facebook;
 
     if (twitter) {
       if (twitter.split(' ').length > 1 || twitter[0] !== '@') {
@@ -71,7 +71,7 @@ const Contacts = ({ navigation }) => {
       }
     }
     setIsTwitterValid(true);
-    user.twitter = twitter;
+    user.contacts.twitter = twitter;
 
     if (number) {
       if (number.length < 9) {
@@ -83,15 +83,15 @@ const Contacts = ({ navigation }) => {
       }
 
       if (number.length !== 9) {
-        user.DBnumber = number.split(' ').join('');
+        user.contacts.number = number.split(' ').join('');
       } else {
-        user.DBnumber = `5511${number}`;
+        user.contacts.number = `5511${number}`;
       }
     }
     setIsNumberValid(true);
-    user.number = number;
+    user.inputNumber = number;
 
-    return true;
+    return navigate('Prefs', { user });
   };
 
 
