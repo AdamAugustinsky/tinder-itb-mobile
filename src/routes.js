@@ -10,6 +10,7 @@ import MatchTriagem from './pages/MatchTriagem';
 import About from './pages/Signup/About';
 import School from './pages/Signup/School';
 import Contacts from './pages/Signup/Contacts';
+import Prefs from './pages/Signup/Prefs';
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -22,6 +23,7 @@ export default createAppContainer(
     Messages,
     Profile,
     ProfileConfigs,
+    Prefs,
     Contacts,
   }),
 );
