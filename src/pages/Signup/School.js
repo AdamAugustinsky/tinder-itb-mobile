@@ -1,5 +1,5 @@
 import {
-  KeyboardAvoidingView, Text, BackHandler, Alert,
+  KeyboardAvoidingView, Text, BackHandler, Alert, ScrollView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Logo from '../../assets/logo.svg';
@@ -30,6 +30,14 @@ const SchoolPage = ({ navigation }) => {
     { label: '3º Ano', value: '3' },
   ];
   const [isGradeValid, setIsGradeValid] = useState(true);
+
+  const [period, setPeriod] = useState(user.period);
+  const periods = [
+    { label: 'Manhã', value: 'MANHÃ' },
+    { label: 'Tarde', value: 'TARDE' },
+    { label: 'Noite', value: 'NOITE' },
+  ];
+  const [isPeriodValid, setIsPeriodValid] = useState(true);
 
   const [schoolClass, setSchoolClass] = useState(user.schoolClass);
   const classes = [
@@ -79,6 +87,13 @@ const SchoolPage = ({ navigation }) => {
     }
     setIsSchoolClassValid(true);
     user.schoolClass = schoolClass;
+
+    if (!period) {
+      setIsPeriodValid(false);
+      return Alert.alert(title, 'Escolha seu período');
+    }
+    setIsPeriodValid(true);
+    user.period = period;
 
     return navigate('Contacts', { user });
   };
@@ -145,47 +160,64 @@ const SchoolPage = ({ navigation }) => {
   return isReady ? (
     <KeyboardAvoidingView
       behavior="padding"
-      style={globalStyles.container}
+      style={{
+        width: '100%', flex: 1,
+      }}
     >
-      <Logo style={globalStyles.logo} />
-      <Text style={globalStyles.title}>Sua Escola</Text>
+      <ScrollView
+        style={{ flex: 1, width: '100%' }}
+        contentContainerStyle={{
+          width: '100%', alignItems: 'center', paddingBottom: 30, paddingTop: 80,
+        }}
+      >
+        <Logo style={globalStyles.logo} />
+        <Text style={globalStyles.title}>Sua Escola</Text>
 
-      <BackButton onPressed={handleBackNavigation} />
+        <BackButton onPressed={handleBackNavigation} />
 
-      <Select
-        items={schools}
-        placeHolder="Escolha sua escola"
-        setState={setSchool}
-        state={school}
-        isValid={isSchoolValid}
-      />
+        <Select
+          items={schools}
+          placeHolder="Escolha sua escola"
+          setState={setSchool}
+          state={school}
+          isValid={isSchoolValid}
+        />
 
-      <Select
-        items={courses}
-        placeHolder="Escolha seu curso"
-        setState={setCourse}
-        state={course}
-        enabled={enabled}
-        isValid={isCourseValid}
-      />
+        <Select
+          items={courses}
+          placeHolder="Escolha seu curso"
+          setState={setCourse}
+          state={course}
+          enabled={enabled}
+          isValid={isCourseValid}
+        />
 
-      <Select
-        items={grades}
-        placeHolder="Escolha o ano que você estuda"
-        setState={setGrade}
-        state={grade}
-        isValid={isGradeValid}
-      />
+        <Select
+          items={grades}
+          placeHolder="Escolha o ano que você estuda"
+          setState={setGrade}
+          state={grade}
+          isValid={isGradeValid}
+        />
 
-      <Select
-        items={classes}
-        placeHolder="Escolha a sala que você estuda"
-        setState={setSchoolClass}
-        state={schoolClass}
-        isValid={isSchoolClassValid}
-      />
+        <Select
+          items={classes}
+          placeHolder="Escolha a sala que você estuda"
+          setState={setSchoolClass}
+          state={schoolClass}
+          isValid={isSchoolClassValid}
+        />
 
-      <Button text="Avançar" onPressed={handleNavigation} />
+        <Select
+          items={periods}
+          placeHolder="Escolha o período que você estuda"
+          setState={setPeriod}
+          state={period}
+          isValid={isPeriodValid}
+        />
+
+        <Button text="Avançar" onPressed={handleNavigation} />
+      </ScrollView>
     </KeyboardAvoidingView>
   ) : null;
 };
