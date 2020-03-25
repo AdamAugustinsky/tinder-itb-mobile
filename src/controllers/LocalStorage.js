@@ -11,6 +11,16 @@ class LocalStorage {
     return this.token;
   }
 
+  async setUserId(userId) {
+    this.userId = userId;
+    await AsyncStorage.setItem('userId', this.userId);
+  }
+
+  async getUserId() {
+    await AsyncStorage.getItem('userId').then((userId) => { this.userId = userId; });
+    return this.userId;
+  }
+
   async setMatch(user) {
     this.user = user;
     await AsyncStorage.setItem('match', this.user);
