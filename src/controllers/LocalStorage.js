@@ -30,6 +30,16 @@ class LocalStorage {
     await AsyncStorage.getItem('email').then((email) => { this.email = email; });
     return this.email;
   }
+
+  async setPassword(password) {
+    this.password = password;
+    await AsyncStorage.setItem('password', this.password);
+  }
+
+  async getPassword() {
+    await AsyncStorage.getItem('password').then((password) => { this.password = password; });
+    return this.password;
+  }
 }
 
 export default LocalStorage;
