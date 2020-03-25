@@ -17,7 +17,7 @@ class LocalStorage {
   }
 
   async getMatch() {
-    this.user = await AsyncStorage.getItem('match');
+    await AsyncStorage.getItem('match').then((userInformations) => { this.user = userInformations; });
     return this.user;
   }
 }
