@@ -3,13 +3,14 @@ import {
   Alert, BackHandler, View,
 } from 'react-native';
 import React, { useState } from 'react';
-import { TextInputMask } from 'react-native-masked-text';
 import Logo from '../../assets/logo.svg';
 import globalStyles from '../../styles/entryStyle';
 import BorderedTextInput from '../../components/BorderedTextInput';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
 import BackButton from '../../components/BackButton';
+
+import DateButton from '../../components/DateButton';
 
 const About = ({ navigation }) => {
   const { navigate } = navigation;
@@ -25,9 +26,8 @@ const About = ({ navigation }) => {
   ];
   const [isGenderValid, setIsGenderValid] = useState(true);
 
-  const [date, setDate] = useState(user.inputBirthdate);
+  const [date, setDate] = useState(user.inputBirthdate ? user.inputBirthdate : new Date());
   const [isDateValid, setIsDateValid] = useState(true);
-
   const [bio, setBio] = useState(user.bio);
   const [isBioValid, setIsBioValid] = useState(true);
 
@@ -79,33 +79,43 @@ const About = ({ navigation }) => {
   });
 
   function checkIsDateValid(value, title) {
-    if (value === '') {
+    if (value === new Date()) {
       setIsDateValid(false);
-      setDate('');
       return Alert.alert(title, 'Digite sua data de nascimento');
     }
 
+
     // eslint-disable-next-line no-restricted-globals
-    if (isNaN(new Date(`${value.substring(3, 5)}/${value.substring(0, 2)}/${value.substring(6)}`)
+    if (isNaN(new Date(value)
       .getTime())
-    || value.length !== 10) {
+    ) {
       setIsDateValid(false);
-      setDate('');
+      setDate(new Date());
       return Alert.alert(title, 'Data de nascimento inválida');
     }
 
     const today = new Date().getFullYear();
-    const birthdate = parseInt(`${value.substring(6)}`, 10);
+    const birthdate = new Date(value).getFullYear();
 
     if (today <= birthdate + 12 || today > birthdate + 25) {
       setIsDateValid(false);
-      setDate('');
+      setDate(new Date());
       return Alert.alert(title, 'Idade inválida');
     }
 
     setIsDateValid(true);
 
-    return `${value.substring(6)}-${value.substring(3, 5)}-${value.substring(0, 2)}`;
+    function dataAtualFormatada() {
+      const data = new Date(value);
+      const dia = data.getDate().toString();
+      const diaF = (dia.length === 1) ? `0${dia}` : dia;
+      const mes = (data.getMonth() + 1).toString(); // +1 pois no getMonth Janeiro começa com zero.
+      const mesF = (mes.length === 1) ? `0${mes}` : mes;
+      const anoF = data.getFullYear();
+      return `${anoF}-${mesF}-${diaF}`;
+    }
+
+    return dataAtualFormatada();
   }
 
   const handleNavigation = () => {
@@ -186,16 +196,10 @@ const About = ({ navigation }) => {
           isValid={isGenderValid}
         />
 
-        <TextInputMask
-          style={styles.inputField}
-          onChangeText={setDate}
-          value={date}
-          type="datetime"
-          options={{
-            format: 'DD/MM/YYYY',
-          }}
-          placeholder="Digite sua data de nascimento"
-          placeholderTextColor={isDateValid ? '#c0c0c0' : '#EF173E'}
+
+        <DateButton
+          setState={setDate}
+          state={date}
         />
 
         <View style={styles.view}>
