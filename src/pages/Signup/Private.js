@@ -49,6 +49,7 @@ const Private = ({ navigation }) => {
       <Logo style={globalStyles.logo} />
       <Text style={globalStyles.title}>CADASTRE-SE</Text>
       <BorderedTextInput
+        title="Email"
         name="Digite seu email"
         keyboardType="email-address"
         state={email}
@@ -56,6 +57,7 @@ const Private = ({ navigation }) => {
       />
 
       <BorderedTextInput
+        title="Senha"
         name="Digite sua senha"
         state={password}
         setState={setPassword}

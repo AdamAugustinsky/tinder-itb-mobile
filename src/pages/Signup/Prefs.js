@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  KeyboardAvoidingView, Text, StyleSheet, BackHandler, AsyncStorage, Alert,
+  KeyboardAvoidingView, Text, StyleSheet, BackHandler, AsyncStorage, Alert, ScrollView,
 } from 'react-native';
 import Logo from '../../assets/logo.svg';
 import globalStyles from '../../styles/entryStyle';
@@ -151,46 +151,60 @@ const Prefs = ({ navigation }) => {
   return isReady ? (
     <KeyboardAvoidingView
       behavior="padding"
-      style={globalStyles.container}
+      style={{
+        width: '100%', flex: 1,
+      }}
     >
-      <Logo style={globalStyles.logo} />
+      <ScrollView
+        style={{ flex: 1, width: '100%' }}
+        contentContainerStyle={{
+          width: '100%', alignItems: 'center', paddingBottom: 30, paddingTop: 80,
+        }}
+      >
+        <Logo style={globalStyles.logo} />
 
-      <Text style={[globalStyles.title, { marginBottom: 0 }]}>Preferências</Text>
+        <Text style={[globalStyles.title, { marginBottom: 0 }]}>Preferências</Text>
 
-      <BackButton onPressed={handleBackNavigation} />
+        <BackButton onPressed={handleBackNavigation} />
 
-      <Text style={styles.text}>Todos os valores são opcionais</Text>
+        <Text style={styles.text}>Todos os valores são opcionais</Text>
 
-      <Select
-        items={genders}
-        placeHolder="Escolha o gênero"
-        setState={setGender}
-        state={gender}
-      />
+        <Select
+          title="Gênero"
+          items={genders}
+          placeHolder="Escolha o gênero"
+          setState={setGender}
+          state={gender}
+        />
 
-      <Select
-        items={schools}
-        placeHolder="Escolha a escola"
-        setState={setSchool}
-        state={school}
-      />
+        <Select
+          title="Escola"
+          items={schools}
+          placeHolder="Escolha a escola"
+          setState={setSchool}
+          state={school}
+        />
 
-      <Select
-        items={courses}
-        placeHolder="Escolha o curso"
-        setState={setCourse}
-        state={course}
-        enabled={enabled}
-      />
-      <Select
-        items={grades}
-        placeHolder="Escolha o ano"
-        setState={setGrade}
-        state={grade}
-      />
+        <Select
+          title="Curso"
+          items={courses}
+          placeHolder="Escolha o curso"
+          setState={setCourse}
+          state={course}
+          enabled={enabled}
+        />
+        <Select
+          title="Ano"
+          items={grades}
+          placeHolder="Escolha o ano"
+          setState={setGrade}
+          state={grade}
+        />
 
-      <Button text="Cadastrar!" onPressed={handleNavigation} />
+        <Button text="Cadastrar!" onPressed={handleNavigation} />
 
+
+      </ScrollView>
     </KeyboardAvoidingView>
   ) : null;
 };

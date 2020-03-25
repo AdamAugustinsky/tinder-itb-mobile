@@ -1,6 +1,6 @@
 import {
   KeyboardAvoidingView, Text, TextInput, StyleSheet, ScrollView,
-  Alert, BackHandler,
+  Alert, BackHandler, View,
 } from 'react-native';
 import React, { useState } from 'react';
 import { TextInputMask } from 'react-native-masked-text';
@@ -36,13 +36,13 @@ const About = ({ navigation }) => {
       width: '80%',
       height: 200,
 
-      marginTop: 20,
+      marginTop: 4,
 
       borderWidth: 1,
       borderColor: isBioValid ? '#2d2d2d' : '#EF173E',
       borderRadius: 16,
 
-      paddingLeft: 20,
+      paddingHorizontal: 20,
       paddingTop: 16,
       textAlignVertical: 'top',
     },
@@ -64,6 +64,17 @@ const About = ({ navigation }) => {
       borderRadius: 16,
 
       paddingLeft: 16,
+    },
+    view: {
+      width: '100%',
+      alignItems: 'center',
+    },
+    title: {
+      alignSelf: 'flex-start',
+      paddingLeft: '12%',
+      fontSize: 14,
+      color: isBioValid ? '#2d2d2d' : '#EF173E',
+      marginTop: 12,
     },
   });
 
@@ -157,6 +168,7 @@ const About = ({ navigation }) => {
         <BackButton onPressed={handleBackNavigation} />
 
         <BorderedTextInput
+          title="Nome"
           name="Digite seu nome completo"
           autoCorrect
           state={name}
@@ -166,6 +178,7 @@ const About = ({ navigation }) => {
         />
 
         <Select
+          title="Gênero"
           items={genders}
           placeHolder="Escolha seu gênero"
           setState={setGender}
@@ -185,15 +198,18 @@ const About = ({ navigation }) => {
           placeholderTextColor={isDateValid ? '#c0c0c0' : '#EF173E'}
         />
 
-        <TextInput
-          multiline
-          numberOfLines={40}
-          placeholder="Fale sobre você..."
-          onChangeText={setBio}
-          value={bio}
-          style={styles.bigInput}
-          placeholderTextColor={isBioValid ? '#c0c0c0' : '#EF173E'}
-        />
+        <View style={styles.view}>
+          <Text style={styles.title}>Descrição</Text>
+          <TextInput
+            multiline
+            numberOfLines={40}
+            placeholder="Fale sobre você..."
+            onChangeText={setBio}
+            value={bio}
+            style={styles.bigInput}
+            placeholderTextColor={isBioValid ? '#c0c0c0' : '#EF173E'}
+          />
+        </View>
 
         <Button text="Avançar" onPressed={handleNavigation} />
 

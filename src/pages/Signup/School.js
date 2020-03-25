@@ -176,6 +176,7 @@ const SchoolPage = ({ navigation }) => {
         <BackButton onPressed={handleBackNavigation} />
 
         <Select
+          title="Escola"
           items={schools}
           placeHolder="Escolha sua escola"
           setState={setSchool}
@@ -184,6 +185,7 @@ const SchoolPage = ({ navigation }) => {
         />
 
         <Select
+          title="Curso"
           items={courses}
           placeHolder="Escolha seu curso"
           setState={setCourse}
@@ -193,6 +195,7 @@ const SchoolPage = ({ navigation }) => {
         />
 
         <Select
+          title="Ano"
           items={grades}
           placeHolder="Escolha o ano que você estuda"
           setState={setGrade}
@@ -201,6 +204,7 @@ const SchoolPage = ({ navigation }) => {
         />
 
         <Select
+          title="Sala"
           items={classes}
           placeHolder="Escolha a sala que você estuda"
           setState={setSchoolClass}
@@ -209,6 +213,7 @@ const SchoolPage = ({ navigation }) => {
         />
 
         <Select
+          title="Período"
           items={periods}
           placeHolder="Escolha o período que você estuda"
           setState={setPeriod}

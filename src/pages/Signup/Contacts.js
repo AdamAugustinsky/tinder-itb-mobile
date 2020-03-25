@@ -121,6 +121,7 @@ const Contacts = ({ navigation }) => {
         <Text style={styles.text}>Complete pelo menos um para continuar</Text>
 
         <BorderedTextInput
+          title="Instagram"
           state={instagram}
           setState={setInstagram}
           name="Digite seu nome de usuário do Instagram"
@@ -128,6 +129,7 @@ const Contacts = ({ navigation }) => {
         />
 
         <BorderedTextInput
+          title="Facebook"
           state={facebook}
           setState={setFacebook}
           name="Digite seu nome de usuário do Facebook"
@@ -135,6 +137,7 @@ const Contacts = ({ navigation }) => {
         />
 
         <BorderedTextInput
+          title="Twitter"
           state={twitter}
           setState={setTwitter}
           name="Digite seu @ do Twitter"
@@ -142,6 +145,7 @@ const Contacts = ({ navigation }) => {
         />
 
         <BorderedTextInput
+          title="Number"
           state={number}
           setState={setNumber}
           name="Digite seu número"
