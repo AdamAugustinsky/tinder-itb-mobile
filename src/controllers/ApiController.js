@@ -16,4 +16,8 @@ export default class ApiController {
   async like(matchId) {
     await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
   }
+
+  async dislike(matchId) {
+    await api.post(`/profile/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
+  }
 }
