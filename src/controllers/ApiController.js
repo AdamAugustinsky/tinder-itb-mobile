@@ -12,4 +12,8 @@ export default class ApiController {
     this.match = await this.Storage.getMatch();
     return this.match;
   }
+
+  async like(matchId) {
+    await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
+  }
 }
