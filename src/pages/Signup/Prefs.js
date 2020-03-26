@@ -27,12 +27,14 @@ const Prefs = ({ navigation }) => {
     { label: '1º Ano', value: '1' },
     { label: '2º Ano', value: '2' },
     { label: '3º Ano', value: '3' },
+    { label: 'Todos', value: 'all' },
   ];
 
   const [gender, setGender] = useState(user.prefs.gender);
   const genders = [
     { label: 'Masculino', value: 'Masculino' },
     { label: 'Feminino', value: 'Feminino' },
+    { label: 'Todos', value: 'all' },
   ];
 
   const styles = StyleSheet.create({
@@ -49,7 +51,7 @@ const Prefs = ({ navigation }) => {
     async function getSchools() {
       const res = await api.get('/schools');
 
-      setSchools(res.data.map((item) => ({
+      const newSchools = res.data.map((item) => ({
         label: item.local.toLowerCase()
           .split(' ')
           .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
@@ -57,7 +59,9 @@ const Prefs = ({ navigation }) => {
         // eslint-disable-next-line no-underscore-dangle
         value: item._id,
         courses: item.cursos,
-      })));
+      }));
+
+      setSchools([...newSchools, { label: 'Todas', value: 'all' }]);
 
       setIsReady(true);
 
@@ -73,11 +77,14 @@ const Prefs = ({ navigation }) => {
 
   useEffect(() => {
     function getCourses() {
-      if (!school) return setEnabled(false);
+      if (school === 'all' || !school) {
+        setCourse('');
+        return setEnabled(false);
+      }
 
       schools.forEach((value) => {
         if (value.value === school) {
-          setCourses(value.courses.map((item) => ({
+          const newCourses = value.courses.map((item) => ({
             label: item.toLowerCase()
               .split(' ')
               .map((word) => {
@@ -86,7 +93,9 @@ const Prefs = ({ navigation }) => {
               })
               .join(' '),
             value: item,
-          })));
+          }));
+
+          setCourses([...newCourses, { label: 'Todos', value: 'all' }]);
         }
       });
 
@@ -106,16 +115,16 @@ const Prefs = ({ navigation }) => {
   const handleNavigation = async () => {
     let response;
 
-    if (school) {
+    if (school && school !== 'all') {
       user.prefs.school = school;
     } else user.prefs.school = undefined;
-    if (gender) {
+    if (gender && gender !== 'all') {
       user.prefs.gender = gender;
     } else user.prefs.gender = undefined;
-    if (course) {
+    if (course && course !== 'all') {
       user.prefs.course = course;
     } else user.prefs.course = undefined;
-    if (grade) {
+    if (grade && grade !== 'all') {
       user.prefs.grade = grade;
     } else user.prefs.grade = undefined;
 
