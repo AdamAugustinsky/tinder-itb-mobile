@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
-  KeyboardAvoidingView, Text, StyleSheet, BackHandler, AsyncStorage, Alert, ScrollView,
+  KeyboardAvoidingView, Text, StyleSheet, BackHandler, AsyncStorage, Alert,
+  ScrollView, View, ActivityIndicator,
 } from 'react-native';
 import Logo from '../../assets/logo.svg';
 import globalStyles from '../../styles/entryStyle';
@@ -215,7 +216,11 @@ const Prefs = ({ navigation }) => {
 
       </ScrollView>
     </KeyboardAvoidingView>
-  ) : null;
+  ) : (
+    <View style={globalStyles.container}>
+      <ActivityIndicator size="100%" color="#FF6A9B" />
+    </View>
+  );
 };
 
 export default Prefs;

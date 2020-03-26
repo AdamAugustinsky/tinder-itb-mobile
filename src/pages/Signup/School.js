@@ -1,5 +1,5 @@
 import {
-  KeyboardAvoidingView, Text, BackHandler, Alert, ScrollView,
+  KeyboardAvoidingView, Text, BackHandler, Alert, ScrollView, ActivityIndicator, View,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Logo from '../../assets/logo.svg';
@@ -224,7 +224,11 @@ const SchoolPage = ({ navigation }) => {
         <Button text="Avançar" onPressed={handleNavigation} />
       </ScrollView>
     </KeyboardAvoidingView>
-  ) : null;
+  ) : (
+    <View style={globalStyles.container}>
+      <ActivityIndicator size="100%" color="#FF6A9B" />
+    </View>
+  );
 };
 
 export default SchoolPage;
