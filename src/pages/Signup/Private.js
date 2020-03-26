@@ -18,23 +18,36 @@ const Private = ({ navigation }) => {
   const user = navigation.getParam('user') || new User();
 
   const [email, setEmail] = useState(user.email);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+
   const [password, setPassword] = useState(user.password);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true);
 
 
   const handleCheck = () => {
-    if (email.length < 5) {
-      Alert.alert('', 'Preencha todos os campos para se cadastrar');
-      return false;
+    const title = 'Erro de validação!';
+    if (email.length < 5 || email.indexOf('@') < 2
+    || email.indexOf('@') + 6 > email.length) {
+      setIsEmailValid(false);
+      setEmail('');
+      return Alert.alert(title, 'Email incorreto');
     }
     user.email = email;
 
     if (password.length < 6) {
-      Alert.alert('', 'A senha precisa ser maior que 6');
-      return false;
+      setIsPasswordValid(false);
+      setEmail('');
+      return Alert.alert(title, 'A senha precisa ser maior que 6');
     }
 
-    if (password !== confirmPassword) return Alert.alert('Erro de validação', 'Senhas diferentes');
+    if (password !== confirmPassword) {
+      setIsConfirmPasswordValid(false);
+      setConfirmPassword('');
+      return Alert.alert('Erro de validação', 'Senhas diferentes');
+    }
 
     user.password = password;
 
@@ -54,6 +67,7 @@ const Private = ({ navigation }) => {
         keyboardType="email-address"
         state={email}
         setState={setEmail}
+        isValid={isEmailValid}
       />
 
       <BorderedTextInput
@@ -61,12 +75,14 @@ const Private = ({ navigation }) => {
         name="Digite sua senha"
         state={password}
         setState={setPassword}
+        isValid={isPasswordValid}
         secureTextEntry
       />
       <BorderedTextInput
         name="Confirme sua senha"
         state={confirmPassword}
         setState={setConfirmPassword}
+        isValid={isConfirmPasswordValid}
         secureTextEntry
       />
 
