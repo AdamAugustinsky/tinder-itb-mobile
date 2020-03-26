@@ -200,6 +200,7 @@ const About = ({ navigation }) => {
         <DateButton
           setState={setDate}
           state={date}
+          isValid={isDateValid}
         />
 
         <View style={styles.view}>
