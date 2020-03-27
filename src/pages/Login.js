@@ -80,7 +80,7 @@ const Cadastro = ({ navigation }) => {
       <BorderedTextInput name="Email" state={email} setState={setEmail} />
       <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
-      <Button text="Login" onPressed={handleLogin()} />
+      <Button text="Login" onPressed={handleLogin} />
 
       <Text onPress={() => navigate('Private')} style={styles.linkText}>
         Ainda não tem uma conta? Cadastre-se
