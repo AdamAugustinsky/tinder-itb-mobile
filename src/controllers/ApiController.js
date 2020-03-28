@@ -13,6 +13,20 @@ export default class ApiController {
     return this.match;
   }
 
+  async login() {
+    this.email = await this.Storage.getEmail();
+    this.password = await this.Storage.getPassword();
+
+    if (this.email && this.password) {
+      this.loginResponse = await api.post('/sessions', {
+        email: this.email,
+        password: this.password,
+      });
+    }
+
+    return this.loginResponse.data;
+  }
+
   async like(matchId) {
     await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
   }
