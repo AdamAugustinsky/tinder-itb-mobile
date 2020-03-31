@@ -1,16 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
 class LocalStorage {
-  async setJwt(token) {
-    this.token = token;
-    await AsyncStorage.setItem('jwt', this.token);
-  }
-
-  async getJwt() {
-    await AsyncStorage.getItem('jwt').then((token) => { this.token = token; });
-    return this.token;
-  }
-
   async setUser(user) {
     this.user = user;
     await AsyncStorage.setItem('user', this.user);
