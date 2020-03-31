@@ -49,8 +49,10 @@ const Login = ({ navigation }) => {
 
     const loginResponse = await Api.login();
 
-    await Storage.setJwt(loginResponse.jwt);
-    await Storage.setUserId(loginResponse.user.id);
+    await Storage.setUser({
+      jwt: loginResponse.jwt,
+      id: loginResponse.user.id,
+    });
 
     return navigate('Home');
   };
