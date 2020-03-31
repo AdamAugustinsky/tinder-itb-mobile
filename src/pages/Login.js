@@ -1,23 +1,40 @@
-/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, TouchableOpacity, AsyncStorage,
+  Text, KeyboardAvoidingView, Alert, TouchableOpacity,
 } from 'react-native';
 
 import BorderedTextInput from '../components/BorderedTextInput';
 import Button from '../components/Button';
 import Logo from '../assets/logo.svg';
 
-import api from '../services/api';
-
 import styles from '../styles/entryStyle';
 
-const Cadastro = ({ navigation }) => {
+import ApiController from '../controllers/ApiController';
+import LocalStorage from '../controllers/LocalStorage';
+
+const Login = ({ navigation }) => {
   const { navigate } = navigation;
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const Api = new ApiController();
+  const Storage = new LocalStorage();
+
+  const setLoginInformationsToStorage = async () => {
+    await Storage.setEmail(email);
+    await Storage.setPassword(password);
+  };
+
+
+  const getLoginInformationsFromStorage = async () => {
+    const storageEmail = await Storage.getEmail();
+    const storagePassword = await Storage.getPassword();
+
+    setEmail(storageEmail);
+    setPassword(storagePassword);
+  };
 
   const handleLogin = async () => {
     if (email.length === 0) {
@@ -28,45 +45,20 @@ const Cadastro = ({ navigation }) => {
       return false;
     }
 
-    try {
-      const response = await api.post('/sessions', {
-        email,
-        password,
-      });
+    setLoginInformationsToStorage();
 
-      try {
-        await AsyncStorage.setItem('email', email);
-        await AsyncStorage.setItem('password', password);
-        await AsyncStorage.setItem('jwt', response.data.jwt);
-        await AsyncStorage.setItem('userId', response.data.user.id);
-      } catch (error) {
-        console.error(error);
-        Alert.alert('Falha', 'Erro ao salvar dados no dispositivo');
+    const loginResponse = await Api.login();
 
-        return false;
-      }
-    } catch (error) {
-      Alert.alert('Falha', 'Erro ao se comunicar com a api');
-      return false;
-    }
+    await Storage.setJwt(loginResponse.jwt);
+    await Storage.setUserId(loginResponse.user.id);
 
     return navigate('Home');
   };
 
-  const automaticallyLogin = async () => {
-    const storageEmail = await AsyncStorage.getItem('email');
-    const storagePassword = await AsyncStorage.getItem('password');
-
-    if (storageEmail && storagePassword) {
-      setEmail(storageEmail);
-      setPassword(storagePassword);
-      handleLogin();
-    }
-  };
-
   useEffect(() => {
-    automaticallyLogin();
-  });
+    getLoginInformationsFromStorage();
+    handleLogin();
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -96,4 +88,4 @@ const Cadastro = ({ navigation }) => {
   );
 };
 
-export default Cadastro;
+export default Login;
