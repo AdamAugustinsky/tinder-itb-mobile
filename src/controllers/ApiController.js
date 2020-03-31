@@ -33,10 +33,12 @@ export default class ApiController {
   }
 
   async like(matchId) {
+    await this.getJwt();
     await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
   }
 
   async dislike(matchId) {
+    await this.getJwt();
     await api.post(`/profile/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
   }
 }
