@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, TouchableOpacity,
+  View, StyleSheet, TouchableOpacity, Text,
 } from 'react-native';
 
 import MatchImage from '../components/MatchImage';
@@ -30,6 +30,25 @@ const styles = StyleSheet.create({
     left: '50%',
     marginLeft: '18%',
   },
+  textComponent: {
+    width: '100%',
+    maxWidth: 350,
+    height: '100%',
+    maxHeight: 550,
+
+    borderRadius: 25,
+    backgroundColor: '#FFFFFF',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.8)',
+
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: 'black',
+    fontSize: 28,
+  },
 });
 
 const Home = ({ navigation }) => {
@@ -56,18 +75,27 @@ const Home = ({ navigation }) => {
 
   useEffect(async () => {
     await handleGetNewMatch();
+    console.log(match);
   }, []);
 
   return (
     <>
       <Header main navigate={navigate} />
       <View style={styles.container}>
-        <MatchImage match={match} />
-        <Match
-          match={match}
-          isMatch={isMatch}
-          setIsMatch={setIsMatch}
-        />
+        {match ? (
+          <>
+            <MatchImage match={match} />
+            <Match
+              match={match}
+              isMatch={isMatch}
+              setIsMatch={setIsMatch}
+            />
+          </>
+        ) : (
+          <View style={styles.textComponent}>
+            <Text style={styles.text}> Sem pretendentes, redefina suas preferencias</Text>
+          </View>
+        )}
       </View>
 
       <View style={styles.footer}>
