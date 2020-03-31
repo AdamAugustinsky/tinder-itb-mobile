@@ -2,18 +2,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  View, StyleSheet, TouchableOpacity, AsyncStorage, Alert,
+  View, StyleSheet, TouchableOpacity,
 } from 'react-native';
 
 import MatchImage from '../components/MatchImage';
 import Header from '../components/MainHeader';
 import Match from '../components/Match';
 
-
 import Like from '../assets/like.svg';
 import Dislike from '../assets/dislike.svg';
 
-import api from '../services/api';
+import ApiController from '../controllers/ApiController';
 
 const styles = StyleSheet.create({
   container: {
@@ -36,51 +35,27 @@ const styles = StyleSheet.create({
 const Home = ({ navigation }) => {
   const { navigate } = navigation;
   const [isMatch, setIsMatch] = useState(false);
-  const [match, setMatch] = useState({});
+  const [match, setMatch] = useState();
 
-  const getJwt = async () => {
-    try {
-      const jwt = await AsyncStorage.getItem('jwt');
-      return jwt;
-    } catch (error) {
-      console.log(error);
-      Alert.alert('Erro', 'Não foi possivel se comunicar com a armazenamento');
-      return false;
-    }
+  const Api = new ApiController();
+
+  const handleGetNewMatch = async () => {
+    const ApiMatch = await Api.getNewMatch();
+    setMatch(ApiMatch);
   };
 
-  const getNewMatch = async () => {
-    const jwt = await getJwt();
-    try {
-      const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
-      setMatch(response.data[0]);
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possivel se comunicar com a api');
-    }
+  const handleLike = async (matchId) => {
+    await Api.like(matchId);
+    handleGetNewMatch();
   };
 
-  const like = async (matchId) => {
-    const jwt = await getJwt();
-    try {
-      await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
-      getNewMatch();
-    } catch (error) {
-      Alert.alert('Erro', 'Houve um erro de comunicação com a api');
-    }
+  const handleDislike = async (matchId) => {
+    await Api.dislike(matchId);
+    handleGetNewMatch();
   };
 
-  const dislike = async (matchId) => {
-    const jwt = await getJwt();
-    try {
-      await api.post(`/profile/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${jwt}` } });
-      getNewMatch();
-    } catch (error) {
-      Alert.alert('Erro', 'Houve um erro de comunicação com a api');
-    }
-  };
-
-  useEffect(() => {
-    getNewMatch();
+  useEffect(async () => {
+    await handleGetNewMatch();
   }, []);
 
   return (
@@ -96,11 +71,11 @@ const Home = ({ navigation }) => {
       </View>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.dislike} onPress={() => dislike(match._id)}>
+        <TouchableOpacity style={styles.dislike} onPress={() => handleDislike(match._id)}>
           <Dislike />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.dislike} onPress={() => like(match._id)}>
+        <TouchableOpacity style={styles.dislike} onPress={() => handleLike(match._id)}>
           <Like />
         </TouchableOpacity>
       </View>
