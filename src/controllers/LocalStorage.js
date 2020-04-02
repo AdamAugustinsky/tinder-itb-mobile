@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 class LocalStorage {
   async setUser(user) {
     this.user = user;
-    await AsyncStorage.setItem('user', this.user);
+    await AsyncStorage.setItem('user', JSON.stringify(this.user));
   }
 
   async getUser() {
