@@ -159,7 +159,7 @@ const SchoolPage = ({ navigation }) => {
 
   return isReady ? (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior="height"
       style={{
         width: '100%', flex: 1,
       }}
