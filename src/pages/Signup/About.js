@@ -161,7 +161,7 @@ const About = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior="height"
       style={{
         width: '100%', flex: 1,
       }}
