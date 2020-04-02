@@ -70,7 +70,7 @@ const Cadastro = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior="height"
       style={styles.container}
     >
       <Logo style={styles.logo} />
