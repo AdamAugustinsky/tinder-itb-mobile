@@ -104,7 +104,7 @@ const Contacts = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior="height"
       style={{
         width: '100%', flex: 1,
       }}
@@ -155,7 +155,7 @@ const Contacts = ({ navigation }) => {
         <Text
           style={styles.text}
         >
-      Usaremos apenas para mostrar seus contatos para os seus matchs
+          Usaremos apenas para mostrar seus contatos para os seus matchs
         </Text>
 
         <Button text="Avançar" style={styles.button} onPressed={handelNavigation} />
