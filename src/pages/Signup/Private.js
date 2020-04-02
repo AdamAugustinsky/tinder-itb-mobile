@@ -56,7 +56,7 @@ const Private = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior="height"
       style={globalStyles.container}
     >
       <Logo style={globalStyles.logo} />
