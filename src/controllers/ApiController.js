@@ -2,14 +2,14 @@ import LocalStorage from './LocalStorage';
 import api from '../services/api';
 
 export default class ApiController {
+  constructor() {
+    this.Storage = new LocalStorage();
+  }
+
   async getUserJwt() {
     this.user = await this.Storage.getUser();
     this.user = JSON.parse(this.user);
     this.jwt = this.user.jwt;
-  }
-
-  constructor() {
-    this.Storage = new LocalStorage();
   }
 
   async getNewMatch() {
