@@ -11,14 +11,14 @@ class LocalStorage {
     return this.user;
   }
 
-  async setMatch(user) {
-    this.user = user;
-    await AsyncStorage.setItem('match', this.user);
+  async setMatch(match) {
+    this.match = match;
+    await AsyncStorage.setItem('match', this.match);
   }
 
   async getMatch() {
-    await AsyncStorage.getItem('match').then((user) => { this.user = user; });
-    return this.user;
+    await AsyncStorage.getItem('match').then((match) => { this.match = match; });
+    return this.match;
   }
 
   async setEmail(email) {
