@@ -2,8 +2,10 @@ import LocalStorage from './LocalStorage';
 import api from '../services/api';
 
 export default class ApiController {
-  async getJwt() {
-    this.jwt = await this.Storage.getJwt();
+  async getUserJwt() {
+    this.user = await this.Storage.getUser();
+    this.user = JSON.parse(this.user);
+    this.jwt = this.user.jwt;
   }
 
   constructor() {
@@ -11,7 +13,7 @@ export default class ApiController {
   }
 
   async getNewMatch() {
-    await this.getJwt();
+    await this.getUserJwt();
     const response = await api.get('/users', { headers: { Authorization: `Bearer ${this.jwt}` } });
     await this.Storage.setMatch(response.data[0]);
     this.match = await this.Storage.getMatch();
@@ -33,12 +35,12 @@ export default class ApiController {
   }
 
   async like(matchId) {
-    await this.getJwt();
+    await this.getUserJwt();
     await api.post(`/profile/likes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
   }
 
   async dislike(matchId) {
-    await this.getJwt();
+    await this.getUserJwt();
     await api.post(`/profile/deslikes/${matchId}`, {}, { headers: { Authorization: `Bearer ${this.jwt}` } });
   }
 }
