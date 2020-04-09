@@ -73,7 +73,7 @@ const Cadastro = ({ navigation }) => {
       behavior="height"
       style={styles.container}
     >
-      <ScrollView style={{ flex: 1, width: '100%' }}>
+      <ScrollView style={{ width: '100%', paddingTop: '20%' }} contentContainerStyle={{ justifyContent: 'center' }}>
         <Logo style={styles.logo} />
 
         <Text style={styles.title}>LOGIN</Text>

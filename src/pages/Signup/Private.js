@@ -59,7 +59,7 @@ const Private = ({ navigation }) => {
       behavior="height"
       style={globalStyles.container}
     >
-      <ScrollView style={{ flex: 1, width: '100%' }}>
+      <ScrollView style={{ width: '100%', paddingTop: '20%' }} contentContainerStyle={{ justifyContent: 'center' }}>
         <Logo style={globalStyles.logo} />
         <Text style={globalStyles.title}>CADASTRE-SE</Text>
         <BorderedTextInput
