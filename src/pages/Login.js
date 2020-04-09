@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, AsyncStorage,
+  Text, KeyboardAvoidingView, Alert, AsyncStorage, ScrollView,
 } from 'react-native';
 
 import BorderedTextInput from '../components/BorderedTextInput';
@@ -73,19 +73,19 @@ const Cadastro = ({ navigation }) => {
       behavior="height"
       style={styles.container}
     >
-      <Logo style={styles.logo} />
+      <ScrollView style={{ flex: 1, width: '100%' }}>
+        <Logo style={styles.logo} />
 
-      <Text style={styles.title}>LOGIN</Text>
+        <Text style={styles.title}>LOGIN</Text>
+        <BorderedTextInput name="Email" state={email} setState={setEmail} />
+        <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
-      <BorderedTextInput name="Email" state={email} setState={setEmail} />
-      <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
+        <Button text="Login" onPressed={handleLogin} />
 
-      <Button text="Login" onPressed={handleLogin} />
-
-      <Text onPress={() => navigate('Private')} style={styles.linkText}>
-        Ainda não tem uma conta? Cadastre-se
-      </Text>
-
+        <Text onPress={() => navigate('Private')} style={styles.linkText}>
+          Ainda não tem uma conta? Cadastre-se
+        </Text>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };

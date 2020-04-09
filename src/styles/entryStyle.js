@@ -14,11 +14,13 @@ const styles = StyleSheet.create({
   },
   logo: {
     marginBottom: 16,
+    alignSelf: 'center',
   },
   title: {
     fontSize: 36,
     marginVertical: 12,
     fontFamily: 'Poppins-bold',
+    alignSelf: 'center',
   },
 });
 

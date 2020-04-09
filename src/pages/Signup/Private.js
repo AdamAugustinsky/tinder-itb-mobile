@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, TouchableOpacity,
+  Text, KeyboardAvoidingView, Alert, TouchableOpacity, ScrollView,
 } from 'react-native';
 
 import Button from '../../components/Button';
@@ -59,41 +59,42 @@ const Private = ({ navigation }) => {
       behavior="height"
       style={globalStyles.container}
     >
-      <Logo style={globalStyles.logo} />
-      <Text style={globalStyles.title}>CADASTRE-SE</Text>
-      <BorderedTextInput
-        title="Email"
-        name="Digite seu email"
-        keyboardType="email-address"
-        state={email}
-        setState={setEmail}
-        isValid={isEmailValid}
-      />
+      <ScrollView style={{ flex: 1, width: '100%' }}>
+        <Logo style={globalStyles.logo} />
+        <Text style={globalStyles.title}>CADASTRE-SE</Text>
+        <BorderedTextInput
+          title="Email"
+          name="Digite seu email"
+          keyboardType="email-address"
+          state={email}
+          setState={setEmail}
+          isValid={isEmailValid}
+        />
 
-      <BorderedTextInput
-        title="Senha"
-        name="Digite sua senha"
-        state={password}
-        setState={setPassword}
-        isValid={isPasswordValid}
-        secureTextEntry
-      />
-      <BorderedTextInput
-        name="Confirme sua senha"
-        state={confirmPassword}
-        setState={setConfirmPassword}
-        isValid={isConfirmPasswordValid}
-        secureTextEntry
-      />
+        <BorderedTextInput
+          title="Senha"
+          name="Digite sua senha"
+          state={password}
+          setState={setPassword}
+          isValid={isPasswordValid}
+          secureTextEntry
+        />
+        <BorderedTextInput
+          name="Confirme sua senha"
+          state={confirmPassword}
+          setState={setConfirmPassword}
+          isValid={isConfirmPasswordValid}
+          secureTextEntry
+        />
 
-      <TouchableOpacity onPress={() => handleCheck()}>
-        <Button text="Avançar" />
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleCheck()}>
+          <Button text="Avançar" />
+        </TouchableOpacity>
 
-      <Text onPress={() => navigate('Login')} style={globalStyles.linkText}>
-        Já tem uma conta? Logar
-      </Text>
-
+        <Text onPress={() => navigate('Login')} style={globalStyles.linkText}>
+          Já tem uma conta? Logar
+        </Text>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
