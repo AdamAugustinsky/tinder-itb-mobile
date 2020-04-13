@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, TouchableOpacity, ScrollView,
+  Text, KeyboardAvoidingView, Alert, TouchableOpacity, Platform,
 } from 'react-native';
 
 import Button from '../../components/Button';
@@ -56,45 +56,46 @@ const Private = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior="height"
+      behavior={Platform.select({
+        ios: 'padding',
+        android: null,
+      })}
       style={globalStyles.container}
     >
-      <ScrollView style={{ width: '100%', paddingTop: '20%' }} contentContainerStyle={{ justifyContent: 'center' }}>
-        <Logo style={globalStyles.logo} />
-        <Text style={globalStyles.title}>CADASTRE-SE</Text>
-        <BorderedTextInput
-          title="Email"
-          name="Digite seu email"
-          keyboardType="email-address"
-          state={email}
-          setState={setEmail}
-          isValid={isEmailValid}
-        />
+      <Logo style={globalStyles.logo} />
+      <Text style={globalStyles.title}>CADASTRE-SE</Text>
+      <BorderedTextInput
+        title="Email"
+        name="Digite seu email"
+        keyboardType="email-address"
+        state={email}
+        setState={setEmail}
+        isValid={isEmailValid}
+      />
 
-        <BorderedTextInput
-          title="Senha"
-          name="Digite sua senha"
-          state={password}
-          setState={setPassword}
-          isValid={isPasswordValid}
-          secureTextEntry
-        />
-        <BorderedTextInput
-          name="Confirme sua senha"
-          state={confirmPassword}
-          setState={setConfirmPassword}
-          isValid={isConfirmPasswordValid}
-          secureTextEntry
-        />
+      <BorderedTextInput
+        title="Senha"
+        name="Digite sua senha"
+        state={password}
+        setState={setPassword}
+        isValid={isPasswordValid}
+        secureTextEntry
+      />
+      <BorderedTextInput
+        name="Confirme sua senha"
+        state={confirmPassword}
+        setState={setConfirmPassword}
+        isValid={isConfirmPasswordValid}
+        secureTextEntry
+      />
 
-        <TouchableOpacity onPress={() => handleCheck()}>
-          <Button text="Avançar" />
-        </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleCheck()}>
+        <Button text="Avançar" />
+      </TouchableOpacity>
 
-        <Text onPress={() => navigate('Login')} style={globalStyles.linkText}>
-          Já tem uma conta? Logar
-        </Text>
-      </ScrollView>
+      <Text onPress={() => navigate('Login')} style={globalStyles.linkText}>
+        Já tem uma conta? Logar
+      </Text>
     </KeyboardAvoidingView>
   );
 };
