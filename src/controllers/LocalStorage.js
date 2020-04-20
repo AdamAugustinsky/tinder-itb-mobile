@@ -13,11 +13,11 @@ class LocalStorage {
 
   async setMatch(match) {
     this.match = match;
-    await AsyncStorage.setItem('match', this.match);
+    await AsyncStorage.setItem('match', JSON.stringify(this.match));
   }
 
   async getMatch() {
-    await AsyncStorage.getItem('match').then((match) => { this.match = match; });
+    await AsyncStorage.getItem('match').then((match) => { this.match = JSON.parse(match); });
     return this.match;
   }
 
