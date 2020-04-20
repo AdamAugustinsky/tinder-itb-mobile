@@ -58,12 +58,12 @@ const MatchImage = ({ match }) => {
 
   useEffect(() => {
     const setNewMatchAge = async () => {
-      const birthDate = new Date(match.data_nascimento);
+      const birthDate = new Date(match.birthdate);
       setMatchAge(calculateAge(birthDate.getMonth(), birthDate.getDate(), birthDate.getFullYear()));
     };
 
     setNewMatchAge();
-  }, [match.data_nascimento]);
+  }, [match.birthdate]);
 
   return (
     <ImageBackground
@@ -80,21 +80,21 @@ const MatchImage = ({ match }) => {
         <View style={styles.description}>
           <Text style={styles.texts}>
             <Text style={styles.name}>
-              {match.nome}
+              {match.name}
               {', '}
             </Text>
             {matchAge}
           </Text>
           <Text style={styles.texts}>
             <School />
-            {match.nome_escola}
+            {match.school_name}
           </Text>
           <Text style={styles.texts}>
             <Grade />
-            {match.curso}
+            {match.course}
             {' '}
-            {match.ano}
-            {match.sala}
+            {match.grade}
+            {match.school_class}
           </Text>
         </View>
       </LinearGradient>
