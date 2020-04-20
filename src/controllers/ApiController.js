@@ -8,7 +8,6 @@ export default class ApiController {
 
   async getUserJwt() {
     this.user = await this.Storage.getUser();
-    this.user = JSON.parse(this.user);
     this.jwt = this.user.jwt;
   }
 
