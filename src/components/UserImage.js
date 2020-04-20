@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const MatchImage = ({ match }) => {
-  const [matchAge, setMatchAge] = useState();
+const UserImage = ({ user }) => {
+  const [userAge, setUserAge] = useState();
 
   const calculateAge = (birthMonth, birthDay, birthYear) => {
     const todayDate = new Date();
@@ -57,19 +57,19 @@ const MatchImage = ({ match }) => {
   };
 
   useEffect(() => {
-    const setNewMatchAge = async () => {
-      const birthDate = new Date(match.birthdate);
-      setMatchAge(calculateAge(birthDate.getMonth(), birthDate.getDate(), birthDate.getFullYear()));
+    const setNewUserAge = async () => {
+      const birthDate = new Date(user.birthdate);
+      setUserAge(calculateAge(birthDate.getMonth(), birthDate.getDate(), birthDate.getFullYear()));
     };
 
-    setNewMatchAge();
-  }, [match.birthdate]);
+    setNewUserAge();
+  }, [user.birthdate]);
 
   return (
     <ImageBackground
       style={styles.profileImage}
       imageStyle={{ borderRadius: 25 }}
-      source={match.icon}
+      source={user.icon}
     >
       <LinearGradient
         style={{ width: '100%', height: '100%', borderRadius: 25 }}
@@ -80,21 +80,21 @@ const MatchImage = ({ match }) => {
         <View style={styles.description}>
           <Text style={styles.texts}>
             <Text style={styles.name}>
-              {match.name}
+              {user.name}
               {', '}
             </Text>
-            {matchAge}
+            {userAge}
           </Text>
           <Text style={styles.texts}>
             <School />
-            {match.school_name}
+            {user.school_name}
           </Text>
           <Text style={styles.texts}>
             <Grade />
-            {match.course}
+            {user.course}
             {' '}
-            {match.grade}
-            {match.school_class}
+            {user.grade}
+            {user.school_class}
           </Text>
         </View>
       </LinearGradient>
@@ -102,4 +102,4 @@ const MatchImage = ({ match }) => {
   );
 };
 
-export default MatchImage;
+export default UserImage;

@@ -5,7 +5,7 @@ import {
   View, StyleSheet, TouchableOpacity, Text,
 } from 'react-native';
 
-import MatchImage from '../components/MatchImage';
+import UserImage from '../components/UserImage';
 import Header from '../components/MainHeader';
 import Match from '../components/Match';
 
@@ -75,7 +75,6 @@ const Home = ({ navigation }) => {
 
   useEffect(async () => {
     await handleGetNewMatch();
-    console.log(match);
   }, []);
 
   return (
@@ -84,7 +83,7 @@ const Home = ({ navigation }) => {
       <View style={styles.container}>
         {match ? (
           <>
-            <MatchImage match={match} />
+            <UserImage user={match} />
             <Match
               match={match}
               isMatch={isMatch}
