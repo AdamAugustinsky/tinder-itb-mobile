@@ -7,7 +7,7 @@ class LocalStorage {
   }
 
   async getUser() {
-    await AsyncStorage.getItem('user').then((user) => { this.user = user; });
+    await AsyncStorage.getItem('user').then((user) => { this.user = JSON.parse(user); });
     return this.user;
   }
 
