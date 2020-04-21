@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   KeyboardAvoidingView, Text, Image, Alert,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import globalStyles from '../../styles/globalStyles';
 
@@ -10,14 +10,13 @@ import logo from '../../assets/logo/logo.png';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
+import { signin } from '../../controllers/NavigationController';
+
 export default function Login() {
   const navigation = useNavigation();
-  const { params } = useRoute();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const { signIn } = params.authContext;
 
   async function handleLogin() {
     if (email.length === 0) {
@@ -26,7 +25,7 @@ export default function Login() {
       return Alert.alert('', 'Digite a senha para entrar');
     }
 
-    return signIn({ email, password });
+    return signin({ email, password });
   }
 
   return (

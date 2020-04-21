@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   View, Alert, AsyncStorage, ActivityIndicator,
 } from 'react-native';
-import { useRoute } from '@react-navigation/native';
 
 
 import styles from './styles';
@@ -12,12 +11,10 @@ import BackButton from '../../../components/BackButton';
 
 import api from '../../../services/api';
 
+import { signout } from '../../../controllers/NavigationController';
+
 export default function Profile() {
   const [user, setUser] = useState();
-
-  const { params } = useRoute();
-
-  const { signOut } = params.authContext;
 
   useEffect(() => {
     async function getInfo() {
@@ -47,7 +44,7 @@ export default function Profile() {
             <TargetCard user={user} />
             <View style={styles.footer}>
               <View style={{ alignItems: 'center' }}>
-                <BackButton text="Sair" onPressed={signOut} />
+                <BackButton text="Sair" onPressed={signout} />
               </View>
 
             </View>
