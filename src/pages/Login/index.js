@@ -25,7 +25,13 @@ export default function Login() {
       return Alert.alert('', 'Digite a senha para entrar');
     }
 
-    return signin({ email, password });
+    const response = await signin({ email, password });
+
+    if (response) {
+      return Alert.alert('ERRO!', `Status: ${response.status}\n\n${response.error}`);
+    }
+
+    return null;
   }
 
   return (
