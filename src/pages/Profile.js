@@ -49,13 +49,13 @@ const Profile = ({ navigation }) => {
     }
   };
 
-  const handleSignOut = async () => {
-    await AsyncStorage.removeItem('email');
-    await AsyncStorage.removeItem('password');
+  const getOut = async () => {
+    AsyncStorage.removeItem('email');
+    AsyncStorage.removeItem('password');
     await AsyncStorage.removeItem('jwt');
     await AsyncStorage.removeItem('userId');
 
-    navigate('Login');
+    return navigate('Login');
   };
 
   useEffect(() => {
@@ -65,15 +65,17 @@ const Profile = ({ navigation }) => {
   return (
     <>
       <Header navigate={navigate} profile />
-      <View style={styles.container}>
-        <MatchImage match={myInformations} />
-      </View>
+      {
+        () => (myInformations ? (
+          <View style={styles.container}>
+            <MatchImage match={myInformations} />
+          </View>
+        ) : <View />)
+      }
       <View style={styles.buttons}>
-        <TouchableOpacity onPress={() => navigate('ProfileConfigs')}>
-          <Button text="Configurações" />
-        </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handleSignOut()}>
+        <TouchableOpacity onPress={getOut}>
+               
           <Button text="Sair" />
         </TouchableOpacity>
       </View>

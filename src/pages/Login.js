@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import {
-  Text, KeyboardAvoidingView, Alert, TouchableOpacity,
+  Text, KeyboardAvoidingView, Alert, AsyncStorage, Platform,
 } from 'react-native';
 
 import BorderedTextInput from '../components/BorderedTextInput';
@@ -64,28 +64,23 @@ const Login = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
+      behavior={Platform.select({
+        ios: 'padding',
+        android: null,
+      })}
       style={styles.container}
     >
-      <Logo />
+      <Logo style={styles.logo} />
 
+      <Text style={styles.title}>LOGIN</Text>
       <BorderedTextInput name="Email" state={email} setState={setEmail} />
       <BorderedTextInput name="Senha" state={password} setState={setPassword} secureTextEntry />
 
-      <TouchableOpacity onPress={() => handleLogin()}>
-        <Button text="Login" />
-      </TouchableOpacity>
+      <Button text="Login" onPressed={handleLogin} />
 
-      <Text style={styles.text}>
-        Ainda não tem uma conta?
-        <Text
-          style={styles.linkText}
-          onPress={() => navigate('Cadastro')}
-        >
-          Cadastre-se
-        </Text>
+      <Text onPress={() => navigate('Private')} style={styles.linkText}>
+        Ainda não tem uma conta? Cadastre-se
       </Text>
-
     </KeyboardAvoidingView>
   );
 };

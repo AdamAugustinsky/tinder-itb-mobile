@@ -1,35 +1,57 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import {
+  TextInput, StyleSheet, View, Text,
+} from 'react-native';
 
-const styles = StyleSheet.create({
-  inputField: {
-    position: 'relative',
-    width: 300,
-    height: 50,
-    marginTop: 15,
-
-    backgroundColor: '#FFFFFF',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.8)',
-    borderRadius: 12,
-  },
-});
 
 const BorderedTextInput = ({
-  name, state, setState, secureTextEntry,
-}) => (
-  <TextInput
-    style={styles.inputField}
-    placeholder={`     ${name}`}
-    placeholderTextColor="#c0c0c0"
-    autoCapitalize="none"
-    autoCorrect={false}
-    value={state}
-    secureTextEntry={secureTextEntry}
-    onChangeText={setState}
-  />
-);
+  title, name, state, setState,
+  secureTextEntry, keyboardType, autoCorrect,
+  autoCapitalize, isValid = true,
+}) => {
+  const styles = StyleSheet.create({
+    inputField: {
+      position: 'relative',
+      width: '80%',
+      height: 46,
+      marginTop: 4,
+      marginBottom: 8,
+
+      borderWidth: 1,
+      borderColor: isValid ? '#2d2d2d' : '#EF173E',
+      borderRadius: 16,
+
+      paddingLeft: 16,
+    },
+    view: {
+      width: '100%',
+      alignItems: 'center',
+    },
+    title: {
+      alignSelf: 'flex-start',
+      paddingLeft: '12%',
+      fontSize: 14,
+      color: isValid ? '#2d2d2d' : '#EF173E',
+    },
+  });
+
+  return (
+    <View style={styles.view}>
+      {title ? <Text style={styles.title}>{title}</Text> : null}
+      <TextInput
+        style={styles.inputField}
+        placeholder={name}
+        keyboardType={keyboardType}
+        placeholderTextColor={isValid ? '#c0c0c0' : '#EF173E'}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
+        value={state}
+        secureTextEntry={secureTextEntry}
+        onChangeText={setState}
+      />
+    </View>
+  );
+};
 
 export default BorderedTextInput;

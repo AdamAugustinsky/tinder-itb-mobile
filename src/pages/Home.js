@@ -57,7 +57,7 @@ const Home = ({ navigation }) => {
   const [match, setMatch] = useState();
 
   const Api = new ApiController();
-
+  
   const handleGetNewMatch = async () => {
     const ApiMatch = await Api.getNewMatch();
     setMatch(ApiMatch);
@@ -80,6 +80,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       <Header main navigate={navigate} />
+    
       <View style={styles.container}>
         {match ? (
           <>
