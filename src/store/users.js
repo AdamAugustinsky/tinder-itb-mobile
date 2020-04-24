@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 const INITIAL_STATE = {
   user: null,
   pretenders: null,
+  pretenderIndex: 1,
 };
 
 const {
