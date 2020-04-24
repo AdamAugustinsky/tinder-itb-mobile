@@ -3,7 +3,6 @@ import { createStore } from 'redux';
 const INITIAL_STATE = {
   user: null,
   pretenders: null,
-  jwt: null,
 };
 
 const {
@@ -19,11 +18,6 @@ const {
       return {
         ...state,
         pretenders: action.pretenders,
-      };
-    case 'RESTORE_JWT':
-      return {
-        ...state,
-        jwt: action.jwt,
       };
     default:
       return {
