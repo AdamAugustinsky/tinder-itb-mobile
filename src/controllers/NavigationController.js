@@ -62,4 +62,5 @@ export {
   restore,
   signin,
   signout,
+  getJwt,
 };
