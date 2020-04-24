@@ -1,12 +1,21 @@
 import { AsyncStorage } from 'react-native';
 
-import { dispatch } from '../store/navigation';
+import { dispatch, getState } from '../store/navigation';
 
 import api from '../services/api';
 
+function getJwt() {
+  const state = getState();
+
+  if (!state.isSignOut) {
+    return state.jwt;
+  }
+
+  return null;
+}
 
 async function restore() {
-  const jwt = await AsyncStorage.getItem('jwt').catch(() => null);
+  const jwt = getJwt();
 
   try {
     await api.get('/profile', {
