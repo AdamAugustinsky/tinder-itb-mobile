@@ -2,9 +2,10 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, AsyncStorage, ActivityIndicator, Text,
+  View, Alert, AsyncStorage, ActivityIndicator,
 } from 'react-native';
 
+import { getPretender } from '../../../controllers/UsersController';
 
 import styles from './styles';
 
@@ -17,41 +18,24 @@ import ActionButton from '../../../components/ActionButton';
 
 export default function Home() {
   const [user, setUser] = useState();
-  const [users, setUsers] = useState([]);
-  const [index, setIndex] = useState(0);
-  const [haveUsers, setHaveUsers] = useState(true);
+  const [haveInteracted, setHaveInteracted] = useState(true);
 
-  useEffect(() => {
-    async function getUsers() {
-      const jwt = await AsyncStorage.getItem('jwt');
-      try {
-        const res = await api.get('/users', {
-          headers: {
-            authorization: `Bearer ${jwt}`,
-          },
-        });
-
-        setUsers(res.data);
-
-        if (users.length !== 0) { setUser(res.data[index]); } else {
-          setHaveUsers(false);
-          setUser(null);
-        }
-      } catch (error) {
-        Alert.alert('Erro!', capitalize(error.response.data.error));
+  async function handleGetPretenders() {
+    try {
+      if (haveInteracted) {
+        const pretender = getPretender();
+        console.log(pretender);
+        setUser(pretender);
+        setHaveInteracted(false);
       }
+    } catch (error) {
+      Alert.alert('Erro!', capitalize(error.response.data.error));
     }
-    getUsers();
-  }, []);
-
+  }
 
   function changeUser() {
-    setIndex(index + 1);
-
-    if (users[index]) { setUser(users[index]); } else {
-      setHaveUsers(false);
-      setUser(null);
-    }
+    setHaveInteracted(true);
+    handleGetPretenders();
   }
 
   async function like(id) {
@@ -83,6 +67,10 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    handleGetPretenders();
+  }, []);
+
   return (
     <View style={styles.container}>
       {user ? (
@@ -93,8 +81,7 @@ export default function Home() {
             <ActionButton type="dislike" onPress={() => dislike(user._id)} />
           </View>
         </View>
-      ) : !haveUsers ? <Text>Acabaram os usuários...</Text>
-        : <ActivityIndicator />}
+      ) : <ActivityIndicator />}
     </View>
   );
 }
