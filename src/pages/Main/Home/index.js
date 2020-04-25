@@ -23,8 +23,7 @@ export default function Home() {
   async function handleGetPretenders() {
     try {
       if (haveInteracted) {
-        const pretender = getPretender();
-        console.log(pretender);
+        const pretender = await getPretender();
         setUser(pretender);
         setHaveInteracted(false);
       }
