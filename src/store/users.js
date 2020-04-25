@@ -3,7 +3,7 @@ import { createStore } from 'redux';
 const INITIAL_STATE = {
   user: null,
   pretenders: null,
-  pretenderIndex: 1,
+  pretenderIndex: 0,
 };
 
 const {
@@ -19,6 +19,11 @@ const {
       return {
         ...state,
         pretenders: action.pretenders,
+      };
+    case 'RESTORE_INDEX':
+      return {
+        ...state,
+        pretenderIndex: state.pretenderIndex + 1,
       };
     default:
       return {
