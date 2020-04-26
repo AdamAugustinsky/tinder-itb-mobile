@@ -48,9 +48,9 @@ class User {
       period: this.period,
       prefs: {
         school: this.prefs.school,
-        gender: [this.prefs.gender],
-        grade: [this.prefs.grade],
-        course: [this.prefs.course],
+        gender: this.prefs.gender,
+        grade: this.prefs.grade,
+        course: this.prefs.course,
       },
     };
 
