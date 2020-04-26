@@ -1,37 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, AsyncStorage, ActivityIndicator,
+  View, Alert, ActivityIndicator,
 } from 'react-native';
 
+import { getUser } from '../../../controllers/ProfileController';
 
 import styles from './styles';
 
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
 
-import api from '../../../services/api';
-
 import { signout } from '../../../controllers/NavigationController';
 
 export default function Profile() {
   const [user, setUser] = useState();
 
-  useEffect(() => {
-    async function getInfo() {
-      const jwt = await AsyncStorage.getItem('jwt');
-      try {
-        const res = await api.get('/profile', {
-          headers: {
-            authorization: `Bearer ${jwt}`,
-          },
-        });
-
-        setUser(res.data);
-      } catch (error) {
-        Alert.alert('Erro!', error.response.data.error);
-      }
+  async function handleGetUsers() {
+    try {
+      const signedUser = await getUser();
+      setUser(signedUser);
+    } catch (error) {
+      Alert.alert('Erro!', error.response.data.error);
     }
-    getInfo();
+  }
+
+  useEffect(() => {
+    handleGetUsers();
   }, []);
 
   return (
