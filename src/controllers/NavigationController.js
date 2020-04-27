@@ -44,9 +44,6 @@ async function signin(data) {
       password: data.password,
     });
 
-    await AsyncStorage.setItem('jwt', response.data.jwt);
-    await AsyncStorage.setItem('userId', response.data.user.id);
-
     dispatch({ type: 'SIGN_IN', jwt: response.data.jwt });
 
     return null;

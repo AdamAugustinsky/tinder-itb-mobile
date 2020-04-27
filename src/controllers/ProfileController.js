@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { dispatch, getState } from '../store/users';
 
 import { getJwt } from './NavigationController';
@@ -16,8 +17,15 @@ async function getUser() {
   return state.user;
 }
 
-function placeholder() {
-  return null;
+async function getMatchs() {
+  try {
+    const jwt = getJwt();
+    const response = await api.get('/profile/matchs', { headers: { Authorization: `Bearer ${jwt}` } });
+    return response.data.matchs;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
 
-export { getUser, placeholder };
+export { getUser, getMatchs };
