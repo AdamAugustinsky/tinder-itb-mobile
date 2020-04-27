@@ -10,9 +10,13 @@ function getIndex() {
     pretenderIndex = 0;
     dispatch({ type: 'RESTORE_INDEX', pretenderIndex });
     return pretenderIndex;
+  } if (pretenderIndex) {
+    pretenderIndex += 1;
+    dispatch({ type: 'RESTORE_INDEX', pretenderIndex });
+    return pretenderIndex;
   }
 
-  pretenderIndex += 1;
+  pretenderIndex = 0;
   dispatch({ type: 'RESTORE_INDEX', pretenderIndex });
   return pretenderIndex;
 }

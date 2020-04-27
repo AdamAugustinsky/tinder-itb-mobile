@@ -1,4 +1,7 @@
 import { createStore } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+
+import { AsyncStorage } from 'react-native';
 
 const INITIAL_STATE = {
   isLoading: true,
@@ -6,9 +9,12 @@ const INITIAL_STATE = {
   jwt: null,
 };
 
-const {
-  dispatch, getState, replaceReducer, subscribe,
-} = createStore((state = INITIAL_STATE, action) => {
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+};
+
+const persistedReducer = persistReducer(persistConfig, (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'RESTORE_TOKEN':
       return {
@@ -37,6 +43,13 @@ const {
   }
 });
 
+const store = createStore(persistedReducer);
+
+persistStore(store);
+
+const {
+  dispatch, getState, replaceReducer, subscribe,
+} = store;
 export {
   dispatch, getState, replaceReducer, subscribe,
 };
