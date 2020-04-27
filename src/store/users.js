@@ -23,7 +23,7 @@ const {
     case 'RESTORE_INDEX':
       return {
         ...state,
-        pretenderIndex: state.pretenderIndex + 1,
+        pretenderIndex: action.pretenderIndex,
       };
     default:
       return {

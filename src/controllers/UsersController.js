@@ -4,21 +4,31 @@ import { getJwt } from './NavigationController';
 
 import api from '../services/api';
 
+function getIndex() {
+  let { pretenderIndex } = getState();
+  if (pretenderIndex === 5) {
+    pretenderIndex = 0;
+    dispatch({ type: 'RESTORE_INDEX', pretenderIndex });
+    return pretenderIndex;
+  }
+
+  pretenderIndex += 1;
+  dispatch({ type: 'RESTORE_INDEX', pretenderIndex });
+  return pretenderIndex;
+}
+
 async function getPretender() {
   const state = getState();
-  if (!state.pretenders) {
+  const index = getIndex();
+
+  if (!state.pretenders || index === 0) {
     const jwt = getJwt();
     const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
     const { pretenders } = dispatch({ type: 'RESTORE_PRETENDER', pretenders: response.data });
     return pretenders[0];
   }
-
-  const index = dispatch({ type: 'RESTORE_INDEX' });
   return state.pretenders[index];
 }
 
-function placeholder() {
-  return null;
-}
 
-export { getPretender, placeholder };
+export { getPretender, getIndex };
