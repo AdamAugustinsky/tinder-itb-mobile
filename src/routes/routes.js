@@ -17,16 +17,16 @@ import Main from '../pages/Main';
 
 import {
   subscribe, getState,
-} from '../store/navigation';
+} from '../store/index';
 
 import { restore } from '../controllers/NavigationController';
 
 export default function Routes() {
   const Stack = createStackNavigator();
-  const [state, setState] = useState(getState());
+  const [state, setState] = useState(getState().navigation);
 
   useEffect(() => {
-    subscribe(() => setState((getState())));
+    subscribe(() => setState((getState().navigation)));
     restore();
   }, []);
 

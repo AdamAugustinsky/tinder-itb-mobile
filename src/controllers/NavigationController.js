@@ -1,14 +1,14 @@
 import { AsyncStorage } from 'react-native';
 
-import { dispatch, getState } from '../store/navigation';
+import { dispatch, getState } from '../store/index';
 
 import api from '../services/api';
 
 function getJwt() {
-  const state = getState();
+  const { navigation } = getState();
 
-  if (!state.isSignOut) {
-    return state.jwt;
+  if (!navigation.isSignOut) {
+    return navigation.jwt;
   }
 
   return null;
