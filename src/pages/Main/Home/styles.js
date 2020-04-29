@@ -4,10 +4,16 @@ import { StatusBar } from 'react-native';
 import Constants from 'expo-constants';
 import { Feather } from '@expo/vector-icons';
 
-export const Container = styled.SafeAreaView`
+export const Body = styled.SafeAreaView`
   flex: 1;
-  margin-top: ${Constants.statusBarHeight + 10}px;
+  margin-top: 10px;
   align-items: center;
+`;
+
+export const Container = styled.View`
+flex: 1;
+align-items: center
+padding-top: ${Constants.statusBarHeight}px
 `;
 
 export const Background = styled(LinearGradient).attrs({

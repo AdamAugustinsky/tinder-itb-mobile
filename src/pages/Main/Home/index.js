@@ -7,7 +7,7 @@ import {
 
 
 import {
-  Container, Title, Background, Value,
+  Container, Title, Background, Value, Body,
   StyledBar, Column, Label,
   Info, Name, Image, Row, Age, About,
 } from './styles';
@@ -35,10 +35,10 @@ export default function Home() {
 
 
   return (
-    <>
+    <Container>
       <Background />
       <StyledBar />
-      <Container>
+      <Body>
         <Title>Tinder ITB</Title>
         <Image
           source={{ uri: user ? user.images[0] : null }}
@@ -70,8 +70,8 @@ export default function Home() {
             </Column>
           </Row>
         </Info>
-      </Container>
+      </Body>
 
-    </>
+    </Container>
   );
 }
