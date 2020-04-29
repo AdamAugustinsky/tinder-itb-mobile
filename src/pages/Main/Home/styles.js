@@ -68,6 +68,7 @@ export const Age = styled.Text`
   font-size: 14px;
   line-height: 24px;
   margin-left: 4px;
+  letter-spacing: -1px;
   color: rgba(11, 37, 88, 0.6);
 `;
 
@@ -77,6 +78,15 @@ export const About = styled(Feather).attrs({
   size: 24,
 })``;
 
-export const Group = styled.View`
-  flex-direction: row
+export const Column = styled.View`
+  margin-top: 12px;
 `;
+
+export const Label = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 16px;
+  color: rgba(11, 37, 88, 0.8);
+`;
+
+export const Value = styled.Text``;

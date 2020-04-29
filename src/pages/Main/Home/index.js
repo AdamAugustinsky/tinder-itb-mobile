@@ -8,7 +8,7 @@ import {
 
 import {
   Container, Title, Background,
-  StyledBar, Group,
+  StyledBar, Column, Label,
   Info, Name, Image, Row, Age, About,
 } from './styles';
 
@@ -46,13 +46,18 @@ export default function Home() {
         />
         <Info>
           <Row>
-            <Group>
+            <Row>
               <Name>{user ? user.name.split(' ')[0] : null}</Name>
               <Age>
                 {user ? 2020 - new Date(user.birthdate).getFullYear() : null}
               </Age>
-            </Group>
+            </Row>
             <About />
+          </Row>
+          <Row>
+            <Column>
+              <Label>Curso</Label>
+            </Column>
           </Row>
         </Info>
       </Container>
