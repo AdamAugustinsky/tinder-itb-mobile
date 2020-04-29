@@ -6,14 +6,14 @@ import { Feather } from '@expo/vector-icons';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  margin-top: ${Constants.statusBarHeight + 20}px;
+  margin-top: ${Constants.statusBarHeight + 10}px;
   align-items: center;
 `;
 
 export const Background = styled(LinearGradient).attrs({
   colors: ['#FF4A86', '#FFA16C'],
   start: [0.15, 0.2],
-  end: [1, 1],
+  end: [1, 0.6],
 })`
   width: 100%;
   height: 70%;
@@ -26,10 +26,9 @@ export const StyledBar = styled(StatusBar).attrs({
 })``;
 
 export const Title = styled.Text`
-  align-self: center;
   color: #ffffff;
-  font-family: 'Poppins-bold';
-  font-size: 36px
+  font-family: 'Baloo-bold';
+  font-size: 40px
 `;
 
 export const Info = styled.View`
@@ -44,9 +43,8 @@ export const Info = styled.View`
 export const Name = styled.Text`
   color: rgba(11, 37, 88, 0.8);
   font-size: 24px;
-  line-height: 24px;
-  font-weight: bold;
-  font-family: Roboto
+  line-height: 32px
+  font-family: Poppins-bold
 `;
 
 export const Image = styled.Image`
@@ -61,12 +59,12 @@ export const Row = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-right: 12px;
 `;
 
 export const Age = styled.Text`
   font-weight: bold;
   font-size: 14px;
-  line-height: 24px;
   margin-left: 4px;
   letter-spacing: -1px;
   color: rgba(11, 37, 88, 0.6);
@@ -79,14 +77,18 @@ export const About = styled(Feather).attrs({
 })``;
 
 export const Column = styled.View`
-  margin-top: 12px;
+  margin-top: 4px;
 `;
 
 export const Label = styled.Text`
   font-size: 14px;
-  font-weight: bold;
+  font-family: Poppins-bold
   line-height: 16px;
   color: rgba(11, 37, 88, 0.8);
 `;
 
-export const Value = styled.Text``;
+export const Value = styled.Text`
+  font-weight: bold;
+  font-size: 14px;
+  color: rgba(11, 37, 88, 0.6);
+`;

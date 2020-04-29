@@ -7,7 +7,7 @@ import {
 
 
 import {
-  Container, Title, Background,
+  Container, Title, Background, Value,
   StyledBar, Column, Label,
   Info, Name, Image, Row, Age, About,
 } from './styles';
@@ -57,6 +57,16 @@ export default function Home() {
           <Row>
             <Column>
               <Label>Curso</Label>
+              <Value>
+                {user ? `${capitalize(user.course)} ${user.grade}${user.school_class} `
+                + `${user.period}` : null}
+              </Value>
+            </Column>
+            <Column>
+              <Label>Escola</Label>
+              <Value>
+                {user ? `${capitalize(user.school_name)}` : null}
+              </Value>
             </Column>
           </Row>
         </Info>

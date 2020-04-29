@@ -8,7 +8,10 @@ import Routes from './src/routes/routes';
 import api from './src/services/api';
 
 export default function App() {
-  const [isLoaded] = useFonts({ 'Poppins-bold': require('./src/assets/fonts/Poppins-Bold.ttf') });
+  const [isLoaded] = useFonts({
+    'Poppins-bold': require('./src/assets/fonts/Poppins-Bold.ttf'),
+    'Baloo-bold': require('./src/assets/fonts/Baloo2-Bold.ttf'),
+  });
 
   api.get('/').catch((error) => error);
 
