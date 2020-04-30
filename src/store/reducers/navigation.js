@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
-    case 'RESTORE_TOKEN':
+    case 'RESTORE_TOKEN': // padrão @store/action
       return {
         ...state,
         jwt: action.jwt,

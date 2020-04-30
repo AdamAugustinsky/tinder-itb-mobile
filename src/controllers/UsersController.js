@@ -4,6 +4,7 @@ import { getJwt } from './NavigationController';
 
 import api from '../services/api';
 
+// modificar o estado apenas pelo reducer
 function getIndex() {
   const { users } = getState();
   let { pretenderIndex } = users;
