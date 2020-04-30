@@ -8,7 +8,8 @@ export const Body = styled.SafeAreaView`
   flex: 1;
   margin-top: 10px;
   align-items: center;
-  width: 83%
+  width: 83%;
+  justify-content: center
 `;
 
 export const Container = styled.View`
@@ -101,8 +102,8 @@ export const Value = styled.Text`
 `;
 
 export const FabRow = styled.View`
-  position: absolute;
-  bottom: 10px;
+  position: relative;
+  bottom: 8%
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
