@@ -98,3 +98,12 @@ export const Value = styled.Text`
   font-size: 14px;
   color: rgba(11, 37, 88, 0.6);
 `;
+
+export const FabRow = styled.View`
+  position: absolute;
+  bottom: 10px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+`;

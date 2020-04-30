@@ -9,13 +9,14 @@ import {
 import {
   Container, Title, Background, Value, Body,
   StyledBar, Column, Label,
-  Info, Name, Image, Row, Age, About,
+  Info, Name, Image, Row, Age, About, FabRow,
 } from './styles';
 
 import api from '../../../services/api';
 
 
 import capitalize from '../../../utils/capitalize';
+import FloatingActionButton from '../../../components/FloatingActionButton';
 
 export default function Home() {
   const [user, setUser] = useState();
@@ -70,6 +71,10 @@ export default function Home() {
             </Column>
           </Row>
         </Info>
+        <FabRow>
+          <FloatingActionButton type="like" />
+          <FloatingActionButton type="dislike" />
+        </FabRow>
       </Body>
 
     </Container>
