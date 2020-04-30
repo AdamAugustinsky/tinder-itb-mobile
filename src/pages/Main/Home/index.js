@@ -71,6 +71,7 @@ export default function Home() {
             </Column>
           </Row>
         </Info>
+
         <FabRow>
           <FloatingActionButton type="like" />
           <FloatingActionButton type="dislike" />

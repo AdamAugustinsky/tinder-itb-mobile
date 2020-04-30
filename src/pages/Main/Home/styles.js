@@ -8,6 +8,7 @@ export const Body = styled.SafeAreaView`
   flex: 1;
   margin-top: 10px;
   align-items: center;
+  width: 83%
 `;
 
 export const Container = styled.View`
@@ -38,7 +39,7 @@ export const Title = styled.Text`
 `;
 
 export const Info = styled.View`
-  width: 300px;
+  width: 100%;
   background-color: #fff;
   padding: 12px;
   padding-bottom: 32px;
@@ -54,8 +55,8 @@ export const Name = styled.Text`
 `;
 
 export const Image = styled.Image`
-  width: 300px; 
-  maxHeight: 330px;
+  width: 100%;
+  maxHeight: 60%;
   height: 100%;
   borderTopLeftRadius: 8px
   borderTopRightRadius: 8px
