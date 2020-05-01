@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, AsyncStorage, ActivityIndicator,
+  Alert, AsyncStorage, ActivityIndicator,
 } from 'react-native';
 
 
-import styles from './styles';
+import {
+  Background, Container, Body, StyledBar, Title,
+} from './styles';
 
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
@@ -12,6 +14,7 @@ import BackButton from '../../../components/BackButton';
 import api from '../../../services/api';
 
 import { signout } from '../../../controllers/NavigationController';
+import { FabRow } from '../Home/styles';
 
 export default function Profile() {
   const [user, setUser] = useState();
@@ -34,28 +37,24 @@ export default function Profile() {
     getInfo();
   }, []);
 
+
+  if (!user) {
+    return (
+      <ActivityIndicator />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-
-
-      {user ? (
-        <>
-          <View>
-            <TargetCard user={user} />
-            <View style={styles.footer}>
-              <View style={{ alignItems: 'center' }}>
-                <BackButton text="Sair" onPressed={signout} />
-              </View>
-
-            </View>
-
-
-          </View>
-
-        </>
-
-      ) : <ActivityIndicator />}
-    </View>
-
+    <Container>
+      <Background />
+      <StyledBar />
+      <Body>
+        <Title>Seu Perfil</Title>
+        <TargetCard user={user} />
+        <FabRow>
+          <BackButton text="Sair" onPressed={signout} />
+        </FabRow>
+      </Body>
+    </Container>
   );
 }

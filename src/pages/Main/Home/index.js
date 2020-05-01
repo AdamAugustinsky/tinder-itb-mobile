@@ -2,14 +2,13 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import {
-  Alert,
+  Alert, ActivityIndicator,
 } from 'react-native';
 
 
 import {
-  Container, Title, Background, Value, Body,
-  StyledBar, Column, Label,
-  Info, Name, Image, Row, Age, About, FabRow,
+  Container, Title, Background, Body,
+  StyledBar, FabRow,
 } from './styles';
 
 import api from '../../../services/api';
@@ -17,6 +16,7 @@ import api from '../../../services/api';
 
 import capitalize from '../../../utils/capitalize';
 import FloatingActionButton from '../../../components/FloatingActionButton';
+import TargetCard from '../../../components/TargetCard';
 
 export default function Home() {
   const [user, setUser] = useState();
@@ -35,43 +35,19 @@ export default function Home() {
   }, []);
 
 
+  if (!user) {
+    return (
+      <ActivityIndicator />
+    );
+  }
+
   return (
     <Container>
       <Background />
       <StyledBar />
       <Body>
         <Title>Tinder ITB</Title>
-        <Image
-          source={{ uri: user ? user.images[0] : null }}
-          resizeMode="cover"
-        />
-        <Info>
-          <Row>
-            <Row>
-              <Name>{user ? user.name.split(' ')[0] : null}</Name>
-              <Age>
-                {user ? 2020 - new Date(user.birthdate).getFullYear() : null}
-              </Age>
-            </Row>
-            <About />
-          </Row>
-          <Row>
-            <Column>
-              <Label>Curso</Label>
-              <Value>
-                {user ? `${capitalize(user.course)} ${user.grade}${user.school_class} `
-                + `${user.period}` : null}
-              </Value>
-            </Column>
-            <Column>
-              <Label>Escola</Label>
-              <Value>
-                {user ? `${capitalize(user.school_name)}` : null}
-              </Value>
-            </Column>
-          </Row>
-        </Info>
-
+        <TargetCard user={user} />
         <FabRow>
           <FloatingActionButton type="like" />
           <FloatingActionButton type="dislike" />
