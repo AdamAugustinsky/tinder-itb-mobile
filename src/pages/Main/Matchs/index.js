@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, ScrollView, View, AsyncStorage, Alert, ActivityIndicator,
+  AsyncStorage, Alert, ActivityIndicator,
 } from 'react-native';
-
-import MatchContacts from '../../../components/MatchContacts';
-import MatchContactsMedias from '../../../components/MatchContactsMedia';
 
 import api from '../../../services/api';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: '100%',
-    borderTopColor: 'black',
-    borderTopWidth: 1,
-  },
-});
+import {
+  Container, Background, Body, StyledBar, Title, Subtitle,
+} from './styles';
 
+import MatchList from '../../../components/MatchList';
 
 export default function Matchs() {
-  const [matchs, setMatchs] = useState([]);
-  const [modalVisibility, setModalVisibility] = useState(false);
+  const [matchs, setMatchs] = useState();
+  const [user, setUser] = useState();
 
   const getJwt = async () => {
     const jwt = await AsyncStorage.getItem('jwt');
@@ -31,7 +24,7 @@ export default function Matchs() {
     const jwt = await getJwt();
     try {
       const response = await api.get('/profile/matchs', { headers: { Authorization: `Bearer ${jwt}` } });
-      return setMatchs(response.data.matchs);
+      return setMatchs(response.data);
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
       ${error.response.data.error}`);
@@ -39,32 +32,38 @@ export default function Matchs() {
   };
 
   useEffect(() => {
+    async function getUser() {
+      try {
+        const res = await api.get('/users/5e9dca27f4ee9919c0803693');
+
+        setUser(res.data);
+      } catch (error) {
+        Alert.alert('Erro!', `Status: ${error.response.status}\n\n
+        ${error.response.data.error}`);
+      }
+    }
+    getUser();
+  }, []);
+
+  useEffect(() => {
     getMatchs();
   }, []);
 
-  return matchs.length > 0 ? (
-    <>
-      <ScrollView style={styles.container}>
-        {matchs.map(
-          (match) => (
-            <View key={matchs.indexOf(match)}>
-              <MatchContacts
-                match={match}
-                setModalVisibility={setModalVisibility}
-              />
-              <MatchContactsMedias
-                match={match}
-                modalVisibility={modalVisibility}
-                setModalVisibility={setModalVisibility}
-              />
-            </View>
-          ),
-        )}
-      </ScrollView>
-    </>
-  ) : (
-    <View style={[styles.container, { justifyContent: 'center' }]}>
-      <ActivityIndicator size="30%" color="#ff00ff" />
-    </View>
+  if (!matchs || !user) {
+    return (
+      <ActivityIndicator />
+    );
+  }
+
+  return (
+    <Container>
+      <StyledBar />
+      <Background />
+      <Body>
+        <Title>Matchs</Title>
+        {matchs ? (<Subtitle>{`${matchs.new_matchs} novos matchs`}</Subtitle>) : null}
+        <MatchList user={user} />
+      </Body>
+    </Container>
   );
 }
