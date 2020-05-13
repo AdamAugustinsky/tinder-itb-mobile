@@ -2,8 +2,10 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, AsyncStorage, ActivityIndicator,
+  View, Alert, ActivityIndicator,
 } from 'react-native';
+
+import { getState } from '../../../store';
 
 import { getPretender } from '../../../controllers/UsersController';
 
@@ -19,11 +21,12 @@ import ActionButton from '../../../components/ActionButton';
 export default function Home() {
   const [user, setUser] = useState();
   const [haveInteracted, setHaveInteracted] = useState(true);
+  const { jwt } = getState().navigation;
 
   async function handleGetPretenders() {
     try {
       if (haveInteracted) {
-        const pretender = await getPretender();
+        const pretender = await getPretender(jwt);
         setUser(pretender);
         setHaveInteracted(false);
       }
@@ -39,7 +42,6 @@ export default function Home() {
 
   async function like(id) {
     try {
-      const jwt = await AsyncStorage.getItem('jwt');
       await api.post(`/profile/likes/${id}`, {}, {
         headers: {
           authorization: `Bearer ${jwt}`,
@@ -53,7 +55,6 @@ export default function Home() {
   }
   async function dislike(id) {
     try {
-      const jwt = await AsyncStorage.getItem('jwt');
       await api.post(`/profile/deslikes/${id}`, {}, {
         headers: {
           authorization: `Bearer ${jwt}`,
