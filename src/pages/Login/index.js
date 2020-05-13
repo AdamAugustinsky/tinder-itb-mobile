@@ -10,7 +10,9 @@ import logo from '../../assets/logo/logo.png';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
-import { signin } from '../../controllers/NavigationController';
+import { dispatch } from '../../store';
+
+import { signin } from '../../store/actions/navigation';
 
 export default function Login() {
   const navigation = useNavigation();
@@ -25,7 +27,7 @@ export default function Login() {
       return Alert.alert('', 'Digite a senha para entrar');
     }
 
-    const response = await signin({ email, password });
+    const response = dispatch(await signin({ email, password }));
 
     if (response) {
       return Alert.alert('ERRO!', `Status: ${response.status}\n\n${response.error}`);

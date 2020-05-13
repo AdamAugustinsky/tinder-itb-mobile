@@ -1,7 +1,5 @@
 import { dispatch, getState } from '../store/index';
 
-import { getJwt } from './NavigationController';
-
 import api from '../services/api';
 
 // modificar o estado apenas pelo reducer
@@ -23,12 +21,11 @@ function getIndex() {
   return pretenderIndex;
 }
 
-async function getPretender() {
+async function getPretender(jwt) {
   const { users } = getState();
   const index = getIndex();
 
   if (!users.pretenders || index === 0) {
-    const jwt = getJwt();
     const response = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
     const { pretenders } = dispatch({ type: 'RESTORE_PRETENDER', pretenders: response.data });
     return pretenders[0];

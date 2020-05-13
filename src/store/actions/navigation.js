@@ -1,22 +1,14 @@
 import { AsyncStorage } from 'react-native';
 
-import { dispatch, getState } from '../store/index';
+import api from '../../services/api';
 
-import api from '../services/api';
+const Types = {
+  RESTORE_TOKEN: '@navigation/RESTORE_TOKEN',
+  SIGN_OUT: '@navigation/SIGN_OUT',
+  SIGN_IN: '@navigation/SIGN_IN',
+};
 
-function getJwt() {
-  const { navigation } = getState();
-
-  if (!navigation.isSignOut) {
-    return navigation.jwt;
-  }
-
-  return null;
-}
-
-async function restore() {
-  const jwt = getJwt();
-
+async function restore(jwt) {
   try {
     await api.get('/profile', {
       headers: {
@@ -25,16 +17,16 @@ async function restore() {
     });
 
 
-    dispatch({ type: 'RESTORE_TOKEN', jwt });
+    return ({ type: Types.RESTORE_TOKEN, jwt });
   } catch (error) {
-    dispatch({ type: 'RESTORE_TOKEN', jwt: null });
+    return ({ type: Types.RESTORE_TOKEN, jwt: null });
   }
 }
 
 async function signout() {
   await AsyncStorage.clear();
 
-  dispatch({ type: 'SIGN_OUT', jwt: null });
+  return ({ type: Types.SIGN_OUT, jwt: null });
 }
 
 async function signin(data) {
@@ -44,9 +36,7 @@ async function signin(data) {
       password: data.password,
     });
 
-    dispatch({ type: 'SIGN_IN', jwt: response.data.jwt });
-
-    return null;
+    return ({ type: Types.SIGN_IN, jwt: response.data.jwt });
   } catch (error) {
     return {
       status: error.response.status,
@@ -56,8 +46,8 @@ async function signin(data) {
 }
 
 export {
+  Types,
   restore,
   signin,
   signout,
-  getJwt,
 };

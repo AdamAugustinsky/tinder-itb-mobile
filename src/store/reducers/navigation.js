@@ -1,3 +1,5 @@
+import { Types } from '../actions/navigation';
+
 const INITIAL_STATE = {
   isLoading: true,
   isSignout: false,
@@ -6,20 +8,20 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
-    case 'RESTORE_TOKEN': // padrão @store/action
+    case Types.RESTORE_TOKEN: // padrão @store/action
       return {
         ...state,
         jwt: action.jwt,
         isLoading: false,
       };
-    case 'SIGN_IN':
+    case Types.SIGN_IN:
       return {
         ...state,
         isSignout: false,
         isLoading: false,
         jwt: action.jwt,
       };
-    case 'SIGN_OUT':
+    case Types.SIGN_OUT:
       return {
         ...state,
         isSignout: true,

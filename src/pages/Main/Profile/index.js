@@ -10,7 +10,9 @@ import styles from './styles';
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
 
-import { signout } from '../../../controllers/NavigationController';
+import { dispatch } from '../../../store';
+
+import { signout } from '../../../store/actions/navigation';
 
 export default function Profile() {
   const [user, setUser] = useState();
@@ -22,6 +24,10 @@ export default function Profile() {
     } catch (error) {
       Alert.alert('Erro!', error.response.data.error);
     }
+  }
+
+  async function handleSignOut() {
+    dispatch(await signout);
   }
 
   useEffect(() => {
@@ -38,7 +44,7 @@ export default function Profile() {
             <TargetCard user={user} />
             <View style={styles.footer}>
               <View style={{ alignItems: 'center' }}>
-                <BackButton text="Sair" onPressed={signout} />
+                <BackButton text="Sair" onPressed={handleSignOut} />
               </View>
 
             </View>
