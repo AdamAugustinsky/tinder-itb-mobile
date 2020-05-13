@@ -3,6 +3,8 @@ import {
   View, Alert, ActivityIndicator,
 } from 'react-native';
 
+import { dispatch, getState } from '../../../store';
+
 import { getUser } from '../../../controllers/ProfileController';
 
 import styles from './styles';
@@ -10,16 +12,15 @@ import styles from './styles';
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
 
-import { dispatch } from '../../../store';
-
 import { signout } from '../../../store/actions/navigation';
 
 export default function Profile() {
   const [user, setUser] = useState();
+  const { jwt } = getState().navigation;
 
   async function handleGetUsers() {
     try {
-      const signedUser = await getUser();
+      const signedUser = await getUser(jwt);
       setUser(signedUser);
     } catch (error) {
       Alert.alert('Erro!', error.response.data.error);
@@ -27,7 +28,7 @@ export default function Profile() {
   }
 
   async function handleSignOut() {
-    dispatch(await signout);
+    dispatch(await signout());
   }
 
   useEffect(() => {
