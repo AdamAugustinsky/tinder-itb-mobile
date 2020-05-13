@@ -3,6 +3,8 @@ import {
   StyleSheet, ScrollView, View, Alert, ActivityIndicator,
 } from 'react-native';
 
+import { getState } from '../../../store';
+
 import { getMatchs } from '../../../controllers/ProfileController';
 
 import MatchContacts from '../../../components/MatchContacts';
@@ -21,10 +23,11 @@ const styles = StyleSheet.create({
 export default function Matchs() {
   const [matchs, setMatchs] = useState([]);
   const [modalVisibility, setModalVisibility] = useState(false);
+  const { jwt } = getState().navigation;
 
   const handleGetMatchs = async () => {
     try {
-      const apiMatchs = await getMatchs();
+      const apiMatchs = await getMatchs(jwt);
       return setMatchs(apiMatchs);
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
