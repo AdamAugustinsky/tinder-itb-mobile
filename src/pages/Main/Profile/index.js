@@ -5,7 +5,7 @@ import {
 
 import { dispatch, getState } from '../../../store';
 
-import { getUser } from '../../../controllers/ProfileController';
+import { getUser } from '../../../store/actions/user';
 
 import styles from './styles';
 
@@ -20,8 +20,8 @@ export default function Profile() {
 
   async function handleGetUsers() {
     try {
-      const signedUser = await getUser(jwt);
-      setUser(signedUser);
+      const state = dispatch(await getUser(jwt));
+      setUser(state.user);
     } catch (error) {
       Alert.alert('Erro!', error.response.data.error);
     }

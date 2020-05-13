@@ -3,9 +3,9 @@ import {
   StyleSheet, ScrollView, View, Alert, ActivityIndicator,
 } from 'react-native';
 
-import { getState } from '../../../store';
+import { dispatch, getState } from '../../../store';
 
-import { getMatchs } from '../../../controllers/ProfileController';
+import { getMatchs } from '../../../store/actions/user';
 
 import MatchContacts from '../../../components/MatchContacts';
 import MatchContactsMedias from '../../../components/MatchContactsMedia';
@@ -27,8 +27,8 @@ export default function Matchs() {
 
   const handleGetMatchs = async () => {
     try {
-      const apiMatchs = await getMatchs(jwt);
-      return setMatchs(apiMatchs);
+      const state = dispatch(await getMatchs(jwt));
+      return setMatchs(state.matchs);
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
       ${error.response.data.error}`);
