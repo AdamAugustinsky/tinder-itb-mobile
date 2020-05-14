@@ -1,16 +1,43 @@
 import React from 'react';
-import { Text, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import {
-  Container, View,
+  Container, View, Image, Info, Row, Name, Age, About,
 } from './styles';
 
 export function MatchCard({ user }) {
+  const calculateAge = (birthMonth, birthDay, birthYear) => {
+    const todayDate = new Date();
+    const todayYear = todayDate.getFullYear();
+    const todayMonth = todayDate.getMonth();
+    const todayDay = todayDate.getDate();
+    let age = todayYear - birthYear;
+
+    if (todayMonth < (birthMonth - 1)) {
+      age -= 1;
+    }
+    if (((birthMonth - 1) === todayMonth) && (todayDay < birthDay)) {
+      age -= 1;
+    }
+    return age;
+  };
+
+  const birthDate = new Date(user.birthdate);
+
   return (
     <View>
-      <Text>
-        {JSON.stringify(user)}
-      </Text>
-
+      <Image source={{ uri: user.images[0] }} resizeMode="cover" />
+      <Info>
+        <Row>
+          <Row>
+            <Name>{ user.name.split(' ')[0] }</Name>
+            <Age>
+              {calculateAge(birthDate.getMonth(), birthDate.getDate(),
+                birthDate.getFullYear())}
+            </Age>
+          </Row>
+          <About />
+        </Row>
+      </Info>
     </View>
   );
 }
@@ -22,7 +49,7 @@ export default function MatchList({ user }) {
     <Container>
       <FlatList
         horizontal
-        data={[user, user, user, user, user, user, user, user, user, user, user, user, user, user]}
+        data={[user, user, user, user, user, user, user, user]}
         renderItem={() => <MatchCard user={user} />}
         keyExtractor={() => {
           index += 1;
