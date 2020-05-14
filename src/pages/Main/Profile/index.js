@@ -3,7 +3,7 @@ import {
   View, Alert, ActivityIndicator,
 } from 'react-native';
 
-import { dispatch, getState } from '../../../store';
+import { useStore } from 'react-redux';
 
 import { getUser } from '../../../store/actions/user';
 
@@ -15,13 +15,18 @@ import BackButton from '../../../components/BackButton';
 import { signout } from '../../../store/actions/navigation';
 
 export default function Profile() {
+  const store = useStore();
+  const { dispatch } = store;
+
+  const { jwt } = store.getState().navigation;
+
   const [user, setUser] = useState();
-  const { jwt } = getState().navigation;
+
 
   async function handleGetUsers() {
     try {
-      const state = dispatch(await getUser(jwt));
-      setUser(state.user);
+      dispatch(await getUser(jwt));
+      setUser(store.getState().user.user);
     } catch (error) {
       Alert.alert('Erro!', error.response.data.error);
     }

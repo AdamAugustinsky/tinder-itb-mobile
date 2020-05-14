@@ -1,23 +1,33 @@
+import { Types } from '../actions/users';
+
 const INITIAL_STATE = {
-  pretenders: null,
-  pretenderIndex: 0,
+  pretenders: [],
+  index: 0,
 };
 
 export default function (state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case 'RESTORE_PRETENDER':
+  const { type } = action;
+
+  if (type === Types.GET_PRETENDER) {
+    return {
+      ...state,
+      pretenders: action.pretenders,
+    };
+  } if (type === Types.ADD_INDEX) {
+    if (state.index === 5) {
       return {
         ...state,
-        pretenders: action.pretenders,
+        index: 0,
       };
-    case 'RESTORE_INDEX':
-      return {
-        ...state,
-        pretenderIndex: action.pretenderIndex,
-      };
-    default:
-      return {
-        ...state,
-      };
+    }
+
+    return {
+      ...state,
+      index: state.index + 1,
+    };
   }
+
+  return {
+    ...state,
+  };
 }

@@ -15,11 +15,12 @@ import Contacts from '../pages/Signup/Contacts';
 import Prefs from '../pages/Signup/Prefs';
 import Main from '../pages/Main';
 
-import { dispatch, subscribe, getState } from '../store';
+import { store } from '../store';
 
 import { restore } from '../store/actions/navigation';
 
 export default function Routes() {
+  const { dispatch, subscribe, getState } = store;
   const Stack = createStackNavigator();
   const [state, setState] = useState(getState().navigation);
 

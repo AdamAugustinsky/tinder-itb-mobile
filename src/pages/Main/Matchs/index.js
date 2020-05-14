@@ -3,7 +3,7 @@ import {
   StyleSheet, ScrollView, View, Alert, ActivityIndicator,
 } from 'react-native';
 
-import { dispatch, getState } from '../../../store';
+import { useStore } from 'react-redux';
 
 import { getMatchs } from '../../../store/actions/user';
 
@@ -21,14 +21,17 @@ const styles = StyleSheet.create({
 
 
 export default function Matchs() {
+  const store = useStore();
+  const { dispatch } = store;
+
   const [matchs, setMatchs] = useState([]);
   const [modalVisibility, setModalVisibility] = useState(false);
-  const { jwt } = getState().navigation;
+  const { jwt } = store.getState().navigation;
 
   const handleGetMatchs = async () => {
     try {
-      const state = dispatch(await getMatchs(jwt));
-      return setMatchs(state.matchs);
+      dispatch(await getMatchs(jwt));
+      return setMatchs(store.getState().user.matchs);
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
       ${error.response.data.error}`);

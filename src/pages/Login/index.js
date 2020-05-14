@@ -4,18 +4,19 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import { useDispatch } from 'react-redux';
+
 import globalStyles from '../../styles/globalStyles';
 
 import logo from '../../assets/logo/logo.png';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
-import { dispatch } from '../../store';
-
 import { signin } from '../../store/actions/navigation';
 
 export default function Login() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

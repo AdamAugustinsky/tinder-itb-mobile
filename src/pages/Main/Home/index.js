@@ -5,9 +5,9 @@ import {
   View, Alert, ActivityIndicator,
 } from 'react-native';
 
-import { getState } from '../../../store';
+import { useStore } from 'react-redux';
 
-import { getPretender } from '../../../controllers/UsersController';
+import { addIndex, getPretender } from '../../../store/actions/users';
 
 import styles from './styles';
 
@@ -19,25 +19,48 @@ import capitalize from '../../../utils/capitalize';
 import ActionButton from '../../../components/ActionButton';
 
 export default function Home() {
+  const store = useStore();
+  const { dispatch } = store;
+
   const [user, setUser] = useState();
+  const [users, setUsers] = useState();
   const [haveInteracted, setHaveInteracted] = useState(true);
-  const { jwt } = getState().navigation;
+  const { jwt } = store.getState().navigation;
+
+  function getIndex() {
+    const state = store.getState();
+    return state.users.index;
+  }
 
   async function handleGetPretenders() {
     try {
       if (haveInteracted) {
-        const pretender = await getPretender(jwt);
-        setUser(pretender);
-        setHaveInteracted(false);
+        const index = getIndex();
+        if (index === 0) {
+          dispatch(await getPretender(jwt));
+          const state = store.getState();
+          setUsers(state.users.pretenders);
+          setUser(users[getIndex()]);
+
+          dispatch(addIndex());
+
+          setHaveInteracted(false);
+        } else {
+          setUser(users[getIndex()]);
+
+          dispatch(addIndex());
+
+          setHaveInteracted(false);
+        }
       }
     } catch (error) {
       Alert.alert('Erro!', capitalize(error.response.data.error));
     }
   }
 
-  function changeUser() {
+  async function changeUser() {
     setHaveInteracted(true);
-    handleGetPretenders();
+    await handleGetPretenders();
   }
 
   async function like(id) {

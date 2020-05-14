@@ -1,3 +1,5 @@
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable prefer-const */
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -12,15 +14,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-const store = createStore(persistedReducer);
+let store = createStore(persistedReducer);
 
-persistStore(store);
+let persistor = persistStore(store);
 
-const {
-  dispatch, getState, replaceReducer, subscribe,
-} = store;
-
-
-export {
-  dispatch, getState, replaceReducer, subscribe,
-};
+export { store, persistor };
