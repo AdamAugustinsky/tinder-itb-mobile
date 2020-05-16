@@ -5,16 +5,16 @@ import {
 
 
 import {
-  Background, Container, Body, StyledBar, Title,
+  Background, Container, Body, StyledBar, Title, FabColumn,
 } from './styles';
 
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
+import CardButton from '../../../components/CardButton';
 
 import api from '../../../services/api';
 
 import { signout } from '../../../controllers/NavigationController';
-import { FabRow } from '../Home/styles';
 
 export default function Profile() {
   const [user, setUser] = useState();
@@ -51,9 +51,10 @@ export default function Profile() {
       <Body>
         <Title>Seu Perfil</Title>
         <TargetCard user={user} />
-        <FabRow>
+        <FabColumn>
+          <CardButton text="Meu perfil" />
           <BackButton text="Sair" onPressed={signout} />
-        </FabRow>
+        </FabColumn>
       </Body>
     </Container>
   );

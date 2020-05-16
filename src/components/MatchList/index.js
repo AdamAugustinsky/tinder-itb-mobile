@@ -1,26 +1,13 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import {
-  Container, View, Image, Info, Row, Name, Age, About,
+  Container, View, Image, Info, Row, Name, Age, About, FabColumn,
 } from './styles';
+import calculateAge from '../../utils/calculateAge';
+import BackButton from '../BackButton';
+import CardButton from '../CardButton';
 
 export function MatchCard({ user }) {
-  const calculateAge = (birthMonth, birthDay, birthYear) => {
-    const todayDate = new Date();
-    const todayYear = todayDate.getFullYear();
-    const todayMonth = todayDate.getMonth();
-    const todayDay = todayDate.getDate();
-    let age = todayYear - birthYear;
-
-    if (todayMonth < (birthMonth - 1)) {
-      age -= 1;
-    }
-    if (((birthMonth - 1) === todayMonth) && (todayDay < birthDay)) {
-      age -= 1;
-    }
-    return age;
-  };
-
   const birthDate = new Date(user.birthdate);
 
   return (
@@ -38,6 +25,10 @@ export function MatchCard({ user }) {
           <About />
         </Row>
       </Info>
+      <FabColumn>
+        <CardButton text="Ver contatos" />
+        <BackButton text="Excluir" />
+      </FabColumn>
     </View>
   );
 }
@@ -50,7 +41,11 @@ export default function MatchList({ user }) {
       <FlatList
         horizontal
         data={[user, user, user, user, user, user, user, user]}
-        renderItem={() => <MatchCard user={user} />}
+        renderItem={() => (
+
+          <MatchCard user={user} />
+
+        )}
         keyExtractor={() => {
           index += 1;
 
@@ -58,6 +53,7 @@ export default function MatchList({ user }) {
         }}
         showsHorizontalScrollIndicator={false}
       />
+
     </Container>
   );
 }

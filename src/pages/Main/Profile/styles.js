@@ -13,9 +13,9 @@ export const Body = styled.SafeAreaView`
 `;
 
 export const Container = styled.View`
-flex: 1;
-align-items: center
-padding-top: ${Constants.statusBarHeight}px
+  flex: 1;
+  align-items: center
+  padding-top: ${Constants.statusBarHeight + 40}px
 `;
 
 export const Background = styled(LinearGradient).attrs({
@@ -101,11 +101,11 @@ export const Value = styled.Text`
   color: rgba(11, 37, 88, 0.6);
 `;
 
-export const FabRow = styled.View`
+export const FabColumn = styled.View`
   position: relative;
-  bottom: 8%
-  flex-direction: row;
+  bottom: 6%
   justify-content: space-evenly;
   align-items: center;
+  height: 25%
   width: 100%;
 `;
