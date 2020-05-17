@@ -20,6 +20,7 @@ import {
 } from '../store/navigation';
 
 import { restore } from '../controllers/NavigationController';
+import TargetUser from '../pages/Main/TargetUser';
 
 export default function Routes() {
   const Stack = createStackNavigator();
@@ -37,10 +38,13 @@ export default function Routes() {
         {state.isLoading
           ? (<Stack.Screen name="Splash" component={AppLoading} />)
           : state.jwt ? (
-            <Stack.Screen
-              name="Main"
-              component={Main}
-            />
+            <>
+              <Stack.Screen
+                name="Main"
+                component={Main}
+              />
+              <Stack.Screen name="TargetUser" component={TargetUser} />
+            </>
           ) : (
             <>
               <Stack.Screen

@@ -1,37 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 import {
   Image, Info, Row, Name, Age, About, Column, Label, Value,
 } from './styles';
 
 import capitalize from '../../utils/capitalize';
+import calculateAge from '../../utils/calculateAge';
 
 export default function TargetCard({ user }) {
-  const [matchAge, setMatchAge] = useState(0);
-
-  const calculateAge = (birthMonth, birthDay, birthYear) => {
-    const todayDate = new Date();
-    const todayYear = todayDate.getFullYear();
-    const todayMonth = todayDate.getMonth();
-    const todayDay = todayDate.getDate();
-    let age = todayYear - birthYear;
-
-    if (todayMonth < (birthMonth - 1)) {
-      age -= 1;
-    }
-    if (((birthMonth - 1) === todayMonth) && (todayDay < birthDay)) {
-      age -= 1;
-    }
-    return age;
-  };
-
-  useEffect(() => {
-    if (user) {
-      const birthDate = new Date(user.birthdate);
-      setMatchAge(calculateAge(birthDate.getMonth(), birthDate.getDate(),
-        birthDate.getFullYear()));
-    }
-  }, [user]);
+  const birthDate = new Date(user.birthdate);
+  const { navigate } = useNavigation();
 
   return (
     <>
@@ -44,16 +24,19 @@ export default function TargetCard({ user }) {
           <Row>
             <Name>{ user.name.split(' ')[0] }</Name>
             <Age>
-              {matchAge}
+              {calculateAge(birthDate.getMonth(), birthDate.getDate(),
+                birthDate.getFullYear())}
             </Age>
           </Row>
-          <About />
+          <TouchableOpacity onPress={() => navigate('TargetUser', { user })}>
+            <About />
+          </TouchableOpacity>
         </Row>
         <Row>
           <Column>
             <Label>Curso</Label>
             <Value>
-              { `${capitalize(user.course)} ${user.grade}${user.school_class} `
+              {`${capitalize(user.course)} ${user.grade}${user.school_class} `
                 + `${user.period}`}
             </Value>
           </Column>
