@@ -1,5 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   Container, View, Image, Info, Row, Name, Age, About, FabColumn,
 } from './styles';
@@ -9,6 +11,8 @@ import CardButton from '../CardButton';
 
 export function MatchCard({ user }) {
   const birthDate = new Date(user.birthdate);
+
+  const { navigate } = useNavigation();
 
   return (
     <View>
@@ -22,7 +26,12 @@ export function MatchCard({ user }) {
                 birthDate.getFullYear())}
             </Age>
           </Row>
-          <About />
+          <TouchableOpacity onPress={() => navigate('TargetUser', {
+            user,
+          })}
+          >
+            <About />
+          </TouchableOpacity>
         </Row>
       </Info>
       <FabColumn>
