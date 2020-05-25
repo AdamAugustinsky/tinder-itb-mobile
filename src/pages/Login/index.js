@@ -30,7 +30,7 @@ export default function Login() {
 
     const response = dispatch(await signin({ email, password }));
 
-    if (response) {
+    if (response.error) {
       return Alert.alert('ERRO!', `Status: ${response.status}\n\n${response.error}`);
     }
 
