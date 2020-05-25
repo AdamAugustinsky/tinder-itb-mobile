@@ -7,7 +7,7 @@ import {
 
 import { useStore } from 'react-redux';
 
-import { addIndex, getPretender } from '../../../store/actions/users';
+import { addIndex, setPretender, getPretender } from '../../../store/actions/users';
 
 import styles from './styles';
 
@@ -23,30 +23,24 @@ export default function Home() {
   const { dispatch } = store;
 
   const [user, setUser] = useState();
-  const [users, setUsers] = useState();
   const [haveInteracted, setHaveInteracted] = useState(true);
   const { jwt } = store.getState().navigation;
 
-  function getIndex() {
-    const state = store.getState();
-    return state.users.index;
-  }
-
-  async function handleGetPretenders() {
+  async function handleSetPretenders() {
     try {
       if (haveInteracted) {
-        const index = getIndex();
-        if (index === 0) {
-          dispatch(await getPretender(jwt));
-          const state = store.getState();
-          setUsers(state.users.pretenders);
-          setUser(users[getIndex()]);
+        if (store.getState().users.index === 0) {
+          const setPretenderAction = await setPretender(jwt);
+          dispatch(setPretenderAction);
+
+          setUser(store.getState().users.pretender);
 
           dispatch(addIndex());
 
           setHaveInteracted(false);
         } else {
-          setUser(users[getIndex()]);
+          dispatch(getPretender());
+          setUser(store.getState().users.pretender);
 
           dispatch(addIndex());
 
@@ -60,7 +54,7 @@ export default function Home() {
 
   async function changeUser() {
     setHaveInteracted(true);
-    await handleGetPretenders();
+    await handleSetPretenders();
   }
 
   async function like(id) {
@@ -76,6 +70,7 @@ export default function Home() {
       Alert.alert('Erro!', capitalize(error.response.data.error));
     }
   }
+
   async function dislike(id) {
     try {
       await api.post(`/profile/deslikes/${id}`, {}, {
@@ -91,7 +86,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    handleGetPretenders();
+    handleSetPretenders();
   }, []);
 
   return (
