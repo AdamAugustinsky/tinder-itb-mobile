@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  StyleSheet, ScrollView, View, AsyncStorage, Alert, ActivityIndicator,
+  StyleSheet, ScrollView, View, Alert, ActivityIndicator,
 } from 'react-native';
+
+import { useStore } from 'react-redux';
+
+import { getMatchs } from '../../../store/actions/user';
 
 import MatchContacts from '../../../components/MatchContacts';
 import MatchContactsMedias from '../../../components/MatchContactsMedia';
-
-import api from '../../../services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,19 +21,17 @@ const styles = StyleSheet.create({
 
 
 export default function Matchs() {
+  const store = useStore();
+  const { dispatch } = store;
+
   const [matchs, setMatchs] = useState([]);
   const [modalVisibility, setModalVisibility] = useState(false);
+  const { jwt } = store.getState().navigation;
 
-  const getJwt = async () => {
-    const jwt = await AsyncStorage.getItem('jwt');
-    return jwt;
-  };
-
-  const getMatchs = async () => {
-    const jwt = await getJwt();
+  const handleGetMatchs = async () => {
     try {
-      const response = await api.get('/profile/matchs', { headers: { Authorization: `Bearer ${jwt}` } });
-      return setMatchs(response.data.matchs);
+      dispatch(await getMatchs(jwt));
+      return setMatchs(store.getState().user.matchs);
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
       ${error.response.data.error}`);
@@ -39,7 +39,7 @@ export default function Matchs() {
   };
 
   useEffect(() => {
-    getMatchs();
+    handleGetMatchs();
   }, []);
 
   return matchs.length > 0 ? (

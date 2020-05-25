@@ -1,37 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, AsyncStorage, ActivityIndicator,
+  View, Alert, ActivityIndicator,
 } from 'react-native';
 
+import { useStore } from 'react-redux';
+
+import { getUser, resetUserState } from '../../../store/actions/user';
 
 import styles from './styles';
 
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
 
-import api from '../../../services/api';
+import { signout } from '../../../store/actions/navigation';
 
-import { signout } from '../../../controllers/NavigationController';
+import { resetUsersState } from '../../../store/actions/users';
 
 export default function Profile() {
+  const store = useStore();
+  const { dispatch } = store;
+
+  const { jwt } = store.getState().navigation;
+
   const [user, setUser] = useState();
 
-  useEffect(() => {
-    async function getInfo() {
-      const jwt = await AsyncStorage.getItem('jwt');
-      try {
-        const res = await api.get('/profile', {
-          headers: {
-            authorization: `Bearer ${jwt}`,
-          },
-        });
 
-        setUser(res.data);
-      } catch (error) {
-        Alert.alert('Erro!', error.response.data.error);
-      }
+  async function handleGetUsers() {
+    try {
+      dispatch(await getUser(jwt));
+      setUser(store.getState().user.user);
+    } catch (error) {
+      Alert.alert('Erro!', error.response.data.error);
     }
-    getInfo();
+  }
+
+  async function handleSignOut() {
+    dispatch(await signout());
+    dispatch(resetUserState());
+    dispatch(resetUsersState());
+  }
+
+  useEffect(() => {
+    handleGetUsers();
   }, []);
 
   return (
@@ -44,7 +54,7 @@ export default function Profile() {
             <TargetCard user={user} />
             <View style={styles.footer}>
               <View style={{ alignItems: 'center' }}>
-                <BackButton text="Sair" onPressed={signout} />
+                <BackButton text="Sair" onPressed={handleSignOut} />
               </View>
 
             </View>
