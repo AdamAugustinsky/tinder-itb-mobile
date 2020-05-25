@@ -4,6 +4,7 @@ import api from '../../services/api';
 const Types = {
   GET_USER: '@user/GET_USER',
   GET_MATCHS: '@user/GET_MATCHS',
+  RESET: '@user/RESET',
 };
 
 // modificar o estado apenas pelo reducer
@@ -27,8 +28,13 @@ async function getMatchs(jwt) {
   }
 }
 
+function resetUserState() {
+  return ({ type: Types.RESET });
+}
+
 export {
   Types,
   getUser,
   getMatchs,
+  resetUserState,
 };

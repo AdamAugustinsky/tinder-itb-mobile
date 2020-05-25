@@ -17,6 +17,12 @@ export default function (state = INITIAL_STATE, action) {
       ...state,
       matchs: action.matchs,
     };
+  } if (type === Types.RESET) {
+    return {
+      ...state,
+      user: {},
+      matchs: [],
+    };
   }
 
   return {

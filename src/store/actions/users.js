@@ -5,6 +5,7 @@ const Types = {
   ADD_INDEX: '@users/ADD_INDEX',
   SET_PRETENDER: '@users/SET_PRETENDER',
   GET_PRETENDER: '@users/GET_PRETENDER',
+  RESET: '@users/RESET',
 };
 
 // modificar o estado apenas pelo reducer
@@ -31,10 +32,14 @@ function getPretender() {
   }
 }
 
+function resetUsersState() {
+  return ({ type: Types.RESET });
+}
 
 export {
   Types,
   setPretender,
   getPretender,
   addIndex,
+  resetUsersState,
 };

@@ -32,6 +32,13 @@ export default function (state = INITIAL_STATE, action) {
       ...state,
       index: state.index + 1,
     };
+  } if (type === Types.RESET) {
+    return {
+      ...state,
+      pretenders: [],
+      pretender: {},
+      index: 0,
+    };
   }
 
   return {
