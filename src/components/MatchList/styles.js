@@ -1,12 +1,21 @@
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
+import { Dimensions } from 'react-native';
 
+export const Container = styled.View`
+  height: 80%; 
+`;
+
+export const View = styled.View`
+  width: ${Dimensions.get('window').width - 100}px;
+  margin-horizontal: 20px
+`;
 
 export const Info = styled.View`
   width: 100%;
   background-color: #fff;
   padding: 12px;
-  padding-bottom: 32px;
+  padding-bottom: 24px;
   borderBottomLeftRadius: 8px
   borderBottomRightRadius: 8px
 `;
@@ -20,8 +29,7 @@ export const Name = styled.Text`
 
 export const Image = styled.Image`
   width: 100%;
-  maxHeight: 60%;
-  height: 100%;
+  height: 60%;
   borderTopLeftRadius: 8px
   borderTopRightRadius: 8px
 `;
@@ -47,19 +55,11 @@ export const About = styled(Feather).attrs({
   size: 24,
 })``;
 
-export const Column = styled.View`
-  margin-top: 4px;
-`;
-
-export const Label = styled.Text`
-  font-size: 14px;
-  font-family: Poppins-bold
-  line-height: 16px;
-  color: rgba(11, 37, 88, 0.8);
-`;
-
-export const Value = styled.Text`
-  font-weight: bold;
-  font-size: 14px;
-  color: rgba(11, 37, 88, 0.6);
+export const FabColumn = styled.View`
+  position: relative;
+  bottom: 5%
+  justify-content: space-between;
+  height: 25%
+  align-items: center;
+  width: 100%;
 `;

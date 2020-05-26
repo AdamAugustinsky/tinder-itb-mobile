@@ -1,76 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View, ImageBackground, Text,
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { EvilIcons, Feather } from '@expo/vector-icons';
+import React from 'react';
 
-import styles from './styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import {
+  Image, Info, Row, Name, Age, About, Column, Label, Value,
+} from './styles';
+
+import capitalize from '../../utils/capitalize';
+import calculateAge from '../../utils/calculateAge';
 
 export default function TargetCard({ user }) {
-  const [matchAge, setMatchAge] = useState(0);
-
-  const calculateAge = (birthMonth, birthDay, birthYear) => {
-    const todayDate = new Date();
-    const todayYear = todayDate.getFullYear();
-    const todayMonth = todayDate.getMonth();
-    const todayDay = todayDate.getDate();
-    let age = todayYear - birthYear;
-
-    if (todayMonth < (birthMonth - 1)) {
-      age -= 1;
-    }
-    if (((birthMonth - 1) === todayMonth) && (todayDay < birthDay)) {
-      age -= 1;
-    }
-    return age;
-  };
-
-  useEffect(() => {
-    if (user) {
-      const birthDate = new Date(user.birthdate);
-      setMatchAge(calculateAge(birthDate.getMonth(), birthDate.getDate(),
-        birthDate.getFullYear()));
-    }
-  }, [user]);
+  const birthDate = new Date(user.birthdate);
+  const { navigate } = useNavigation();
 
   return (
-    <View>
-      <ImageBackground
-        source={{ uri: user.images[0] }}
-        style={styles.background}
-        imageStyle={styles.image}
-      >
-        <LinearGradient
-          style={[styles.background]}
-          colors={['transparent', '#2d2d2d']}
-          start={[0, 0.3]}
-          end={[0, 1]}
-        >
-
-          <View style={styles.body}>
-
-            <View style={styles.group}>
-              <Text style={styles.name}>{user.name}</Text>
-              <Text style={styles.age}>{matchAge}</Text>
-            </View>
-
-            <View style={styles.group}>
-              <EvilIcons name="pencil" size={36} color="#fff" />
-              <Text style={styles.school}>{user.school_name}</Text>
-            </View>
-
-            <View style={styles.group}>
-              <Feather name="book" size={20} style={{ marginLeft: 4 }} color="#fff" />
-              <Text style={[styles.school, { marginLeft: 12 }]}>
-                {`${user.course} ${user.grade}${user.school_class} ${user.period}`}
-              </Text>
-            </View>
-          </View>
-
-        </LinearGradient>
-      </ImageBackground>
-
-    </View>
+    <>
+      <Image
+        source={{ uri: user.images[0] ? user.images[0] : 'http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png' }}
+        resizeMode="cover"
+      />
+      <Info>
+        <Row>
+          <Row>
+            <Name>{ user.name.split(' ')[0] }</Name>
+            <Age>
+              {calculateAge(birthDate.getMonth(), birthDate.getDate(),
+                birthDate.getFullYear())}
+            </Age>
+          </Row>
+          <TouchableOpacity onPress={() => navigate('TargetUser', { user })}>
+            <About />
+          </TouchableOpacity>
+        </Row>
+        <Row>
+          <Column>
+            <Label>Curso</Label>
+            <Value>
+              {`${capitalize(user.course)} ${user.grade}${user.school_class} `
+                + `${user.period}`}
+            </Value>
+          </Column>
+          <Column>
+            <Label>Escola</Label>
+            <Value>
+              { `${capitalize(user.school_name)}` }
+            </Value>
+          </Column>
+        </Row>
+      </Info>
+    </>
   );
 }

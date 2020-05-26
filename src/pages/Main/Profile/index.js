@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, ActivityIndicator,
+  Alert, AsyncStorage, ActivityIndicator,
 } from 'react-native';
 
 import { useStore } from 'react-redux';
 
 import { getUser, resetUserState } from '../../../store/actions/user';
 
-import styles from './styles';
+import {
+  Background, Container, Body, StyledBar, Title, FabColumn,
+} from './styles';
 
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
+import CardButton from '../../../components/CardButton';
 
 import { signout } from '../../../store/actions/navigation';
 
@@ -44,28 +47,25 @@ export default function Profile() {
     handleGetUsers();
   }, []);
 
+
+  if (!user) {
+    return (
+      <ActivityIndicator />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-
-
-      {user ? (
-        <>
-          <View>
-            <TargetCard user={user} />
-            <View style={styles.footer}>
-              <View style={{ alignItems: 'center' }}>
-                <BackButton text="Sair" onPressed={handleSignOut} />
-              </View>
-
-            </View>
-
-
-          </View>
-
-        </>
-
-      ) : <ActivityIndicator />}
-    </View>
-
+    <Container>
+      <Background />
+      <StyledBar />
+      <Body>
+        <Title>Seu Perfil</Title>
+        <TargetCard user={user} />
+        <FabColumn>
+          <CardButton text="Meu perfil" />
+          <BackButton text="Sair" onPressed={signout} />
+        </FabColumn>
+      </Body>
+    </Container>
   );
 }

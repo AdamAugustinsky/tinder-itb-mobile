@@ -16,8 +16,11 @@ import Prefs from '../pages/Signup/Prefs';
 import Main from '../pages/Main';
 
 import { store } from '../store';
-
 import { restore } from '../store/actions/navigation';
+
+import { restore } from '../controllers/NavigationController';
+
+import TargetUser from '../pages/Main/TargetUser';
 
 export default function Routes() {
   const { dispatch, subscribe, getState } = store;
@@ -40,10 +43,13 @@ export default function Routes() {
         {state.isLoading
           ? (<Stack.Screen name="Splash" component={AppLoading} />)
           : state.jwt ? (
-            <Stack.Screen
-              name="Main"
-              component={Main}
-            />
+            <>
+              <Stack.Screen
+                name="Main"
+                component={Main}
+              />
+              <Stack.Screen name="TargetUser" component={TargetUser} />
+            </>
           ) : (
             <>
               <Stack.Screen

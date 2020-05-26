@@ -1,28 +1,30 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import {
-  View, Alert, ActivityIndicator,
+  Alert, ActivityIndicator,
 } from 'react-native';
 
 import { useStore } from 'react-redux';
 
 import { addIndex, setPretender, getPretender } from '../../../store/actions/users';
 
-import styles from './styles';
+import {
+  Container, Title, Background, Body,
+  StyledBar, FabRow,
+} from './styles';
 
 import api from '../../../services/api';
 
-import TargetCard from '../../../components/TargetCard';
 
 import capitalize from '../../../utils/capitalize';
-import ActionButton from '../../../components/ActionButton';
+import FloatingActionButton from '../../../components/FloatingActionButton';
+import TargetCard from '../../../components/TargetCard';
 
 export default function Home() {
   const store = useStore();
   const { dispatch } = store;
 
   const [user, setUser] = useState();
+  
   const [haveInteracted, setHaveInteracted] = useState(true);
   const { jwt } = store.getState().navigation;
 
@@ -42,6 +44,10 @@ export default function Home() {
           dispatch(getPretender());
           setUser(store.getState().users.pretender);
 
+  if (!user) {
+    return (
+      <ActivityIndicator />
+    );
           dispatch(addIndex());
 
           setHaveInteracted(false);
@@ -90,16 +96,17 @@ export default function Home() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {user ? (
-        <View>
-          <TargetCard user={user} />
-          <View style={styles.footer}>
-            <ActionButton type="like" onPress={() => like(user._id)} />
-            <ActionButton type="dislike" onPress={() => dislike(user._id)} />
-          </View>
-        </View>
-      ) : <ActivityIndicator />}
-    </View>
+    <Container>
+      <Background />
+      <StyledBar />
+      <Body>
+        <Title>Tinder ITB</Title>
+        <TargetCard user={user} />
+        <FabRow>
+          <FloatingActionButton type="like" />
+          <FloatingActionButton type="dislike" />
+        </FabRow>
+      </Body>
+    </Container>
   );
 }
