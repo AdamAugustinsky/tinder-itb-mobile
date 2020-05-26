@@ -16,6 +16,7 @@ export default function (state = INITIAL_STATE, action) {
     return {
       ...state,
       matchs: action.matchs,
+      new_matchs: action.new_matchs,
     };
   } if (type === Types.RESET) {
     return {

@@ -16,9 +16,8 @@ import Prefs from '../pages/Signup/Prefs';
 import Main from '../pages/Main';
 
 import { store } from '../store';
-import { restore } from '../store/actions/navigation';
 
-import { restore } from '../controllers/NavigationController';
+import { restore } from '../store/actions/navigation';
 
 import TargetUser from '../pages/Main/TargetUser';
 

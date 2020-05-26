@@ -16,7 +16,10 @@ export function MatchCard({ user }) {
 
   return (
     <View>
-      <Image source={{ uri: user.images[0] }} resizeMode="cover" />
+      <Image
+        source={{ uri: user.images[0] ? user.images[0] : 'http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png' }}
+        resizeMode="cover"
+      />
       <Info>
         <Row>
           <Row>
@@ -42,17 +45,17 @@ export function MatchCard({ user }) {
   );
 }
 
-export default function MatchList({ user }) {
+export default function MatchList({ matchs }) {
   let index = 0;
 
   return (
     <Container>
       <FlatList
         horizontal
-        data={[user, user, user, user, user, user, user, user]}
-        renderItem={() => (
+        data={matchs}
+        renderItem={({ item }) => (
 
-          <MatchCard user={user} />
+          <MatchCard user={item} />
 
         )}
         keyExtractor={() => {

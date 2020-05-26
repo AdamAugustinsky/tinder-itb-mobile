@@ -36,10 +36,10 @@ async function signin(data) {
       password: data.password,
     });
 
-    return ({ type: Types.SIGN_IN, jwt: response.data.jwt });
+    return { type: Types.SIGN_IN, jwt: response.data.jwt };
   } catch (error) {
     return {
-      status: error.response.status,
+      status: error.response.data.status,
       error: error.response.data.error,
     };
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Alert, AsyncStorage, ActivityIndicator,
+  Alert, ActivityIndicator,
 } from 'react-native';
 
 import { useStore } from 'react-redux';
@@ -63,7 +63,7 @@ export default function Profile() {
         <TargetCard user={user} />
         <FabColumn>
           <CardButton text="Meu perfil" />
-          <BackButton text="Sair" onPressed={signout} />
+          <BackButton text="Sair" onPressed={handleSignOut} />
         </FabColumn>
       </Body>
     </Container>

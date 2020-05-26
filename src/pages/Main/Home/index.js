@@ -24,7 +24,7 @@ export default function Home() {
   const { dispatch } = store;
 
   const [user, setUser] = useState();
-  
+
   const [haveInteracted, setHaveInteracted] = useState(true);
   const { jwt } = store.getState().navigation;
 
@@ -44,10 +44,6 @@ export default function Home() {
           dispatch(getPretender());
           setUser(store.getState().users.pretender);
 
-  if (!user) {
-    return (
-      <ActivityIndicator />
-    );
           dispatch(addIndex());
 
           setHaveInteracted(false);
@@ -95,6 +91,8 @@ export default function Home() {
     handleSetPretenders();
   }, []);
 
+  if (!user) return (<Container><ActivityIndicator /></Container>);
+
   return (
     <Container>
       <Background />
@@ -103,8 +101,8 @@ export default function Home() {
         <Title>Tinder ITB</Title>
         <TargetCard user={user} />
         <FabRow>
-          <FloatingActionButton type="like" />
-          <FloatingActionButton type="dislike" />
+          <FloatingActionButton type="like" onPress={like} />
+          <FloatingActionButton type="dislike" onPress={dislike} />
         </FabRow>
       </Body>
     </Container>

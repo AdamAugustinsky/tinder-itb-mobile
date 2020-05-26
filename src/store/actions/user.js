@@ -21,7 +21,9 @@ async function getUser(jwt) {
 async function getMatchs(jwt) {
   try {
     const { data } = await api.get('/profile/matchs', { headers: { Authorization: `Bearer ${jwt}` } });
-    return ({ type: Types.GET_MATCHS, matchs: data.matchs });
+
+    console.log(data);
+    return ({ type: Types.GET_MATCHS, matchs: data.matchs, new_matchs: data.new_matchs });
   } catch (error) {
     console.log(error);
     return ({ type: Types.GET_MATCHS, matchs: { } });
