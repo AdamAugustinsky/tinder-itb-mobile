@@ -15,20 +15,25 @@ import Contacts from '../pages/Signup/Contacts';
 import Prefs from '../pages/Signup/Prefs';
 import Main from '../pages/Main';
 
-import {
-  subscribe, getState,
-} from '../store/navigation';
+import { store } from '../store';
+import { restore } from '../store/actions/navigation';
 
 import { restore } from '../controllers/NavigationController';
+
 import TargetUser from '../pages/Main/TargetUser';
 
 export default function Routes() {
+  const { dispatch, subscribe, getState } = store;
   const Stack = createStackNavigator();
-  const [state, setState] = useState(getState());
+  const [state, setState] = useState(getState().navigation);
 
   useEffect(() => {
-    subscribe(() => setState((getState())));
-    restore();
+    const handleRestore = async () => {
+      dispatch(await restore(state.jwt));
+    };
+
+    handleRestore();
+    subscribe(() => setState((getState().navigation)));
   }, []);
 
 

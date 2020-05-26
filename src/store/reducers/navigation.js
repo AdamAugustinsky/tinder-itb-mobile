@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { Types } from '../actions/navigation';
 
 const INITIAL_STATE = {
   isLoading: true,
@@ -6,24 +6,22 @@ const INITIAL_STATE = {
   jwt: null,
 };
 
-const {
-  dispatch, getState, replaceReducer, subscribe,
-} = createStore((state = INITIAL_STATE, action) => {
+export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
-    case 'RESTORE_TOKEN':
+    case Types.RESTORE_TOKEN: // padrão @store/action
       return {
         ...state,
         jwt: action.jwt,
         isLoading: false,
       };
-    case 'SIGN_IN':
+    case Types.SIGN_IN:
       return {
         ...state,
         isSignout: false,
         isLoading: false,
         jwt: action.jwt,
       };
-    case 'SIGN_OUT':
+    case Types.SIGN_OUT:
       return {
         ...state,
         isSignout: true,
@@ -35,8 +33,4 @@ const {
         ...state,
       };
   }
-});
-
-export {
-  dispatch, getState, replaceReducer, subscribe,
-};
+}

@@ -9,22 +9,27 @@ import {
   Container, Background, Body, StyledBar, Title, Subtitle,
 } from './styles';
 
+import { useStore } from 'react-redux';
+
+import { getMatchs } from '../../../store/actions/user';
+
+import MatchContacts from '../../../components/MatchContacts';
+import MatchContactsMedias from '../../../components/MatchContactsMedia';
+
+
 import MatchList from '../../../components/MatchList';
 
 export default function Matchs() {
-  const [matchs, setMatchs] = useState();
-  const [user, setUser] = useState();
+  const store = useStore();
+  const { dispatch } = store;
 
-  const getJwt = async () => {
-    const jwt = await AsyncStorage.getItem('jwt');
-    return jwt;
-  };
+  const [matchs, setMatchs] = useState([]);
+  const { jwt } = store.getState().navigation;
 
-  const getMatchs = async () => {
-    const jwt = await getJwt();
+  const handleGetMatchs = async () => {
     try {
-      const response = await api.get('/profile/matchs', { headers: { Authorization: `Bearer ${jwt}` } });
-      return setMatchs(response.data);
+      dispatch(await getMatchs(jwt));
+      return setMatchs(store.getState().user.matchs);
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
       ${error.response.data.error}`);
@@ -32,21 +37,7 @@ export default function Matchs() {
   };
 
   useEffect(() => {
-    async function getUser() {
-      try {
-        const res = await api.get('/users/5e9dca27f4ee9919c0803693');
-
-        setUser(res.data);
-      } catch (error) {
-        Alert.alert('Erro!', `Status: ${error.response.status}\n\n
-        ${error.response.data.error}`);
-      }
-    }
-    getUser();
-  }, []);
-
-  useEffect(() => {
-    getMatchs();
+    handleGetMatchs();
   }, []);
 
   if (!matchs || !user) {

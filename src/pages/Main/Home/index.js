@@ -1,10 +1,11 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
 import {
   Alert, ActivityIndicator,
 } from 'react-native';
 
+import { useStore } from 'react-redux';
+
+import { addIndex, setPretender, getPretender } from '../../../store/actions/users';
 
 import {
   Container, Title, Background, Body,
@@ -19,27 +20,80 @@ import FloatingActionButton from '../../../components/FloatingActionButton';
 import TargetCard from '../../../components/TargetCard';
 
 export default function Home() {
+  const store = useStore();
+  const { dispatch } = store;
+
   const [user, setUser] = useState();
+  
+  const [haveInteracted, setHaveInteracted] = useState(true);
+  const { jwt } = store.getState().navigation;
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const res = await api.get('/users/5e9dca27f4ee9919c0803693');
+  async function handleSetPretenders() {
+    try {
+      if (haveInteracted) {
+        if (store.getState().users.index === 0) {
+          const setPretenderAction = await setPretender(jwt);
+          dispatch(setPretenderAction);
 
-        setUser(res.data);
-      } catch (error) {
-        Alert.alert('Erro!', capitalize(error.response.data.error));
-      }
-    }
-    getUser();
-  }, []);
+          setUser(store.getState().users.pretender);
 
+          dispatch(addIndex());
+
+          setHaveInteracted(false);
+        } else {
+          dispatch(getPretender());
+          setUser(store.getState().users.pretender);
 
   if (!user) {
     return (
       <ActivityIndicator />
     );
+          dispatch(addIndex());
+
+          setHaveInteracted(false);
+        }
+      }
+    } catch (error) {
+      Alert.alert('Erro!', capitalize(error.response.data.error));
+    }
   }
+
+  async function changeUser() {
+    setHaveInteracted(true);
+    await handleSetPretenders();
+  }
+
+  async function like(id) {
+    try {
+      await api.post(`/profile/likes/${id}`, {}, {
+        headers: {
+          authorization: `Bearer ${jwt}`,
+        },
+      });
+
+      changeUser();
+    } catch (error) {
+      Alert.alert('Erro!', capitalize(error.response.data.error));
+    }
+  }
+
+  async function dislike(id) {
+    try {
+      await api.post(`/profile/deslikes/${id}`, {}, {
+        headers: {
+          authorization: `Bearer ${jwt}`,
+        },
+      });
+
+      changeUser();
+    } catch (error) {
+      Alert.alert('Erro!', capitalize(error.response.data.error));
+    }
+  }
+
+  useEffect(() => {
+    handleSetPretenders();
+  }, []);
 
   return (
     <Container>
@@ -53,7 +107,6 @@ export default function Home() {
           <FloatingActionButton type="dislike" />
         </FabRow>
       </Body>
-
     </Container>
   );
 }
