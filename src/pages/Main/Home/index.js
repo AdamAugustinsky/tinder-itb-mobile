@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Alert, ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import { useStore } from 'react-redux';
@@ -18,6 +18,7 @@ import api from '../../../services/api';
 import capitalize from '../../../utils/capitalize';
 import FloatingActionButton from '../../../components/FloatingActionButton';
 import TargetCard from '../../../components/TargetCard';
+import LoadingSpinnerPage from '../../LoadingSpinnerPage';
 
 export default function Home() {
   const store = useStore();
@@ -59,9 +60,9 @@ export default function Home() {
     await handleSetPretenders();
   }
 
-  async function like(id) {
+  async function like() {
     try {
-      await api.post(`/profile/likes/${id}`, {}, {
+      await api.post(`/profile/likes/${user._id}`, {}, {
         headers: {
           authorization: `Bearer ${jwt}`,
         },
@@ -73,9 +74,9 @@ export default function Home() {
     }
   }
 
-  async function dislike(id) {
+  async function dislike() {
     try {
-      await api.post(`/profile/deslikes/${id}`, {}, {
+      await api.post(`/profile/dislikes/${user._id}`, {}, {
         headers: {
           authorization: `Bearer ${jwt}`,
         },
@@ -91,7 +92,7 @@ export default function Home() {
     handleSetPretenders();
   }, []);
 
-  if (!user) return (<Container><ActivityIndicator /></Container>);
+  if (!user) return <LoadingSpinnerPage />;
 
   return (
     <Container>
@@ -101,8 +102,8 @@ export default function Home() {
         <Title>Tinder ITB</Title>
         <TargetCard user={user} />
         <FabRow>
-          <FloatingActionButton type="like" onPress={like} />
           <FloatingActionButton type="dislike" onPress={dislike} />
+          <FloatingActionButton type="like" onPress={like} />
         </FabRow>
       </Body>
     </Container>
