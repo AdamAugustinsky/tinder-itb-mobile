@@ -9,12 +9,12 @@ export const Background = styled.View`
   justify-content: center
 `;
 
-export const Like = styled.Image`
+export const Dislike = styled.Image`
   width: 24px
   height: 24px
 `;
 
-export const Dislike = styled.Image`
+export const Like = styled.Image`
   width: 28px
   height: 24px
 `;

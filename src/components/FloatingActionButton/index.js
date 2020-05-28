@@ -6,19 +6,19 @@ import X from '../../assets/icons/X/x.png';
 import Heart from '../../assets/icons/Heart/heart.png';
 
 export default function FloatingActionButton({ type, onPress }) {
-  if (type === 'like') {
+  if (type === 'dislike') {
     return (
       <TouchableOpacity onPress={onPress}>
-        <Background type="dislike"><Like source={X} /></Background>
+        <Background type="dislike"><Dislike source={X} /></Background>
       </TouchableOpacity>
     );
   }
 
-  if (type === 'dislike') {
+  if (type === 'like') {
     return (
       <TouchableOpacity onPress={onPress}>
         <Background type="like">
-          <Dislike source={Heart} />
+          <Like source={Heart} />
         </Background>
       </TouchableOpacity>
     );
