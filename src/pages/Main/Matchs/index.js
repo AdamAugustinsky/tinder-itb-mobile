@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Alert, ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import { useStore } from 'react-redux';
@@ -11,6 +11,7 @@ import {
   Container, Background, Body, StyledBar, Title, Subtitle,
 } from './styles';
 
+import LoadingSpinnerPage from '../../LoadingSpinnerPage';
 
 import MatchList from '../../../components/MatchList';
 
@@ -38,13 +39,7 @@ export default function Matchs() {
     handleGetMatchs();
   }, []);
 
-  if (!matchs) {
-    return (
-      <Container>
-        <ActivityIndicator />
-      </Container>
-    );
-  }
+  if (!matchs) return <LoadingSpinnerPage />;
 
   return (
     <Container>
@@ -52,7 +47,7 @@ export default function Matchs() {
       <Background />
       <Body>
         <Title>Matchs</Title>
-        {matchs ? (<Subtitle>{`${newMatchs} novos matchs`}</Subtitle>) : null}
+        {newMatchs > 0 ? (<Subtitle>{`${newMatchs} novos matchs`}</Subtitle>) : null}
         <MatchList user={matchs} />
       </Body>
     </Container>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Alert, ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import { useStore } from 'react-redux';
@@ -14,6 +14,8 @@ import {
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
 import CardButton from '../../../components/CardButton';
+
+import LoadingSpinnerPage from '../../LoadingSpinnerPage';
 
 import { signout } from '../../../store/actions/navigation';
 
@@ -48,11 +50,7 @@ export default function Profile() {
   }, []);
 
 
-  if (!user) {
-    return (
-      <ActivityIndicator />
-    );
-  }
+  if (!user) return (<LoadingSpinnerPage />);
 
   return (
     <Container>
