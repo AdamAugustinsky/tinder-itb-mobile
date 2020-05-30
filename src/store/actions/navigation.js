@@ -2,15 +2,17 @@ import { AsyncStorage } from 'react-native';
 
 import api from '../../services/api';
 
-const Types = {
+export const Types = {
   RESTORE_TOKEN: '@navigation/RESTORE_TOKEN',
   SIGN_OUT: '@navigation/SIGN_OUT',
   SIGN_IN: '@navigation/SIGN_IN',
 };
 
-async function restore(jwt) {
+export async function restore() {
+  const jwt = await AsyncStorage.getItem('jwt');
+
   try {
-    await api.get('/profile', {
+    await api.get('/sessions', {
       headers: {
         authorization: `Bearer ${jwt}`,
       },
@@ -23,18 +25,20 @@ async function restore(jwt) {
   }
 }
 
-async function signout() {
-  await AsyncStorage.clear();
+export async function signout() {
+  await AsyncStorage.removeItem('jwt');
 
-  return ({ type: Types.SIGN_OUT, jwt: null });
+  return ({ type: Types.SIGN_OUT });
 }
 
-async function signin(data) {
+export async function signin(data) {
   try {
     const response = await api.post('/sessions', {
       email: data.email,
       password: data.password,
     });
+
+    await AsyncStorage.setItem('jwt', response.data.jwt);
 
     return { type: Types.SIGN_IN, jwt: response.data.jwt };
   } catch (error) {
@@ -45,7 +49,7 @@ async function signin(data) {
   }
 }
 
-export {
+export default {
   Types,
   restore,
   signin,
