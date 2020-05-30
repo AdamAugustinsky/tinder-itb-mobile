@@ -2,11 +2,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Text, StyleSheet } from 'react-native';
 import React from 'react';
 
-export default function BackButton({ text = 'Voltar', onPressed }) {
+export default function BackButton({ text = 'Voltar', onPressed, width = 144 }) {
   const styles = StyleSheet.create({
     button: {
 
-      width: 144,
+      width,
       height: 40,
       backgroundColor: '#2d2d2d',
       alignItems: 'center',

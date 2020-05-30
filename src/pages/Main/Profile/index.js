@@ -19,7 +19,6 @@ import LoadingSpinnerPage from '../../LoadingSpinnerPage';
 
 import { signout } from '../../../store/actions/navigation';
 
-import { resetUsersState } from '../../../store/actions/users';
 
 export default function Profile() {
   const store = useStore();
@@ -42,7 +41,6 @@ export default function Profile() {
   async function handleSignOut() {
     dispatch(await signout());
     dispatch(resetUserState());
-    dispatch(resetUsersState());
   }
 
   useEffect(() => {

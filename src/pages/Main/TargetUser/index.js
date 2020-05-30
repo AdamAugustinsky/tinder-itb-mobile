@@ -53,7 +53,7 @@ export default function TargetUser() {
             <Label>Curso</Label>
             <Value>
               {`${capitalize(user.course)} ${user.grade}${user.school_class} `
-                + `${user.period}`}
+                + `${user.shift}`}
             </Value>
           </Column>
           <Column>

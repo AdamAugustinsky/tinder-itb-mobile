@@ -61,5 +61,6 @@ export const Label = styled.Text`
 export const Value = styled.Text`
   font-weight: bold;
   font-size: 14px;
+  margin-right: 4px
   color: rgba(11, 37, 88, 0.6);
 `;

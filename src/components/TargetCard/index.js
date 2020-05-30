@@ -36,8 +36,7 @@ export default function TargetCard({ user }) {
           <Column>
             <Label>Curso</Label>
             <Value>
-              {`${capitalize(user.course)} ${user.grade}${user.school_class} `
-                + `${user.period}`}
+              {`${capitalize(user.course)} ${user.grade}${user.school_class}${user.shift[0]}`}
             </Value>
           </Column>
           <Column>
