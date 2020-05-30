@@ -1,45 +1,29 @@
-/* eslint-disable no-console */
 import api from '../../services/api';
 
-const Types = {
+export const Types = {
   ADD_INDEX: '@users/ADD_INDEX',
-  SET_PRETENDER: '@users/SET_PRETENDER',
-  GET_PRETENDER: '@users/GET_PRETENDER',
-  RESET: '@users/RESET',
+  GET_USERS: '@users/GET_USERS',
 };
 
-// modificar o estado apenas pelo reducer
-function addIndex() {
-  return ({ type: Types.ADD_INDEX });
+export function addIndex() {
+  return { type: Types.ADD_INDEX };
 }
 
-async function setPretender(jwt) {
+export async function getUsers(jwt) {
   try {
-    const { data } = await api.get('/users', { headers: { Authorization: `Bearer ${jwt}` } });
-    return ({ type: Types.SET_PRETENDER, pretenders: data });
+    const { data: users } = await api.get('/users', {
+      headers: { authorization: `Bearer ${jwt}` },
+    });
+
+
+    return { type: Types.GET_USERS, users };
   } catch (error) {
-    console.log(error);
-    return ({ type: Types.SET_PRETENDER, pretenders: {} });
+    return { type: Types.GET_USERS, users: [] };
   }
 }
 
-function getPretender() {
-  try {
-    return ({ type: Types.GET_PRETENDER });
-  } catch (error) {
-    console.log(error);
-    return ({ type: Types.GET_PRETENDER });
-  }
-}
-
-function resetUsersState() {
-  return ({ type: Types.RESET });
-}
-
-export {
-  Types,
-  setPretender,
-  getPretender,
+export default {
   addIndex,
-  resetUsersState,
+  getUsers,
+  Types,
 };

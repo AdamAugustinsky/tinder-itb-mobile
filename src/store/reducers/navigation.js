@@ -23,10 +23,9 @@ export default function (state = INITIAL_STATE, action) {
       };
     case Types.SIGN_OUT:
       return {
-        ...state,
         isSignout: true,
         isLoading: false,
-        jwt: action.jwt,
+        jwt: null,
       };
     default:
       return {
