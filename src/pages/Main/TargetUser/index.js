@@ -20,14 +20,9 @@ export default function TargetUser() {
 
   const birthDate = new Date(user.birthdate);
 
-  const images = [
-    user.images[0],
-    user.images[0],
-    user.images[0],
-    user.images[0],
-    user.images[0],
-    user.images[0],
-  ];
+  const images = user.images.length < 1
+    ? ['http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png']
+    : user.images;
 
   return (
     <Container>

@@ -30,6 +30,7 @@ export default function Home() {
   const [users, setUsers] = useState([]);
   const [index, setIndex] = useState(0);
   const [hasUsers, setHasUsers] = useState(true);
+  const [alreadyTouched, setAlreadyTouched] = useState(false);
 
   const { jwt } = store.getState().navigation;
 
@@ -62,30 +63,41 @@ export default function Home() {
   }
 
   async function like() {
-    try {
-      await api.post(`/profile/likes/${users[index]._id}`, {}, {
-        headers: {
-          authorization: `Bearer ${jwt}`,
-        },
-      });
+    if (!alreadyTouched) {
+      setAlreadyTouched(true);
 
-      changeUser();
-    } catch (error) {
-      Alert.alert('Erro!', capitalize(error.response.data.error.pt_br));
+      try {
+        await api.post(`/profile/likes/${users[index]._id}`, {}, {
+          headers: {
+            authorization: `Bearer ${jwt}`,
+          },
+        });
+
+        await changeUser();
+        setAlreadyTouched(false);
+      } catch (error) {
+        Alert.alert('Erro!', capitalize(error.response.data.error.pt_br));
+      }
     }
   }
 
   async function dislike() {
-    try {
-      await api.post(`/profile/dislikes/${users[index]._id}`, {}, {
-        headers: {
-          authorization: `Bearer ${jwt}`,
-        },
-      });
+    if (!alreadyTouched) {
+      setAlreadyTouched(true);
 
-      changeUser();
-    } catch (error) {
-      Alert.alert('Erro!', capitalize(error.response.data.error.pt_br));
+      try {
+        await api.post(`/profile/dislikes/${users[index]._id}`, {}, {
+          headers: {
+            authorization: `Bearer ${jwt}`,
+          },
+        });
+
+        await changeUser();
+
+        setAlreadyTouched(false);
+      } catch (error) {
+        Alert.alert('Erro!', capitalize(error.response.data.error.pt_br));
+      }
     }
   }
 
@@ -110,6 +122,25 @@ export default function Home() {
 }
 
 export function NoMoreUsersPage({ changeUser, jwt }) {
+  const [haveDislikes, setHaveDislikes] = useState(false);
+
+  async function getDislikes() {
+    try {
+      const { data } = await api.get('/profile/dislikes', {
+        headers: {
+          authorization: `Bearer ${jwt}`,
+        },
+      });
+
+      if (data.length > 0) return setHaveDislikes(true);
+
+      return setHaveDislikes(false);
+    } catch (error) {
+      return Alert.alert('Erro!', capitalize(error.response.data.error.pt_br));
+    }
+  }
+
+
   async function removeDislikes() {
     try {
       await api.delete('/profile/dislikes', {
@@ -124,8 +155,27 @@ export function NoMoreUsersPage({ changeUser, jwt }) {
     }
   }
 
+  useEffect(() => {
+    getDislikes();
+  }, []);
+
+  if (!haveDislikes) {
+    return (
+      <Container>
+        <StyledBar />
+        <Body>
+          <Image source={BlankTable} />
+          <Text>
+            Ainda sem prendentendes, ajuste suas preferências ou espere até alguém aparecer
+          </Text>
+        </Body>
+      </Container>
+    );
+  }
+
   return (
     <Container>
+      <StyledBar />
       <Body>
         <Image source={BlankTable} />
         <Text>
