@@ -5,7 +5,7 @@ import {
 
 import { useStore } from 'react-redux';
 
-import { getUser, resetUserState } from '../../../store/actions/user';
+import { getUser } from '../../../store/actions/profile';
 
 import {
   Background, Container, Body, StyledBar, Title, FabColumn,
@@ -32,7 +32,7 @@ export default function Profile() {
   async function handleGetUsers() {
     try {
       dispatch(await getUser(jwt));
-      setUser(store.getState().user.user);
+      setUser(store.getState().profile.profile);
     } catch (error) {
       Alert.alert('Erro!', error.response.data.error);
     }
@@ -40,7 +40,6 @@ export default function Profile() {
 
   async function handleSignOut() {
     dispatch(await signout());
-    dispatch(resetUserState());
   }
 
   useEffect(() => {

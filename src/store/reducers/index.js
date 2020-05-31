@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 
 import navigation from './navigation';
 import users from './users';
-import user from './user';
+import profile from './profile';
 
 export default combineReducers({
   navigation,
   users,
-  user,
+  profile,
 });

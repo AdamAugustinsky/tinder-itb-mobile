@@ -5,7 +5,7 @@ import {
 
 import { useStore } from 'react-redux';
 
-import { getMatchs } from '../../../store/actions/user';
+import { getMatchs } from '../../../store/actions/profile';
 
 import {
   Container, Background, Body, StyledBar, Title, Subtitle,
@@ -26,9 +26,7 @@ export default function Matchs() {
 
   const handleGetMatchs = async () => {
     try {
-      dispatch(await getMatchs(jwt));
-      setMatchs(store.getState().user.matchs);
-      return setNewMatchs(store.getState().user.new_matchs);
+      return dispatch(await getMatchs(jwt));
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
       ${error.response.data.error}`);
@@ -37,6 +35,13 @@ export default function Matchs() {
 
   useEffect(() => {
     handleGetMatchs();
+
+    store.subscribe(() => {
+      const profileState = store.getState().profile;
+
+      setMatchs(profileState.matchs);
+      setNewMatchs(profileState.new_matchs);
+    });
   }, []);
 
   if (!matchs) return <LoadingSpinnerPage />;
@@ -48,7 +53,7 @@ export default function Matchs() {
       <Body>
         <Title>Matchs</Title>
         {newMatchs > 0 ? (<Subtitle>{`${newMatchs} novos matchs`}</Subtitle>) : null}
-        <MatchList user={matchs} />
+        <MatchList matchs={matchs} />
       </Body>
     </Container>
   );
