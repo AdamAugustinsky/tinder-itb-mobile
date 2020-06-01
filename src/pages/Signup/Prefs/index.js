@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  KeyboardAvoidingView, Text, StyleSheet, AsyncStorage, Alert,
+  KeyboardAvoidingView, Text, StyleSheet, Alert,
   ScrollView, View, ActivityIndicator, Image,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { useStore } from 'react-redux';
 import Logo from '../../../assets/logo/logo.png';
+
+import { signin } from '../../../store/actions/navigation';
 
 import globalStyles from '../../../styles/globalStyles';
 
@@ -16,6 +19,8 @@ import BackButton from '../../../components/BackButton';
 import api from '../../../services/api';
 
 export default function Prefs() {
+  const store = useStore();
+
   const { navigate } = useNavigation();
 
   const { params } = useRoute();
@@ -115,8 +120,6 @@ export default function Prefs() {
 
 
   const handleNavigation = async () => {
-    let response;
-
     if (school && school !== 'all') {
       user.prefs.school = school;
     } else user.prefs.school = undefined;
@@ -131,26 +134,13 @@ export default function Prefs() {
     } else user.prefs.grade = undefined;
 
     try {
-      response = await api.post('/profile', user.getUser());
+      await api.post('/profile', user.getUser());
     } catch (error) {
       return Alert.alert('Erro!', `Status: ${error.response.status}\n\n${error.response.data.error}`);
     }
 
     try {
-      response = await api.post('/sessions', {
-        email: user.email,
-        password: user.password,
-      });
-    } catch (error) {
-      return Alert.alert('Erro!', `Status: ${error.response.status}\n\n
-      ${error.response.data.error}`);
-    }
-
-    try {
-      await AsyncStorage.setItem('email', user.email);
-      await AsyncStorage.setItem('password', user.password);
-      await AsyncStorage.setItem('jwt', response.data.jwt);
-      await AsyncStorage.setItem('userId', response.data.user.id);
+      store.dispatch(await signin({ email: user.email, password: user.password }));
     } catch (error) {
       return Alert.alert('Falha', 'Erro ao salvar dados no dispositivo');
     }

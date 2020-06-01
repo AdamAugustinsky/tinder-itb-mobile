@@ -11,11 +11,13 @@ import { useStore } from 'react-redux';
 import { restore } from '../store/actions/navigation';
 
 import Login from '../pages/Login';
+
 import Private from '../pages/Signup/Private';
 import About from '../pages/Signup/About';
 import SchoolPage from '../pages/Signup/School';
 import Contacts from '../pages/Signup/Contacts';
 import Prefs from '../pages/Signup/Prefs';
+
 import Main from '../pages/Main';
 import TargetUser from '../pages/Main/TargetUser';
 
@@ -76,3 +78,9 @@ export default function Routes() {
     </NavigationContainer>
   );
 }
+
+
+/* <Stack.Screen name="UpdateAbout" component={UpdateAbout} />
+        <Stack.Screen name="UpdateSchoolPage" component={UpdateSchoolPage} />
+        <Stack.Screen name="UpdateContacts" component={UpdateContacts} />
+        <Stack.Screen name="UpdatePrefs" component={UpdatePrefs} /> */

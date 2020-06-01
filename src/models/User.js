@@ -1,22 +1,25 @@
 class User {
-  constructor() {
-    this.email = '';
-    this.password = '';
+  constructor({
+    email, password, name, gender, birthdate, inputBirthdate, bio, school,
+    course, grade, schoolClass, shift, inputNumber, contacts, prefs,
+  }) {
+    this.email = email || '';
+    this.password = password || '';
 
-    this.name = '';
-    this.gender = '';
-    this.birthdate = '';
-    this.inputBirthdate = '';
-    this.bio = '';
+    this.name = name || '';
+    this.gender = gender || '';
+    this.birthdate = birthdate || '';
+    this.inputBirthdate = inputBirthdate || '';
+    this.bio = bio || '';
 
-    this.school = '';
-    this.course = '';
-    this.grade = '';
-    this.schoolClass = '';
-    this.period = '';
+    this.school = school || '';
+    this.course = course || '';
+    this.grade = grade || '';
+    this.schoolClass = schoolClass || '';
+    this.shift = shift || '';
 
-    this.inputNumber = '';
-    this.contacts = {
+    this.inputNumber = inputNumber || '';
+    this.contacts = contacts || {
       instagram: '',
       facebook: '',
       number: '',
@@ -24,7 +27,7 @@ class User {
     };
 
 
-    this.prefs = {
+    this.prefs = prefs || {
       gender: '',
       school: '',
       course: '',
@@ -45,7 +48,7 @@ class User {
       school_class: this.schoolClass,
       course: this.course,
       password: this.password,
-      period: this.period,
+      shift: this.shift,
       prefs: {
         school: this.prefs.school,
         gender: this.prefs.gender,

@@ -8,8 +8,10 @@ import { useStore } from 'react-redux';
 import { getMatchs } from '../../../store/actions/profile';
 
 import {
-  Container, Background, Body, StyledBar, Title, Subtitle,
+  Container, Background, Body, StyledBar, Title, Subtitle, Image,
 } from './styles';
+
+import BlankTable from '../../../assets/images/blankTable.png';
 
 import LoadingSpinnerPage from '../../LoadingSpinnerPage';
 
@@ -21,6 +23,7 @@ export default function Matchs() {
 
   const [matchs, setMatchs] = useState([]);
   const [newMatchs, setNewMatchs] = useState(0);
+  const [hasMatchs, setHasMatchs] = useState(true);
   const { jwt } = store.getState().navigation;
 
 
@@ -41,10 +44,28 @@ export default function Matchs() {
 
       setMatchs(profileState.matchs);
       setNewMatchs(profileState.new_matchs);
+
+      if (profileState.matchs.length < 1) {
+        setHasMatchs(false);
+      } else {
+        setHasMatchs(true);
+      }
     });
   }, []);
 
-  if (!matchs) return <LoadingSpinnerPage />;
+  if (!hasMatchs) {
+    return (
+      <Container>
+        <StyledBar />
+        <Body>
+          <Image source={BlankTable} />
+          <Title style={{ color: '#2d2d2d' }}>Sem Matchs</Title>
+        </Body>
+      </Container>
+    );
+  }
+
+  if (matchs.length < 1) return <LoadingSpinnerPage />;
 
   return (
     <Container>

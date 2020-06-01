@@ -13,6 +13,9 @@ import capitalize from '../../../utils/capitalize';
 import BackButton from '../../../components/BackButton';
 
 
+import Blank from '../../../assets/images/blank.jpg';
+
+
 export default function TargetUser() {
   const { user } = useRoute().params;
 
@@ -21,7 +24,7 @@ export default function TargetUser() {
   const birthDate = new Date(user.birthdate);
 
   const images = user.images.length < 1
-    ? ['http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png']
+    ? [Blank]
     : user.images;
 
   return (
@@ -31,7 +34,7 @@ export default function TargetUser() {
         images={images}
         customSlide={({ index, item, style }) => (
           <View key={index} style={style}>
-            <Image source={{ uri: item }} />
+            <Image source={user.images[0] ? { uri: item } : Blank} />
           </View>
         )}
       />

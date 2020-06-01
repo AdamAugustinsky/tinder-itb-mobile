@@ -5,6 +5,9 @@ import { StatusBar } from 'react-native';
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 
+export const Image = styled.Image`
+  width: 300px
+`;
 
 export const Body = styled.SafeAreaView`
   flex: 1;

@@ -14,6 +14,7 @@ import CardButton from '../CardButton';
 import api from '../../services/api';
 import capitalize from '../../utils/capitalize';
 import { removeMatch } from '../../store/actions/profile';
+import Blank from '../../assets/images/blank.jpg';
 
 export function MatchCard({
   user,
@@ -51,7 +52,7 @@ export function MatchCard({
         <ContactsModal user={user} setVisible={setVisible} />
       </Modal>
       <Image
-        source={{ uri: user.images[0] ? user.images[0] : 'http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png' }}
+        source={user.images[0] ? { uri: user.images[0] } : Blank}
         resizeMode="cover"
       />
       <Info>

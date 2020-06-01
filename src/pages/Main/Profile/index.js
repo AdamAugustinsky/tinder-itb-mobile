@@ -13,7 +13,6 @@ import {
 
 import TargetCard from '../../../components/TargetCard';
 import BackButton from '../../../components/BackButton';
-import CardButton from '../../../components/CardButton';
 
 import LoadingSpinnerPage from '../../LoadingSpinnerPage';
 
@@ -46,7 +45,6 @@ export default function Profile() {
     handleGetUsers();
   }, []);
 
-
   if (!user) return (<LoadingSpinnerPage />);
 
   return (
@@ -57,7 +55,6 @@ export default function Profile() {
         <Title>Seu Perfil</Title>
         <TargetCard user={user} />
         <FabColumn>
-          <CardButton text="Meu perfil" />
           <BackButton text="Sair" onPressed={handleSignOut} />
         </FabColumn>
       </Body>

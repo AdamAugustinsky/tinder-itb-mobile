@@ -103,9 +103,9 @@ export const Value = styled.Text`
 
 export const FabColumn = styled.View`
   position: relative;
-  bottom: 6%
+  bottom: 8%
+  flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 25%
   width: 100%;
 `;

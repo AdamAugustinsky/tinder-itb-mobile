@@ -39,13 +39,13 @@ export default function SchoolPage() {
   ];
   const [isGradeValid, setIsGradeValid] = useState(true);
 
-  const [period, setPeriod] = useState(user.period);
-  const periods = [
+  const [shift, setShift] = useState(user.shift);
+  const shifts = [
     { label: 'Manhã', value: 'MANHÃ' },
     { label: 'Tarde', value: 'TARDE' },
     { label: 'Noite', value: 'NOITE' },
   ];
-  const [isPeriodValid, setIsPeriodValid] = useState(true);
+  const [isShiftValid, setIsShiftValid] = useState(true);
 
   const [schoolClass, setSchoolClass] = useState(user.schoolClass);
   const classes = [
@@ -96,12 +96,12 @@ export default function SchoolPage() {
     setIsSchoolClassValid(true);
     user.schoolClass = schoolClass;
 
-    if (!period) {
-      setIsPeriodValid(false);
+    if (!shift) {
+      setIsShiftValid(false);
       return Alert.alert(title, 'Escolha seu período');
     }
-    setIsPeriodValid(true);
-    user.period = period;
+    setIsShiftValid(true);
+    user.shift = shift;
 
     return navigate('Contacts', { user });
   };
@@ -215,11 +215,11 @@ export default function SchoolPage() {
 
         <Select
           title="Período"
-          items={periods}
+          items={shifts}
           placeHolder="Escolha o período que você estuda"
-          setState={setPeriod}
-          state={period}
-          isValid={isPeriodValid}
+          setState={setShift}
+          state={shift}
+          isValid={isShiftValid}
         />
 
         <Button text="Avançar" onPressed={handleNavigation} />

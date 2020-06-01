@@ -9,6 +9,8 @@ import {
 import capitalize from '../../utils/capitalize';
 import calculateAge from '../../utils/calculateAge';
 
+import Blank from '../../assets/images/blank.jpg';
+
 export default function TargetCard({ user }) {
   const birthDate = new Date(user.birthdate);
   const { navigate } = useNavigation();
@@ -16,7 +18,7 @@ export default function TargetCard({ user }) {
   return (
     <>
       <Image
-        source={{ uri: user.images[0] ? user.images[0] : 'http://style.anu.edu.au/_anu/4/images/placeholders/person_8x10.png' }}
+        source={user.images[0] ? { uri: user.images[0] } : Blank}
         resizeMode="cover"
       />
       <Info>

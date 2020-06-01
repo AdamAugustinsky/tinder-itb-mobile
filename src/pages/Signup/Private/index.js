@@ -45,7 +45,7 @@ export default function Private() {
 
     if (password.length < 6) {
       setIsPasswordValid(false);
-      setEmail('');
+      setPassword('');
       return Alert.alert(title, 'A senha precisa ser maior que 6');
     }
 
